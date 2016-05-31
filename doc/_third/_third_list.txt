@@ -1,4 +1,5 @@
 
+CheckForDllExportedSymbols	http://www.codeproject.com/Tips/133747/Checking-for-exported-symbols-functions-in-a-DLL-w
 ExecApp				http://www.codeproject.com/Articles/26784/ExecApp-ExecRegisteredApp-and-LookupRegisteredApp
 MemoryModule			https://github.com/fancycode/MemoryModule
 ProcessRunner[modified]		http://www.netcult.ch/elmue

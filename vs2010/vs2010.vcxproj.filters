@@ -3,23 +3,50 @@
   <ItemGroup>
     <ClCompile Include="test_cases.cpp" />
     <ClCompile Include="..\tests\main.cpp" />
-    <ClCompile Include="..\inc\simple\_third_exec_app.cpp">
-      <Filter>simple-cpp-win32</Filter>
+    <ClCompile Include="..\..\simple-cpp\inc\simple\string.cpp">
+      <Filter>simple-cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\simple-cpp\inc\simple\string_ex.cpp">
+      <Filter>simple-cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\simple-cpp\inc\simple\string_mime.cpp">
+      <Filter>simple-cpp</Filter>
     </ClCompile>
     <ClCompile Include="..\inc\simple\_third_memory_module.c">
       <Filter>simple-cpp-win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\inc\simple\dll.cpp">
+      <Filter>simple-cpp-win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\inc\simple\exec.cpp">
+      <Filter>simple-cpp-win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\simple-cpp\inc\simple\_third_convert_utf.cpp">
+      <Filter>simple-cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\simple-cpp\inc\simple\_third_pwgen.c">
+      <Filter>simple-cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\simple-cpp\inc\simple\_third_url_parser.c">
+      <Filter>simple-cpp</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="simple-cpp-win32">
       <UniqueIdentifier>{8b1c8135-5a5d-4c9b-a2b4-51248e01dedf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="simple-cpp">
+      <UniqueIdentifier>{27a293bc-6afe-4f39-84dd-b915f5833fea}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\inc\simple\exec_app.h">
+    <ClInclude Include="..\..\simple-cpp\inc\simple\string.h">
+      <Filter>simple-cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\simple\dll.h">
       <Filter>simple-cpp-win32</Filter>
     </ClInclude>
-    <ClInclude Include="..\inc\simple\memory_module.h">
+    <ClInclude Include="..\inc\simple\exec.h">
       <Filter>simple-cpp-win32</Filter>
     </ClInclude>
   </ItemGroup>

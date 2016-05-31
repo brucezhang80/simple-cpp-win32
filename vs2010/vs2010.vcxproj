@@ -11,14 +11,22 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\inc\simple\_third_exec_app.cpp" />
+    <ClCompile Include="..\..\simple-cpp\inc\simple\string.cpp" />
+    <ClCompile Include="..\..\simple-cpp\inc\simple\string_ex.cpp" />
+    <ClCompile Include="..\..\simple-cpp\inc\simple\string_mime.cpp" />
+    <ClCompile Include="..\..\simple-cpp\inc\simple\_third_convert_utf.cpp" />
+    <ClCompile Include="..\..\simple-cpp\inc\simple\_third_pwgen.c" />
+    <ClCompile Include="..\..\simple-cpp\inc\simple\_third_url_parser.c" />
+    <ClCompile Include="..\inc\simple\dll.cpp" />
+    <ClCompile Include="..\inc\simple\exec.cpp" />
     <ClCompile Include="..\inc\simple\_third_memory_module.c" />
     <ClCompile Include="..\tests\main.cpp" />
     <ClCompile Include="test_cases.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\inc\simple\exec_app.h" />
-    <ClInclude Include="..\inc\simple\memory_module.h" />
+    <ClInclude Include="..\..\simple-cpp\inc\simple\string.h" />
+    <ClInclude Include="..\inc\simple\dll.h" />
+    <ClInclude Include="..\inc\simple\exec.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{4134EC0F-BC22-481B-9AD1-27265FC542FC}</ProjectGuid>
