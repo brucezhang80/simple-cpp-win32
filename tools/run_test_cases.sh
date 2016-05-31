@@ -15,8 +15,8 @@ rm  *.module
 fi
 
 
-gcc	tests/dummy_module.cpp		-shared	-o dummy.module	-D NDEBUG	-lstdc++
-gcc	inc/simple/*.cpp    inc/simple/*.c  tests/main.cpp  tests/$test_files.cpp	-o _test.exe	-D NDEBUG	-I inc	-I tests	-lstdc++
+#gcc	tests/dummy_module.cpp		-shared	-o dummy.module	-D NDEBUG	-lstdc++
+gcc	inc/simple/*.cpp    inc/simple/*.c  tests/main.cpp  tests/$test_files.cpp	-o _test.exe	-D NDEBUG	-I inc	-I tests	-I ../simple-cpp/inc	-lstdc++
 
 
 if [ -f "_test.exe" ]; then

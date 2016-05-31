@@ -3,10 +3,24 @@
   <ItemGroup>
     <ClCompile Include="test_cases.cpp" />
     <ClCompile Include="..\tests\main.cpp" />
+    <ClCompile Include="..\inc\simple\_third_exec_app.cpp">
+      <Filter>simple-cpp-win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\inc\simple\_third_memory_module.c">
+      <Filter>simple-cpp-win32</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="simple-cpp-win32">
       <UniqueIdentifier>{8b1c8135-5a5d-4c9b-a2b4-51248e01dedf}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\inc\simple\exec_app.h">
+      <Filter>simple-cpp-win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\simple\memory_module.h">
+      <Filter>simple-cpp-win32</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

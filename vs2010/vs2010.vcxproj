@@ -11,8 +11,14 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\inc\simple\_third_exec_app.cpp" />
+    <ClCompile Include="..\inc\simple\_third_memory_module.c" />
     <ClCompile Include="..\tests\main.cpp" />
     <ClCompile Include="test_cases.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\inc\simple\exec_app.h" />
+    <ClInclude Include="..\inc\simple\memory_module.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{4134EC0F-BC22-481B-9AD1-27265FC542FC}</ProjectGuid>
