@@ -30,6 +30,9 @@
     <ClCompile Include="..\..\simple-cpp\inc\simple\_third_url_parser.c">
       <Filter>simple-cpp</Filter>
     </ClCompile>
+    <ClCompile Include="..\inc\simple\se.cpp">
+      <Filter>simple-cpp-win32</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="simple-cpp-win32">
@@ -47,6 +50,9 @@
       <Filter>simple-cpp-win32</Filter>
     </ClInclude>
     <ClInclude Include="..\inc\simple\exec.h">
+      <Filter>simple-cpp-win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\simple\se.h">
       <Filter>simple-cpp-win32</Filter>
     </ClInclude>
   </ItemGroup>
