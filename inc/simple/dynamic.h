@@ -1,8 +1,13 @@
 #ifndef DYNAMIC_H_66BC65DB_AFF6_43C8_8654_D1A2801635E2
 #define DYNAMIC_H_66BC65DB_AFF6_43C8_8654_D1A2801635E2
 
+//
+//	NEED LIBRARY:	comsupp.lib	comsuppw.lib/comsuppwd.lib
+//
+
 #include <vector>
 #include <deque>
+#include <iosfwd>
 #include <map>
 #include <string>
 #include <comutil.h>
@@ -56,7 +61,7 @@ public:
         set_value(value);
     }
 
-    bool			as_boolean()const {
+    bool			as_bool()const {
         return value_;
     }
     signed char		as_char()const {
@@ -411,6 +416,16 @@ bool	dynamic_data_ai_v2oi(std::pair<KEY,VALUE>& obj, dynamic_value& value) {
 class	buffer;
 void dynamic_data_oi2v(const buffer& obj, dynamic_value& data);
 bool dynamic_data_ai_v2oi(buffer& obj, dynamic_value& data);
+
+
+/////////////////////////////////////////////////////////////////
+//
+//	json support for dynamic data/value
+//
+bool	dynamic_value_to_json		(std::ostream& os,		const dynamic_value& value);
+bool	dynamic_data_to_json		(std::ostream& os,		dynamic_data& value);
+bool	dynamic_data_from_json		(const char* pszJSON,	dynamic_data& data);
+
 
 /////////////////////////////////////////////////////////////////
 //

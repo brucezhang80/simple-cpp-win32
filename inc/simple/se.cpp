@@ -3,8 +3,6 @@
 #include	"se.h"
 #include	"simple/string.h"
 
-#pragma	comment(lib, "Dbghelp.lib")
-
 //
 //	获取异常
 //

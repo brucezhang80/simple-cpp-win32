@@ -1,0 +1,6 @@
+
+#if	_MSC_VER < 1400
+@SET	MSVC_CL_PARAM=/Ivspatch\vs2003
+#endif
+
+@SET	MSVC_CL_PARAM=%MSVC_CL_PARAM%  kernel32.lib  user32.lib  Dbghelp.lib  comsupp.lib  comsuppw.lib

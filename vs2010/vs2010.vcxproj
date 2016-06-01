@@ -21,6 +21,7 @@
     <ClCompile Include="..\inc\simple\dll.cpp" />
     <ClCompile Include="..\inc\simple\dynamic.cpp" />
     <ClCompile Include="..\inc\simple\dynamic_x_buffer.cpp" />
+    <ClCompile Include="..\inc\simple\dynamic_x_json.cpp" />
     <ClCompile Include="..\inc\simple\exec.cpp" />
     <ClCompile Include="..\inc\simple\se.cpp" />
     <ClCompile Include="..\inc\simple\_third_memory_module.c" />
@@ -82,6 +83,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>comsupp.lib;comsuppw.lib;Dbghelp.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command>@if not exist test_cases.cpp  @echo  // test_cases    &gt;    test_cases.cpp
@@ -109,6 +111,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>comsupp.lib;comsuppw.lib;Dbghelp.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command>@if not exist test_cases.cpp  @echo  // test_cases    &gt;    test_cases.cpp

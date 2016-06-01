@@ -1,8 +1,6 @@
 #include <cassert>
 #include "dynamic.h"
 
-#pragma	comment(lib, "comsupp.lib")
-
 void dynamic_value::clear_as_array() {
     internal_as_data().clear_as_array();
     value_.vt	= VALUE_ARRAY;

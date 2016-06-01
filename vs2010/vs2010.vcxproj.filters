@@ -42,6 +42,9 @@
     <ClCompile Include="..\inc\simple\dynamic_x_buffer.cpp">
       <Filter>simple-cpp-win32</Filter>
     </ClCompile>
+    <ClCompile Include="..\inc\simple\dynamic_x_json.cpp">
+      <Filter>simple-cpp-win32</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="simple-cpp-win32">
