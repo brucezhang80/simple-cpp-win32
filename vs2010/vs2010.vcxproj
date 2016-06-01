@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\simple-cpp\inc\simple\buffer.cpp" />
     <ClCompile Include="..\..\simple-cpp\inc\simple\string.cpp" />
     <ClCompile Include="..\..\simple-cpp\inc\simple\string_ex.cpp" />
     <ClCompile Include="..\..\simple-cpp\inc\simple\string_mime.cpp" />
@@ -18,6 +19,8 @@
     <ClCompile Include="..\..\simple-cpp\inc\simple\_third_pwgen.c" />
     <ClCompile Include="..\..\simple-cpp\inc\simple\_third_url_parser.c" />
     <ClCompile Include="..\inc\simple\dll.cpp" />
+    <ClCompile Include="..\inc\simple\dynamic.cpp" />
+    <ClCompile Include="..\inc\simple\dynamic_x_buffer.cpp" />
     <ClCompile Include="..\inc\simple\exec.cpp" />
     <ClCompile Include="..\inc\simple\se.cpp" />
     <ClCompile Include="..\inc\simple\_third_memory_module.c" />
@@ -25,8 +28,10 @@
     <ClCompile Include="test_cases.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\simple-cpp\inc\simple\buffer.h" />
     <ClInclude Include="..\..\simple-cpp\inc\simple\string.h" />
     <ClInclude Include="..\inc\simple\dll.h" />
+    <ClInclude Include="..\inc\simple\dynamic.h" />
     <ClInclude Include="..\inc\simple\exec.h" />
     <ClInclude Include="..\inc\simple\se.h" />
   </ItemGroup>

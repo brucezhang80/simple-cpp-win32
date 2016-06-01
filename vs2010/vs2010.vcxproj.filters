@@ -33,6 +33,15 @@
     <ClCompile Include="..\inc\simple\se.cpp">
       <Filter>simple-cpp-win32</Filter>
     </ClCompile>
+    <ClCompile Include="..\inc\simple\dynamic.cpp">
+      <Filter>simple-cpp-win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\simple-cpp\inc\simple\buffer.cpp">
+      <Filter>simple-cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\inc\simple\dynamic_x_buffer.cpp">
+      <Filter>simple-cpp-win32</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="simple-cpp-win32">
@@ -54,6 +63,12 @@
     </ClInclude>
     <ClInclude Include="..\inc\simple\se.h">
       <Filter>simple-cpp-win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\simple\dynamic.h">
+      <Filter>simple-cpp-win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\simple-cpp\inc\simple\buffer.h">
+      <Filter>simple-cpp</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
