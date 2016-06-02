@@ -49,7 +49,7 @@ protected:
     virtual	IE_CustomProtocol*			do_create_protocol();
     virtual	void						do_destroy_protocol(IE_CustomProtocol*);
     virtual	bool						do_object_load(const char* szUrl);
-    virtual	std::wstring				do_object_MIME_type(const char* szUrl);
+    virtual	std::wstring				do_object_mime_type(const char* szUrl);
     virtual	size_t						do_object_data_size(const char* szUrl);
     virtual	size_t						do_object_data_read(void *pv, size_t size, size_t offset);
 

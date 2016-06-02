@@ -7,11 +7,11 @@
 //
 //	WDF文件组成的文件系统
 //
-class	WDFFile;
-class	WDFDataFile;
-class	WDFFileSystem {
+class	WDF_File;
+class	WDF_DataFile;
+class	WDF_FileSystem {
 public:
-    explicit	WDFFileSystem(bool bUseOSFile = true);
+    explicit	WDF_FileSystem(bool bUseOSFile = true);
 
 public:
     void		Clear();
@@ -20,15 +20,15 @@ public:
     void		CloseDataFile(const char* virtual_dir);
 
     bool		HasFile(const char *virtual_path);
-    bool		LoadFile(const char *virtual_path, WDFFile& file);
-    bool		OpenFile(const char *virtual_path, WDFFile& file);
+    bool		LoadFile(const char *virtual_path, WDF_File& file);
+    bool		OpenFile(const char *virtual_path, WDF_File& file);
 
 public:
     bool		GetUsingOSFile();
     void		SetUsingOSFile(bool bUse);
 
 private:
-    typedef		std::map<std::string, WDFDataFile*, std::greater<std::string> >		DirectoryList;
+    typedef		std::map<std::string, WDF_DataFile*, std::greater<std::string> >		DirectoryList;
     typedef		DirectoryList::iterator												DirectoryIterator;
 
 private:

@@ -8,19 +8,19 @@
 #include	"wdf.h"
 #include	"wdf_fs.h"
 
-WDFFileSystem::WDFFileSystem(bool bUseOSFile)
+WDF_FileSystem::WDF_FileSystem(bool bUseOSFile)
     :	use_os_file_(bUseOSFile) {
 }
 
-bool WDFFileSystem::GetUsingOSFile() {
+bool WDF_FileSystem::GetUsingOSFile() {
     return	use_os_file_;
 }
 
-void WDFFileSystem::SetUsingOSFile(bool bUse) {
+void WDF_FileSystem::SetUsingOSFile(bool bUse) {
     use_os_file_	= bUse;
 }
 
-WDFFileSystem::DirectoryIterator WDFFileSystem::FindDataFile(const char* virtual_path, std::string& virtual_file) {
+WDF_FileSystem::DirectoryIterator WDF_FileSystem::FindDataFile(const char* virtual_path, std::string& virtual_file) {
     if(NULL == virtual_path) {
         return	dirs_.end();
     }
@@ -46,7 +46,7 @@ WDFFileSystem::DirectoryIterator WDFFileSystem::FindDataFile(const char* virtual
     return	dirs_.end();
 }
 
-void WDFFileSystem::Clear() {
+void WDF_FileSystem::Clear() {
     DirectoryIterator	it		= dirs_.begin();
     DirectoryIterator	it_end	= dirs_.end();
     for(; it != it_end; ++it) {
@@ -56,7 +56,7 @@ void WDFFileSystem::Clear() {
     dirs_.clear();
 }
 
-bool WDFFileSystem::OpenDataFile(const char *virtual_dir, const char* filename) {
+bool WDF_FileSystem::OpenDataFile(const char *virtual_dir, const char* filename) {
     if(NULL == virtual_dir || 0 == virtual_dir[0] || NULL == filename || !::PathFileExists(filename)) {
         return	false;
     }
@@ -65,12 +65,12 @@ bool WDFFileSystem::OpenDataFile(const char *virtual_dir, const char* filename) 
     if('/' != virtual_dir[strlen(virtual_dir) - 1]) {
         return	false;
     }
-    std::auto_ptr<WDFDataFile>	pDataFile(new WDFDataFile);
+    std::auto_ptr<WDF_DataFile>	pDataFile(new WDF_DataFile);
     if(!pDataFile->open(filename)) {
         return	false;
     }
 
-    WDFDataFile*	theDataFile	= pDataFile.release();
+    WDF_DataFile*	theDataFile	= pDataFile.release();
     std::string		sKey(virtual_dir);
     {
         string_tolower(sKey);
@@ -87,7 +87,7 @@ bool WDFFileSystem::OpenDataFile(const char *virtual_dir, const char* filename) 
     return	true;
 }
 
-void WDFFileSystem::CloseDataFile(const char *virtual_dir) {
+void WDF_FileSystem::CloseDataFile(const char *virtual_dir) {
     if(NULL == virtual_dir) {
         return;
     }
@@ -104,18 +104,18 @@ void WDFFileSystem::CloseDataFile(const char *virtual_dir) {
     }
 }
 
-bool WDFFileSystem::HasFile(const char *virtual_path) {
+bool WDF_FileSystem::HasFile(const char *virtual_path) {
     if(use_os_file_ && ::PathFileExists(virtual_path)) {
         return	true;
     }
 
-    WDFFile	file;
+    WDF_File	file;
     return	OpenFile(virtual_path, file);
 }
 
-bool WDFFileSystem::LoadFile(const char *virtual_path, WDFFile& file) {
+bool WDF_FileSystem::LoadFile(const char *virtual_path, WDF_File& file) {
     if(use_os_file_ && ::PathFileExists(virtual_path)) {
-        WDFDataFile	datafile;
+        WDF_DataFile	datafile;
         return	file.load(datafile, virtual_path);
     }
 
@@ -128,9 +128,9 @@ bool WDFFileSystem::LoadFile(const char *virtual_path, WDFFile& file) {
     return	false;
 }
 
-bool WDFFileSystem::OpenFile(const char *virtual_path, WDFFile& file) {
+bool WDF_FileSystem::OpenFile(const char *virtual_path, WDF_File& file) {
     if(use_os_file_ && ::PathFileExists(virtual_path)) {
-        WDFDataFile	datafile;
+        WDF_DataFile	datafile;
         return	file.open(datafile, virtual_path);
     }
 

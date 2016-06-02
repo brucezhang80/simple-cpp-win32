@@ -4,11 +4,11 @@
 //
 //	数据文件
 //
-struct	WDFDataFileIndex;
-class	WDFDataFile {
+struct	WDF_DataFileIndex;
+class	WDF_DataFile {
 public:
-    WDFDataFile() : m_BlockIndex(0), m_hFile(INVALID_HANDLE_VALUE)		{}
-    ~WDFDataFile();
+    WDF_DataFile() : m_BlockIndex(0), m_hFile(INVALID_HANDLE_VALUE)		{}
+    ~WDF_DataFile();
 
 public:
     bool				open(const char *name);
@@ -18,8 +18,8 @@ public:
     }
 
 public:
-    WDFDataFileIndex*	search_file(DWORD id) const;
-    WDFDataFileIndex*	search_file(const char* filename) const;
+    WDF_DataFileIndex*	search_file(DWORD id) const;
+    WDF_DataFileIndex*	search_file(const char* filename) const;
     HANDLE				file_handle() const {
         return m_hFile;
     }
@@ -27,21 +27,21 @@ public:
 protected:
     HANDLE				m_hFile;						// 数据文件句柄
 
-    WDFDataFileIndex*	m_BlockIndex;					// 内容文件信息
+    WDF_DataFileIndex*	m_BlockIndex;					// 内容文件信息
     int					m_BlockNumber;					// 内容文件数量
 
 private:
-    WDFDataFile(const WDFDataFile&);
-    const WDFDataFile&	operator=(const WDFDataFile&);
+    WDF_DataFile(const WDF_DataFile&);
+    const WDF_DataFile&	operator=(const WDF_DataFile&);
 };
 
 //
 //	数据文件中的子文件
 //
-class	WDFFile {
+class	WDF_File {
 public:
-    WDFFile();
-    virtual				~WDFFile();
+    WDF_File();
+    virtual				~WDF_File();
 
 public:
     //
@@ -49,7 +49,7 @@ public:
     //
 
     // 加载一个文件
-    bool				load(WDFDataFile& datafile, const char *filename);
+    bool				load(WDF_DataFile& datafile, const char *filename);
     // 读数据指针
     void*				data() {
         return m_pDataPtr;
@@ -64,7 +64,7 @@ public:
     //
 
     // 打开一个文件
-    bool				open(WDFDataFile& datafile, const char *filename);
+    bool				open(WDF_DataFile& datafile, const char *filename);
     // 读数据到指定 Buffer
     bool				read(void* buffer, int s, int offset, int *read = 0);
     // 跳过 s 字节
@@ -92,8 +92,8 @@ protected:
     DWORD				m_dwOffset;						// 在数据文件中的偏移
 
 private:
-    WDFFile(const WDFFile&);
-    const WDFFile&	operator=(const WDFFile&);
+    WDF_File(const WDF_File&);
+    const WDF_File&	operator=(const WDF_File&);
 };
 
 #endif

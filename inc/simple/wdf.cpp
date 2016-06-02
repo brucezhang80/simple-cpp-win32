@@ -83,7 +83,7 @@ static DWORD real_name(const char *filename) {
     return 0;
 }
 
-struct WDFDataFileIndex {
+struct WDF_DataFileIndex {
     DWORD uid;
     DWORD offset;
     DWORD size;
@@ -96,11 +96,11 @@ struct WDFDataFileHeader {
     unsigned offset;
 };
 
-WDFDataFile::~WDFDataFile() {
+WDF_DataFile::~WDF_DataFile() {
     close();
 }
 
-void WDFDataFile::close() {
+void WDF_DataFile::close() {
     if (m_hFile!=INVALID_HANDLE_VALUE) {
         CloseHandle(m_hFile);
         m_hFile = INVALID_HANDLE_VALUE;
@@ -111,7 +111,7 @@ void WDFDataFile::close() {
     }
 }
 
-WDFDataFileIndex* WDFDataFile::search_file(DWORD id) const {
+WDF_DataFileIndex* WDF_DataFile::search_file(DWORD id) const {
     int begin,end,middle;
     begin=0,end=m_BlockNumber-1;
     while (begin<=end) {
@@ -123,7 +123,7 @@ WDFDataFileIndex* WDFDataFile::search_file(DWORD id) const {
     return 0;
 }
 
-WDFDataFileIndex* WDFDataFile::search_file(const char* filename) const {
+WDF_DataFileIndex* WDF_DataFile::search_file(const char* filename) const {
     if(NULL == filename) {
         return	NULL;
     }
@@ -131,7 +131,7 @@ WDFDataFileIndex* WDFDataFile::search_file(const char* filename) const {
     return search_file(real_name(filename));
 }
 
-bool WDFDataFile::open(const char *filename) {
+bool WDF_DataFile::open(const char *filename) {
     HANDLE f;
     WDFDataFileHeader header;
     DWORD bytes;
@@ -149,9 +149,9 @@ bool WDFDataFile::open(const char *filename) {
         CloseHandle(f);
         return false;
     }
-    m_BlockIndex = (WDFDataFileIndex*)malloc(sizeof(WDFDataFileIndex)*header.number);
+    m_BlockIndex = (WDF_DataFileIndex*)malloc(sizeof(WDF_DataFileIndex)*header.number);
     SetFilePointer(f,header.offset,0,FILE_BEGIN);
-    if (ReadFile(f,m_BlockIndex,sizeof(WDFDataFileIndex)*header.number,&bytes,0)==0) {
+    if (ReadFile(f,m_BlockIndex,sizeof(WDF_DataFileIndex)*header.number,&bytes,0)==0) {
         CloseHandle(f);
         free(m_BlockIndex);
         return false;
@@ -161,11 +161,11 @@ bool WDFDataFile::open(const char *filename) {
     return true;
 }
 
-WDFFile::WDFFile() : m_pDataPtr(0), m_dwOffset(0), m_hFile(0), m_dwDataSize(0) {
+WDF_File::WDF_File() : m_pDataPtr(0), m_dwOffset(0), m_hFile(0), m_dwDataSize(0) {
     m_hFile=INVALID_HANDLE_VALUE;
 }
 
-bool WDFFile::load(WDFDataFile& datafile, const char *filename) {
+bool WDF_File::load(WDF_DataFile& datafile, const char *filename) {
     HANDLE f;
     DWORD bytes;
     f=CreateFile(filename,GENERIC_READ,FILE_SHARE_READ,0,OPEN_EXISTING,FILE_ATTRIBUTE_NORMAL,0);
@@ -175,7 +175,7 @@ bool WDFFile::load(WDFDataFile& datafile, const char *filename) {
         }
 
         DWORD fid=real_name(filename);
-        WDFDataFileIndex * pf;
+        WDF_DataFileIndex * pf;
         pf=datafile.search_file(fid);
         if (pf==0) {
             return false;
@@ -204,14 +204,14 @@ bool WDFFile::load(WDFDataFile& datafile, const char *filename) {
     return true;
 }
 
-WDFFile::~WDFFile() {
+WDF_File::~WDF_File() {
     close();
     if (m_pDataPtr)
         free(m_pDataPtr);
     m_pDataPtr=0;
 }
 
-bool WDFFile::open(WDFDataFile& datafile, const char *filename) {
+bool WDF_File::open(WDF_DataFile& datafile, const char *filename) {
     HANDLE f;
     f=CreateFile(filename,GENERIC_READ,FILE_SHARE_READ,0,OPEN_EXISTING,FILE_ATTRIBUTE_NORMAL,0);
     if (f==INVALID_HANDLE_VALUE) {
@@ -220,7 +220,7 @@ bool WDFFile::open(WDFDataFile& datafile, const char *filename) {
         }
 
         DWORD fid=real_name(filename);
-        WDFDataFileIndex * pf;
+        WDF_DataFileIndex * pf;
         pf=datafile.search_file(fid);
         if (pf==0) {
             return false;
@@ -237,7 +237,7 @@ bool WDFFile::open(WDFDataFile& datafile, const char *filename) {
     return true;
 }
 
-void WDFFile::close() {
+void WDF_File::close() {
     if (m_dwOffset==0) {
         if (m_hFile!=INVALID_HANDLE_VALUE) {
             CloseHandle(m_hFile);
@@ -246,7 +246,7 @@ void WDFFile::close() {
     m_hFile=INVALID_HANDLE_VALUE;
 }
 
-bool WDFFile::read(void *buffer,int s,int offset,int *read) {
+bool WDF_File::read(void *buffer,int s,int offset,int *read) {
     assert(m_hFile!=INVALID_HANDLE_VALUE);
     s=min(s,(int)(m_dwDataSize-offset));
     //	assert((unsigned)(offset+s)<=m_dwDataSize);
@@ -265,19 +265,19 @@ bool WDFFile::read(void *buffer,int s,int offset,int *read) {
     return true;
 }
 
-DWORD WDFFile::tell() const {
+DWORD WDF_File::tell() const {
     DWORD r;
     assert(m_hFile!=INVALID_HANDLE_VALUE);
     r=SetFilePointer(m_hFile,0,0,FILE_CURRENT);
     return r-m_dwOffset;
 }
 
-void WDFFile::skip(int s) {
+void WDF_File::skip(int s) {
     assert(m_hFile!=INVALID_HANDLE_VALUE);
     SetFilePointer(m_hFile,s,0,FILE_CURRENT);
 }
 
-bool WDFFile::read(void* buffer, int s, int *read) {
+bool WDF_File::read(void* buffer, int s, int *read) {
     assert(m_hFile != INVALID_HANDLE_VALUE);
     DWORD bytes,r;
     //	SetFilePointer(m_hFile,m_dwOffset,0,FILE_BEGIN);

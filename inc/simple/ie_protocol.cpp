@@ -25,7 +25,7 @@ bool						IE_CustomProtocol::do_object_load(const char* szUrl) {
     return	false;
 }
 
-std::wstring				IE_CustomProtocol::do_object_MIME_type(const char* szUrl) {
+std::wstring				IE_CustomProtocol::do_object_mime_type(const char* szUrl) {
     static	const char*		s_mime_ext[]	=	{
         ".htm",
         ".html",
@@ -191,7 +191,7 @@ HRESULT STDMETHODCALLTYPE IE_CustomProtocol::Start(
     m_pOIProtSink->ReportProgress(BINDSTATUS_FINDINGRESOURCE,				szUrl);
     m_pOIProtSink->ReportProgress(BINDSTATUS_CONNECTING,					szUrl);
     m_pOIProtSink->ReportProgress(BINDSTATUS_SENDINGREQUEST,				szUrl);
-    m_pOIProtSink->ReportProgress(BINDSTATUS_VERIFIEDMIMETYPEAVAILABLE,		do_object_MIME_type(sURL).c_str());
+    m_pOIProtSink->ReportProgress(BINDSTATUS_VERIFIEDMIMETYPEAVAILABLE,		do_object_mime_type(sURL).c_str());
 
     m_pOIProtSink->ReportData(BSCF_FIRSTDATANOTIFICATION, 0, m_nSize);
     m_pOIProtSink->ReportData(BSCF_LASTDATANOTIFICATION | BSCF_DATAFULLYAVAILABLE,
