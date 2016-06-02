@@ -1,5 +1,6 @@
 
 CheckForDllExportedSymbols	http://www.codeproject.com/Tips/133747/Checking-for-exported-symbols-functions-in-a-DLL-w
+CDispatchPtr			https://github.com/mmorearty/DispatchPtr
 ExecApp				http://www.codeproject.com/Articles/26784/ExecApp-ExecRegisteredApp-and-LookupRegisteredApp
 MemoryModule			https://github.com/fancycode/MemoryModule
 ProcessRunner[modified]		http://www.netcult.ch/elmue
