@@ -96,4 +96,4 @@ private:
     const WDFFile&	operator=(const WDFFile&);
 };
 
-#endif	//WDF_FILE_H__089BB269_EC67_495d_885A_CAB04219E370__INCLUDED_
+#endif
