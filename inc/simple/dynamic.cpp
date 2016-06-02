@@ -177,7 +177,7 @@ DynamicValue DynamicData::operator [] (const std::string& key) {
     return	DynamicValue(object_[key]);
 }
 
-bool DynamicData::traverse(DynamicData::item_iterator func) {
+bool DynamicData::traverse(DynamicData::ItemIterator func) {
     if(!func) {
         return	false;
     }
@@ -205,13 +205,13 @@ bool DynamicData::traverse(DynamicData::item_iterator func) {
     return	true;
 }
 
-DynamicData::traverse_event DynamicData::do_make_traverse_event(
+DynamicData::TraverseEvent DynamicData::do_make_traverse_event(
     TRAVERSE_EVENT_TYPE type, const DynamicValue& item, const std::string& key, int index, size_t remain_siblings) {
-    traverse_event	event	= {type, item, key, index, remain_siblings};
+    TraverseEvent	event	= {type, item, key, index, remain_siblings};
     return	event;
 }
 
-void DynamicData::traverse(traverse_iterator func) {
+void DynamicData::traverse(TraverseIterator func) {
     if(!func) {
         return;
     }
@@ -232,7 +232,7 @@ void DynamicData::traverse(traverse_iterator func) {
     );
 }
 
-void DynamicData::do_traverse(const traverse_event& curr_stage, traverse_iterator func) {
+void DynamicData::do_traverse(const TraverseEvent& curr_stage, TraverseIterator func) {
     const	std::string		sDummy;
     switch(type()) {
     case VALUE_ARRAY: {

@@ -8,7 +8,7 @@
 #include "simple/switch.h"
 #include "dynamic.h"
 
-bool DynamicValue_to_json(std::ostream& os, const DynamicValue& value) {
+bool DynamicValue_ToJSON(std::ostream& os, const DynamicValue& value) {
     switch (value.type()) {
     case DynamicValue::VALUE_STRING: {
         return	(os	<< "\"" << string_json_escape(value.as_string().operator const char *()) << "\"").good();
@@ -37,8 +37,8 @@ bool DynamicValue_to_json(std::ostream& os, const DynamicValue& value) {
     return (os << "null").good();
 }
 
-struct	DynamicData_json_serializer {
-    void	item_iterator(const DynamicData::traverse_event& item) {
+struct	DynamicData_JSONSerializer {
+    void	ItemIterator(const DynamicData::TraverseEvent& item) {
         bool	TI	= DynamicData::TRAVERSE_ITEM		== item.type;
         bool	TA	= DynamicData::TRAVERSE_ARRAY_ITEM	== item.type;
         bool	TO	= DynamicData::TRAVERSE_OBJECT_ITEM	== item.type;
@@ -48,7 +48,7 @@ struct	DynamicData_json_serializer {
 
         switch FLAG6(TI, TA, TO, TG, VA, VO) {
         case COND6(T,F,F,F,F,F): {
-            DynamicValue_to_json(ss_,item.item);
+            DynamicValue_ToJSON(ss_,item.item);
             if(item.remain_siblings > 0)ss_<<',';
         }
         break;
@@ -62,7 +62,7 @@ struct	DynamicData_json_serializer {
         break;
 
         case COND6(F,T,F,F,F,F): {
-            DynamicValue_to_json(ss_,item.item);
+            DynamicValue_ToJSON(ss_,item.item);
             if(item.remain_siblings > 0)ss_<<',';
         }
         break;
@@ -77,7 +77,7 @@ struct	DynamicData_json_serializer {
 
         case COND6(F,F,T,F,F,F): {
             ss_<<'\"'<<item.key<<'\"'<<':';
-            DynamicValue_to_json(ss_, item.item);
+            DynamicValue_ToJSON(ss_, item.item);
             if(item.remain_siblings > 0)ss_<<',';
         }
         break;
@@ -103,62 +103,73 @@ struct	DynamicData_json_serializer {
         }
     }
 
-    DynamicData_json_serializer(std::ostream& ss):ss_(ss) {}
+    DynamicData_JSONSerializer(std::ostream& ss):ss_(ss) {}
 private:
     std::ostream&		ss_;
 };
 
-bool DynamicData_to_json(std::ostream& os, DynamicData& data) {
-    DynamicData_json_serializer	it(os);
-    data.traverse(bind(&DynamicData_json_serializer::item_iterator, &it));
+bool DynamicData_ToJSON(std::ostream& os, DynamicData& data) {
+    DynamicData_JSONSerializer	it(os);
+    data.traverse(bind(&DynamicData_JSONSerializer::ItemIterator, &it));
     return	os.good();
 }
-/*
-void	JSON_DeSerializeNode(json_t* node, DynamicValue& data)
-{
-	switch(node->type)
-	{
-	case JSON_STRING:	data.SetValue(std::string(node->text));			break;
-	case JSON_NUMBER:	data.SetValue(atof(node->text));	break;
-	case JSON_OBJECT:
-		{
-			data.ClearAsObject();
-			for(json_t* it = node->child; it != NULL; it = it->next)
-			{
-				JSON_DeSerializeNode(it->child, data[it->text]);
-			}
-		}break;
-	case JSON_ARRAY:
-		{
-			data.ClearAsArray();
-			json_t* it	= node->child;
-			for(int	i = 0; it != NULL; it = it->next, ++i)
-			{
-				JSON_DeSerializeNode(it, data[i]);
-			}
-		}break;
-	case JSON_TRUE:		data.SetValue(true);	break;
-	case JSON_FALSE:	data.SetValue(false);	break;
-	case JSON_NULL:		data.Clear();			break;
-	default:
-		{
-			assert(false);
-			data.Clear();
-		}
-	}
+
+static	void	JSON_DeSerializeNode(const json::Value& node, DynamicValue& data) {
+    using	namespace	json;
+    switch(node.GetType()) {
+    case json::StringVal: {
+        data.set_value((const std::string&)(node));
+    }
+    break;
+    case json::IntVal: {
+        data.set_value(node.ToInt());
+    }
+    break;
+    case json::FloatVal: {
+        data.set_value(node.ToFloat());
+    }
+    break;
+    case json::DoubleVal: {
+        data.set_value(node.ToDouble());
+    }
+    break;
+    case json::ObjectVal: {
+        data.clear_as_object();
+        json::Object	obj	= node.ToObject();
+        json::Object::ValueMap::const_iterator	it = obj.begin(), it_end = obj.end();
+        for(; it != it_end; ++it) {
+            JSON_DeSerializeNode(it->second, data[it->first]);
+        }
+    }
+    break;
+    case json::ArrayVal: {
+        data.clear_as_array();
+        json::Array	arr	= node.ToArray();
+        json::Array::ValueVector::const_iterator	it = arr.begin(), it_end = arr.end();
+        for(int	i = 0; it != it_end; ++it, ++i) {
+            JSON_DeSerializeNode(*it, data[i]);
+        }
+    }
+    break;
+    case json::BoolVal: {
+        data.set_value(node.ToBool());
+    }
+    break;
+    case json::NULLVal: {
+        data.clear();
+    }
+    break;
+    default: {
+        assert(false);
+        data.clear();
+    }
+    }
 }
 
-bool	JSON_DeSerializeData(const char* pszJSON,  DynamicData& data)
-{
-	json_t*	root = NULL;
-	if(JSON_OK != json_parse_document(&root, pszJSON))
-	{
-		return	false;
-	}
+bool	DynamicData_FromJSON		(DynamicData& data,		const std::string& pszJSON) {
+    json::Value	root	= json::Deserialize(pszJSON);
 
-	JSON_DeSerializeNode(root, data);
+    JSON_DeSerializeNode(root, data);
 
-	json_free_value(&root);
-	return	true;
+    return	true;
 }
-*/

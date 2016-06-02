@@ -16,6 +16,9 @@
     <ClCompile Include="..\..\simple-cpp\inc\simple\string_ex.cpp" />
     <ClCompile Include="..\..\simple-cpp\inc\simple\string_mime.cpp" />
     <ClCompile Include="..\..\simple-cpp\inc\simple\_third_convert_utf.cpp" />
+    <ClCompile Include="..\..\simple-cpp\inc\simple\_third_jread.c" />
+    <ClCompile Include="..\..\simple-cpp\inc\simple\_third_json.cpp" />
+    <ClCompile Include="..\..\simple-cpp\inc\simple\_third_jwrite.c" />
     <ClCompile Include="..\..\simple-cpp\inc\simple\_third_pwgen.c" />
     <ClCompile Include="..\..\simple-cpp\inc\simple\_third_url_parser.c" />
     <ClCompile Include="..\inc\simple\dll.cpp" />

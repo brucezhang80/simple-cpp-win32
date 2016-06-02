@@ -291,23 +291,23 @@ public:
     };
 
     //	遍历节点事件
-    struct	traverse_event {
+    struct	TraverseEvent {
         TRAVERSE_EVENT_TYPE		type;			//	traverse event type
-        const DynamicValue&	item;			//	current	item, root if TRAVERSE_BEGIN/TRAVERSE_END
+        const DynamicValue&		item;			//	current	item, root if TRAVERSE_BEGIN/TRAVERSE_END
         const std::string&		key;			//	used by	VALUE_OBJECT item
         int						index;			//	used by VALUE_ARRAY item
         size_t					remain_siblings;//	array/object remain sibling items sum.
     };
 
     //	递归遍历处理函数
-    typedef	delegate<void(const traverse_event& item)>	traverse_iterator;
+    typedef	delegate<void(const TraverseEvent& item)>	TraverseIterator;
     //	数组遍历
-    typedef	delegate<void(int nIndex, const char* sKey, DynamicValue& item)>	item_iterator;
+    typedef	delegate<void(int nIndex, const char* sKey, DynamicValue& item)>	ItemIterator;
 
     //	递归遍历方法
-    void			traverse(traverse_iterator func);
+    void			traverse(TraverseIterator func);
     // 仅遍历直接子项
-    bool			traverse(item_iterator func);
+    bool			traverse(ItemIterator func);
 
 protected:
     virtual	DynamicData&	do_as_data() {
@@ -319,8 +319,8 @@ private:
     void			do_clear_array();
     void			do_clear_object();
 
-    void			do_traverse(const traverse_event& curr_stage, traverse_iterator func);
-    traverse_event	do_make_traverse_event(TRAVERSE_EVENT_TYPE type_, const DynamicValue& item_, const std::string& key_ = "", int index_ = -1, size_t remain_siblings = 0);
+    void			do_traverse(const TraverseEvent& curr_stage, TraverseIterator func);
+    TraverseEvent	do_make_traverse_event(TRAVERSE_EVENT_TYPE type_, const DynamicValue& item_, const std::string& key_ = "", int index_ = -1, size_t remain_siblings = 0);
 
 private:
     variant_t	value_;
@@ -422,9 +422,9 @@ bool DynamicData_ai_v2oi(buffer& obj, DynamicValue& data);
 //
 //	json support for dynamic data/value
 //
-bool	DynamicValue_to_json		(std::ostream& os,		const DynamicValue& value);
-bool	DynamicData_to_json			(std::ostream& os,		DynamicData& value);
-bool	DynamicData_from_json		(const char* pszJSON,	DynamicData& data);
+bool	DynamicValue_ToJSON			(std::ostream& os,		const DynamicValue& value);
+bool	DynamicData_ToJSON			(std::ostream& os,		DynamicData& value);
+bool	DynamicData_FromJSON		(DynamicData& data,		const std::string& pszJSON);
 
 
 /////////////////////////////////////////////////////////////////

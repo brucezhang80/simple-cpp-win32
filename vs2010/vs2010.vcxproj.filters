@@ -45,6 +45,15 @@
     <ClCompile Include="..\inc\simple\dynamic_x_json.cpp">
       <Filter>simple-cpp-win32</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\simple-cpp\inc\simple\_third_jread.c">
+      <Filter>simple-cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\simple-cpp\inc\simple\_third_json.cpp">
+      <Filter>simple-cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\simple-cpp\inc\simple\_third_jwrite.c">
+      <Filter>simple-cpp</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="simple-cpp-win32">
