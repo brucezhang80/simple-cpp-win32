@@ -54,6 +54,18 @@
     <ClCompile Include="..\..\simple-cpp\inc\simple\_third_jwrite.c">
       <Filter>simple-cpp</Filter>
     </ClCompile>
+    <ClCompile Include="..\inc\simple\wdf.cpp">
+      <Filter>simple-cpp-win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\inc\simple\wdf_fs.cpp">
+      <Filter>simple-cpp-win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\inc\simple\ie_download.cpp">
+      <Filter>simple-cpp-win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\inc\simple\ie_protocol.cpp">
+      <Filter>simple-cpp-win32</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="simple-cpp-win32">
@@ -86,6 +98,18 @@
       <Filter>simple-cpp-win32</Filter>
     </ClInclude>
     <ClInclude Include="..\inc\simple\dispatch_impl.h">
+      <Filter>simple-cpp-win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\simple\wdf.h">
+      <Filter>simple-cpp-win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\simple\wdf_fs.h">
+      <Filter>simple-cpp-win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\simple\ie_download.h">
+      <Filter>simple-cpp-win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\simple\ie_protocol.h">
       <Filter>simple-cpp-win32</Filter>
     </ClInclude>
   </ItemGroup>
