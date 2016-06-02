@@ -1,5 +1,5 @@
 
 #include	"_third/ExecApp/ExecApp.cpp"
 
-#define		ExecAppEx		exec_app_ex
+#define		ExecAppEx		Exec_App
 #include	"_third/ProcessRunner.cpp"

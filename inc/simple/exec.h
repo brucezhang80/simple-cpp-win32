@@ -5,14 +5,14 @@
 
 #include	"_third/ExecApp/ExecApp.h"
 
-inline	bool	exec_app(
+inline	bool	Exec_Cmd(
     LPCTSTR lpszCommandLine,		// complete command line, includeing exe
     WORD wShowCmd = SW_SHOWNORMAL
 ) {
     return	FALSE != ExecApp(lpszCommandLine, wShowCmd);
 }
 
-inline	bool	exec_app_registered(
+inline	bool	Exec_RegisteredApp(
     LPCTSTR lpszArgs,				// args for exe
     LPCTSTR lpszExt,				// file extension to use for exe lookup
     WORD wShowCmd = SW_SHOWNORMAL
@@ -20,7 +20,7 @@ inline	bool	exec_app_registered(
     return	FALSE != ExecRegisteredApp(lpszArgs, lpszExt, wShowCmd);
 }
 
-inline	bool	exec_lookup_app_registered(
+inline	bool	Exec_LookupRegisteredApp(
     LPCTSTR lpszExt,				// file extension to use for exe lookup
     LPTSTR lpszApplication,			// output path buffer
     DWORD *nSize					// size of buffer in TCHARs
@@ -28,7 +28,7 @@ inline	bool	exec_lookup_app_registered(
     return	FALSE != LookupRegisteredApp(lpszExt, lpszApplication, nSize);
 }
 
-DWORD	exec_app_ex(
+DWORD	Exec_App(
     const char*		t_Comandline,		// IN
     DWORD			u32_FirstConvert,	// IN
     const char*		t_CurrentDir,		// IN

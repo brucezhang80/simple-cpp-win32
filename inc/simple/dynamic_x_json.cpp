@@ -8,23 +8,23 @@
 #include "simple/switch.h"
 #include "dynamic.h"
 
-bool dynamic_value_to_json(std::ostream& os, const dynamic_value& value) {
+bool DynamicValue_to_json(std::ostream& os, const DynamicValue& value) {
     switch (value.type()) {
-    case dynamic_value::VALUE_STRING: {
+    case DynamicValue::VALUE_STRING: {
         return	(os	<< "\"" << string_json_escape(value.as_string().operator const char *()) << "\"").good();
     }
     break;
-    case dynamic_value::VALUE_ARRAY:
-    case dynamic_value::VALUE_OBJECT: {
+    case DynamicValue::VALUE_ARRAY:
+    case DynamicValue::VALUE_OBJECT: {
         assert(false);
         return	false;
     }
     break;
-    case dynamic_value::VALUE_BOOL: {
+    case DynamicValue::VALUE_BOOL: {
         return	(os	<< (value.as_bool() ? "true" : "false")).good();
     }
     break;
-    case dynamic_value::VALUE_EMPTY: {
+    case DynamicValue::VALUE_EMPTY: {
         return	(os	<< "null").good();
     }
     break;
@@ -37,18 +37,18 @@ bool dynamic_value_to_json(std::ostream& os, const dynamic_value& value) {
     return (os << "null").good();
 }
 
-struct	dynamic_data_json_serializer {
-    void	item_iterator(const dynamic_data::traverse_event& item) {
-        bool	TI	= dynamic_data::TRAVERSE_ITEM		== item.type;
-        bool	TA	= dynamic_data::TRAVERSE_ARRAY_ITEM	== item.type;
-        bool	TO	= dynamic_data::TRAVERSE_OBJECT_ITEM	== item.type;
-        bool	TG	= dynamic_data::TRAVERSE_GROUP_END	== item.type;
-        bool	VA	= dynamic_data::VALUE_ARRAY			== item.item.type();
-        bool	VO	= dynamic_data::VALUE_OBJECT			== item.item.type();
+struct	DynamicData_json_serializer {
+    void	item_iterator(const DynamicData::traverse_event& item) {
+        bool	TI	= DynamicData::TRAVERSE_ITEM		== item.type;
+        bool	TA	= DynamicData::TRAVERSE_ARRAY_ITEM	== item.type;
+        bool	TO	= DynamicData::TRAVERSE_OBJECT_ITEM	== item.type;
+        bool	TG	= DynamicData::TRAVERSE_GROUP_END	== item.type;
+        bool	VA	= DynamicData::VALUE_ARRAY			== item.item.type();
+        bool	VO	= DynamicData::VALUE_OBJECT			== item.item.type();
 
         switch FLAG6(TI, TA, TO, TG, VA, VO) {
         case COND6(T,F,F,F,F,F): {
-            dynamic_value_to_json(ss_,item.item);
+            DynamicValue_to_json(ss_,item.item);
             if(item.remain_siblings > 0)ss_<<',';
         }
         break;
@@ -62,7 +62,7 @@ struct	dynamic_data_json_serializer {
         break;
 
         case COND6(F,T,F,F,F,F): {
-            dynamic_value_to_json(ss_,item.item);
+            DynamicValue_to_json(ss_,item.item);
             if(item.remain_siblings > 0)ss_<<',';
         }
         break;
@@ -77,7 +77,7 @@ struct	dynamic_data_json_serializer {
 
         case COND6(F,F,T,F,F,F): {
             ss_<<'\"'<<item.key<<'\"'<<':';
-            dynamic_value_to_json(ss_, item.item);
+            DynamicValue_to_json(ss_, item.item);
             if(item.remain_siblings > 0)ss_<<',';
         }
         break;
@@ -103,18 +103,18 @@ struct	dynamic_data_json_serializer {
         }
     }
 
-    dynamic_data_json_serializer(std::ostream& ss):ss_(ss) {}
+    DynamicData_json_serializer(std::ostream& ss):ss_(ss) {}
 private:
     std::ostream&		ss_;
 };
 
-bool dynamic_data_to_json(std::ostream& os, dynamic_data& data) {
-    dynamic_data_json_serializer	it(os);
-    data.traverse(bind(&dynamic_data_json_serializer::item_iterator, &it));
+bool DynamicData_to_json(std::ostream& os, DynamicData& data) {
+    DynamicData_json_serializer	it(os);
+    data.traverse(bind(&DynamicData_json_serializer::item_iterator, &it));
     return	os.good();
 }
 /*
-void	JSON_DeSerializeNode(json_t* node, dynamic_value& data)
+void	JSON_DeSerializeNode(json_t* node, DynamicValue& data)
 {
 	switch(node->type)
 	{
@@ -148,7 +148,7 @@ void	JSON_DeSerializeNode(json_t* node, dynamic_value& data)
 	}
 }
 
-bool	JSON_DeSerializeData(const char* pszJSON,  dynamic_data& data)
+bool	JSON_DeSerializeData(const char* pszJSON,  DynamicData& data)
 {
 	json_t*	root = NULL;
 	if(JSON_OK != json_parse_document(&root, pszJSON))

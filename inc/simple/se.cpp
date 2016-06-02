@@ -18,7 +18,7 @@ extern "C"	void * _ReturnAddress(void);
 #endif
 
 // The following function retrieves exception info
-EXCEPTION_POINTERS* se_get_exception_pointers(DWORD dwExceptionCode) {
+EXCEPTION_POINTERS* SE_GetExceptionPointers(DWORD dwExceptionCode) {
     // The following code was taken from VC++ 8.0 CRT (invarg.c: line 104)
     EXCEPTION_RECORD ExceptionRecord;
     CONTEXT ContextRecord;
@@ -71,7 +71,7 @@ EXCEPTION_POINTERS* se_get_exception_pointers(DWORD dwExceptionCode) {
     return	pExceptionPointers;
 }
 
-void se_destroy_exception_pointers(EXCEPTION_POINTERS* ppExceptionPointers) {
+void SE_DestroyExceptionPointers(EXCEPTION_POINTERS* ppExceptionPointers) {
     if(NULL == ppExceptionPointers) {
         return;
     }
@@ -149,7 +149,7 @@ bool	restore_token_privilege( HANDLE hToken, TOKEN_PRIVILEGES* ptpOld ) {
 //
 //	结构化异常基类
 //
-se_exception::se_exception(unsigned int code, _EXCEPTION_POINTERS* pep): code_(code), pep_(pep) {
+SE_Exception::SE_Exception(unsigned int code, _EXCEPTION_POINTERS* pep): code_(code), pep_(pep) {
     if(NULL == pep) {
         string_format(msg_, "Exception 0x%08x", code);
     } else {
@@ -164,10 +164,10 @@ se_exception::se_exception(unsigned int code, _EXCEPTION_POINTERS* pep): code_(c
     }
 }
 
-void	se_exception::se_module(char* pszModuleName, size_t size)const {
+void	SE_Exception::se_module(char* pszModuleName, size_t size)const {
     HMODULE hModule = NULL;
 #if _WIN32_WINNT > 0x0500 || defined(WINBASE_DECLARE_GET_MODULE_HANDLE_EX) || ISOLATION_AWARE_ENABLED
-    GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, (LPCTSTR)se_pointers()->ExceptionRecord->ExceptionAddress, &hModule);
+    GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS , (LPCTSTR)se_pointers()->ExceptionRecord->ExceptionAddress, &hModule);
 #endif
     GetModuleFileName(hModule, pszModuleName, DWORD(size));
     if(NULL != hModule) {
@@ -175,7 +175,7 @@ void	se_exception::se_module(char* pszModuleName, size_t size)const {
     }
 }
 
-void	se_exception::generate_dump()const {
+void	SE_Exception::generate_dump()const {
     char	sFile[MAX_PATH]	= {0};
     if(!on_get_dump_file_name(sFile, sizeof(sFile))) {
         return;
@@ -206,7 +206,7 @@ void	se_exception::generate_dump()const {
     CloseHandle( hFile );
 }
 
-bool	se_exception::on_get_dump_file_name(char* pszFileName, size_t size)const {
+bool	SE_Exception::on_get_dump_file_name(char* pszFileName, size_t size)const {
     char szModuleName[MAX_PATH] = {0};
     se_module(szModuleName, sizeof(szModuleName));
 
@@ -218,10 +218,10 @@ bool	se_exception::on_get_dump_file_name(char* pszFileName, size_t size)const {
 
     return	true;
 }
-DWORD	se_exception::on_get_dump_data_falgs()const {
+DWORD	SE_Exception::on_get_dump_data_falgs()const {
     return	MiniDumpWithIndirectlyReferencedMemory | MiniDumpWithProcessThreadData | MiniDumpWithDataSegs;
 }
-bool	se_exception::on_generate_dump(HANDLE hFile)const {
+bool	SE_Exception::on_generate_dump(HANDLE hFile)const {
     //
     //	Note: MiniDumpWriteDump is not THREAD-SAFE !!!
     //

@@ -1,6 +1,6 @@
 
 #define		ECFESResult					DCSResult
-#define		CheckForExportedSymbols		dll_check_symbols
+#define		CheckForExportedSymbols		DLL_CheckSymbols
 
 #define		eCFES_OK					DCS_OK
 #define		eCFES_MissingFunctions		DCS_MissingFunctions

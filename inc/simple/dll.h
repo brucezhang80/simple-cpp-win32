@@ -16,6 +16,6 @@ enum DCSResult {
 
 // Checks if the specified file is a real DLL that exports all
 // the specified functions.
-DCSResult	dll_check_symbols(const char* dll_path, const char* symbols[], int symbol_count);
+DCSResult	DLL_CheckSymbols(const char* dll_path, const char* symbols[], int symbol_count);
 
 #endif

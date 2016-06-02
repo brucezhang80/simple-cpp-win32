@@ -1,21 +1,21 @@
 #include <cassert>
 #include "dynamic.h"
 
-void dynamic_value::clear_as_array() {
-    internal_as_data().clear_as_array();
+void DynamicValue::clear_as_array() {
+    do_as_data().clear_as_array();
     value_.vt	= VALUE_ARRAY;
 }
 
-void dynamic_value::clear_as_object() {
-    internal_as_data().clear_as_object();
+void DynamicValue::clear_as_object() {
+    do_as_data().clear_as_object();
     value_.vt	= VALUE_OBJECT;
 }
 
-dynamic_data* dynamic_value::as_data()const {
+DynamicData* DynamicValue::as_data()const {
     switch(value_.vt) {
     case VALUE_ARRAY:
     case VALUE_OBJECT: {
-        return reinterpret_cast<dynamic_data*>(value_.pintVal);
+        return reinterpret_cast<DynamicData*>(value_.pintVal);
     }
     break;
     }
@@ -23,16 +23,16 @@ dynamic_data* dynamic_value::as_data()const {
     return	NULL;
 }
 
-dynamic_data& dynamic_value::internal_as_data() {
-    dynamic_data*	pArray	= NULL;
+DynamicData& DynamicValue::do_as_data() {
+    DynamicData*	pArray	= NULL;
     switch(value_.vt) {
     case VALUE_ARRAY:
     case VALUE_OBJECT: {
-        pArray	= reinterpret_cast<dynamic_data*>(value_.pintVal);
+        pArray	= reinterpret_cast<DynamicData*>(value_.pintVal);
     }
     break;
     default: {
-        pArray	= new dynamic_data();
+        pArray	= new DynamicData();
 
         value_.Clear();
         value_.vt		= VARTYPE(VALUE_OBJECT);
@@ -42,11 +42,11 @@ dynamic_data& dynamic_value::internal_as_data() {
     return	*pArray;
 }
 
-void dynamic_value::internal_clear_data() {
+void DynamicValue::do_clear_data() {
     switch(value_.vt) {
     case VALUE_ARRAY:
     case VALUE_OBJECT: {
-        delete reinterpret_cast<dynamic_data*>(value_.pintVal);
+        delete reinterpret_cast<DynamicData*>(value_.pintVal);
         value_.vt		= VT_EMPTY;
         value_.pintVal	= NULL;
     }
@@ -57,39 +57,39 @@ void dynamic_value::internal_clear_data() {
     }
 }
 
-dynamic_value dynamic_value::operator [] (const int index) {
-    dynamic_data&	data	= internal_as_data();
+DynamicValue DynamicValue::operator [] (const int index) {
+    DynamicData&	data	= do_as_data();
     value_.vt	= VALUE_ARRAY;
     return	data[index];
 }
 
-dynamic_value dynamic_value::operator [] (const std::string& key) {
-    dynamic_data&	data	= internal_as_data();
+DynamicValue DynamicValue::operator [] (const std::string& key) {
+    DynamicData&	data	= do_as_data();
     value_.vt	= VALUE_OBJECT;
     return	data[key];
 }
 
-dynamic_data::~dynamic_data() {
-    internal_clear();
+DynamicData::~DynamicData() {
+    do_clear();
 }
 
-void dynamic_data::clear_as_array() {
-    internal_clear();
+void DynamicData::clear_as_array() {
+    do_clear();
     value_.vt	= VALUE_ARRAY;
 }
 
-void dynamic_data::clear_as_object() {
-    internal_clear();
+void DynamicData::clear_as_object() {
+    do_clear();
     value_.vt	= VALUE_OBJECT;
 }
 
-void dynamic_data::internal_clear() {
+void DynamicData::do_clear() {
     switch(value_.vt) {
     case VALUE_ARRAY:
-        internal_clear_array();
+        do_clear_array();
         break;
     case VALUE_OBJECT:
-        internal_clear_object();
+        do_clear_object();
         break;
     default:
         value_.Clear();
@@ -97,7 +97,7 @@ void dynamic_data::internal_clear() {
     }
 }
 
-void dynamic_data::internal_clear_array() {
+void DynamicData::do_clear_array() {
     if(VALUE_ARRAY == value_.vt) {
         ARRAY_TYPE::iterator	it		= array_.begin();
         ARRAY_TYPE::iterator	it_end	= array_.end();
@@ -105,7 +105,7 @@ void dynamic_data::internal_clear_array() {
             switch(it->second.vt) {
             case VALUE_ARRAY:
             case VALUE_OBJECT: {
-                delete reinterpret_cast<dynamic_data*>(it->second.pintVal);
+                delete reinterpret_cast<DynamicData*>(it->second.pintVal);
                 it->second.vt		= VT_EMPTY;
                 it->second.pintVal	= NULL;
             }
@@ -120,7 +120,7 @@ void dynamic_data::internal_clear_array() {
     }
 }
 
-void dynamic_data::internal_clear_object() {
+void DynamicData::do_clear_object() {
     if(VALUE_OBJECT == value_.vt) {
         OBJECT_TYPE::iterator	it		= object_.begin();
         OBJECT_TYPE::iterator	it_end	= object_.end();
@@ -128,7 +128,7 @@ void dynamic_data::internal_clear_object() {
             switch(it->second.vt) {
             case VALUE_ARRAY:
             case VALUE_OBJECT: {
-                delete reinterpret_cast<dynamic_data*>(it->second.pintVal);
+                delete reinterpret_cast<DynamicData*>(it->second.pintVal);
                 it->second.vt		= VT_EMPTY;
                 it->second.pintVal	= NULL;
             }
@@ -143,12 +143,12 @@ void dynamic_data::internal_clear_object() {
     }
 }
 
-dynamic_value dynamic_data::operator [] (const int index) {
+DynamicValue DynamicData::operator [] (const int index) {
     switch(value_.vt) {
     case VALUE_ARRAY:
         break;
     case VALUE_OBJECT:
-        internal_clear_object();
+        do_clear_object();
         value_.vt = VARTYPE(VALUE_ARRAY);
         break;
     default:
@@ -157,13 +157,13 @@ dynamic_value dynamic_data::operator [] (const int index) {
         break;
     }
 
-    return	dynamic_value(array_[index]);
+    return	DynamicValue(array_[index]);
 }
 
-dynamic_value dynamic_data::operator [] (const std::string& key) {
+DynamicValue DynamicData::operator [] (const std::string& key) {
     switch(value_.vt) {
     case VALUE_ARRAY:
-        internal_clear_array();
+        do_clear_array();
         value_.vt = VARTYPE(VALUE_OBJECT);
         break;
     case VALUE_OBJECT:
@@ -174,10 +174,10 @@ dynamic_value dynamic_data::operator [] (const std::string& key) {
         break;
     }
 
-    return	dynamic_value(object_[key]);
+    return	DynamicValue(object_[key]);
 }
 
-bool dynamic_data::traverse(dynamic_data::item_iterator func) {
+bool DynamicData::traverse(DynamicData::item_iterator func) {
     if(!func) {
         return	false;
     }
@@ -187,7 +187,7 @@ bool dynamic_data::traverse(dynamic_data::item_iterator func) {
         ARRAY_TYPE::iterator	it		= array_.begin();
         ARRAY_TYPE::iterator	it_end	= array_.end();
         for(; it != it_end; ++it) {
-            func(it->first, NULL, dynamic_value(it->second));
+            func(it->first, NULL, DynamicValue(it->second));
         }
     }
     break;
@@ -195,7 +195,7 @@ bool dynamic_data::traverse(dynamic_data::item_iterator func) {
         OBJECT_TYPE::iterator	it		= object_.begin();
         OBJECT_TYPE::iterator	it_end	= object_.end();
         for(; it != it_end; ++it) {
-            func(-1, it->first.c_str(), dynamic_value(it->second));
+            func(-1, it->first.c_str(), DynamicValue(it->second));
         }
     }
     break;
@@ -205,39 +205,39 @@ bool dynamic_data::traverse(dynamic_data::item_iterator func) {
     return	true;
 }
 
-dynamic_data::traverse_event dynamic_data::internal_make_traverse_event(
-    TRAVERSE_EVENT_TYPE type, const dynamic_value& item, const std::string& key, int index, size_t remain_siblings) {
+DynamicData::traverse_event DynamicData::do_make_traverse_event(
+    TRAVERSE_EVENT_TYPE type, const DynamicValue& item, const std::string& key, int index, size_t remain_siblings) {
     traverse_event	event	= {type, item, key, index, remain_siblings};
     return	event;
 }
 
-void dynamic_data::traverse(traverse_iterator func) {
+void DynamicData::traverse(traverse_iterator func) {
     if(!func) {
         return;
     }
 
     variant_t	vDummy;
     const	std::string		sDummy;
-    const	dynamic_value	dDummy(vDummy);
+    const	DynamicValue	dDummy(vDummy);
 
     func(
-        internal_make_traverse_event(TRAVERSE_BEGIN,	dDummy,	sDummy,	-1, 0)
+        do_make_traverse_event(TRAVERSE_BEGIN,	dDummy,	sDummy,	-1, 0)
     );
-    internal_traverse(
-        internal_make_traverse_event(TRAVERSE_ITEM,	dDummy,	sDummy,	-1, 0)
+    do_traverse(
+        do_make_traverse_event(TRAVERSE_ITEM,	dDummy,	sDummy,	-1, 0)
         , func
     );
     func(
-        internal_make_traverse_event(TRAVERSE_END,	dDummy,	sDummy,	-1, 0)
+        do_make_traverse_event(TRAVERSE_END,	dDummy,	sDummy,	-1, 0)
     );
 }
 
-void dynamic_data::internal_traverse(const traverse_event& curr_stage, traverse_iterator func) {
+void DynamicData::do_traverse(const traverse_event& curr_stage, traverse_iterator func) {
     const	std::string		sDummy;
     switch(type()) {
     case VALUE_ARRAY: {
         func(
-            internal_make_traverse_event(curr_stage.type,	dynamic_value(value_),	curr_stage.key,	curr_stage.index, curr_stage.remain_siblings)
+            do_make_traverse_event(curr_stage.type,	DynamicValue(value_),	curr_stage.key,	curr_stage.index, curr_stage.remain_siblings)
         );
 
         ARRAY_TYPE::iterator	it		= array_.begin();
@@ -246,28 +246,28 @@ void dynamic_data::internal_traverse(const traverse_event& curr_stage, traverse_
             switch(it->second.vt) {
             case VALUE_ARRAY:
             case VALUE_OBJECT: {
-                reinterpret_cast<dynamic_data*>(it->second.pintVal)->internal_traverse(
-                    internal_make_traverse_event(TRAVERSE_ARRAY_ITEM, dynamic_value(it->second), sDummy, it->first, nSize)
+                reinterpret_cast<DynamicData*>(it->second.pintVal)->do_traverse(
+                    do_make_traverse_event(TRAVERSE_ARRAY_ITEM, DynamicValue(it->second), sDummy, it->first, nSize)
                     , func
                 );
             }
             break;
             default: {
                 func(
-                    internal_make_traverse_event(TRAVERSE_ARRAY_ITEM, dynamic_value(it->second), sDummy, it->first, nSize)
+                    do_make_traverse_event(TRAVERSE_ARRAY_ITEM, DynamicValue(it->second), sDummy, it->first, nSize)
                 );
             }
             break;
             }
         }
         func(
-            internal_make_traverse_event(TRAVERSE_GROUP_END,	dynamic_value(value_),	curr_stage.key,	curr_stage.index, curr_stage.remain_siblings)
+            do_make_traverse_event(TRAVERSE_GROUP_END,	DynamicValue(value_),	curr_stage.key,	curr_stage.index, curr_stage.remain_siblings)
         );
     }
     break;
     case VALUE_OBJECT: {
         func(
-            internal_make_traverse_event(curr_stage.type,	dynamic_value(value_),	curr_stage.key,	curr_stage.index, curr_stage.remain_siblings)
+            do_make_traverse_event(curr_stage.type,	DynamicValue(value_),	curr_stage.key,	curr_stage.index, curr_stage.remain_siblings)
         );
         OBJECT_TYPE::iterator	it		= object_.begin();
         OBJECT_TYPE::iterator	it_end	= object_.end();
@@ -275,28 +275,28 @@ void dynamic_data::internal_traverse(const traverse_event& curr_stage, traverse_
             switch(it->second.vt) {
             case VALUE_ARRAY:
             case VALUE_OBJECT: {
-                reinterpret_cast<dynamic_data*>(it->second.pintVal)->internal_traverse(
-                    internal_make_traverse_event(TRAVERSE_OBJECT_ITEM, dynamic_value(it->second), it->first, -1, nSize)
+                reinterpret_cast<DynamicData*>(it->second.pintVal)->do_traverse(
+                    do_make_traverse_event(TRAVERSE_OBJECT_ITEM, DynamicValue(it->second), it->first, -1, nSize)
                     , func
                 );
             }
             break;
             default: {
                 func(
-                    internal_make_traverse_event(TRAVERSE_OBJECT_ITEM, dynamic_value(it->second), it->first, -1, nSize)
+                    do_make_traverse_event(TRAVERSE_OBJECT_ITEM, DynamicValue(it->second), it->first, -1, nSize)
                 );
             }
             break;
             }
         }
         func(
-            internal_make_traverse_event(TRAVERSE_GROUP_END,	dynamic_value(value_),	curr_stage.key,	curr_stage.index, curr_stage.remain_siblings)
+            do_make_traverse_event(TRAVERSE_GROUP_END,	DynamicValue(value_),	curr_stage.key,	curr_stage.index, curr_stage.remain_siblings)
         );
     }
     break;
     default: {
         func(
-            internal_make_traverse_event(curr_stage.type,	dynamic_value(value_), curr_stage.key,	curr_stage.index, curr_stage.remain_siblings)
+            do_make_traverse_event(curr_stage.type,	DynamicValue(value_), curr_stage.key,	curr_stage.index, curr_stage.remain_siblings)
         );
     }
     break;
