@@ -32,6 +32,7 @@
     <ClCompile Include="..\inc\simple\se.cpp" />
     <ClCompile Include="..\inc\simple\wdf.cpp" />
     <ClCompile Include="..\inc\simple\wdf_fs.cpp" />
+    <ClCompile Include="..\inc\simple\wdf_protocol.cpp" />
     <ClCompile Include="..\inc\simple\_third_memory_module.c" />
     <ClCompile Include="..\tests\main.cpp" />
     <ClCompile Include="test_cases.cpp" />
@@ -50,6 +51,7 @@
     <ClInclude Include="..\inc\simple\se.h" />
     <ClInclude Include="..\inc\simple\wdf.h" />
     <ClInclude Include="..\inc\simple\wdf_fs.h" />
+    <ClInclude Include="..\inc\simple\wdf_protocol.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{4134EC0F-BC22-481B-9AD1-27265FC542FC}</ProjectGuid>
