@@ -1,6 +1,8 @@
 
+#include	<cassert>
+
 #include	"ie_protocol.h"
-#include <shlwapi.h>
+#include	<shlwapi.h>
 
 
 IE_CustomProtocol::IE_CustomProtocol(bool bAutoDelete, bool bZeroRefCount)

@@ -26,6 +26,7 @@
     <ClCompile Include="..\inc\simple\dynamic_x_buffer.cpp" />
     <ClCompile Include="..\inc\simple\dynamic_x_json.cpp" />
     <ClCompile Include="..\inc\simple\exec.cpp" />
+    <ClCompile Include="..\inc\simple\ie.cpp" />
     <ClCompile Include="..\inc\simple\ie_download.cpp" />
     <ClCompile Include="..\inc\simple\ie_protocol.cpp" />
     <ClCompile Include="..\inc\simple\se.cpp" />
