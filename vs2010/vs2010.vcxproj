@@ -34,6 +34,8 @@
   <ItemGroup>
     <ClInclude Include="..\..\simple-cpp\inc\simple\buffer.h" />
     <ClInclude Include="..\..\simple-cpp\inc\simple\string.h" />
+    <ClInclude Include="..\inc\simple\dispatch_impl.h" />
+    <ClInclude Include="..\inc\simple\dispatch_ptr.h" />
     <ClInclude Include="..\inc\simple\dll.h" />
     <ClInclude Include="..\inc\simple\dynamic.h" />
     <ClInclude Include="..\inc\simple\exec.h" />

@@ -82,5 +82,11 @@
     <ClInclude Include="..\..\simple-cpp\inc\simple\buffer.h">
       <Filter>simple-cpp</Filter>
     </ClInclude>
+    <ClInclude Include="..\inc\simple\dispatch_ptr.h">
+      <Filter>simple-cpp-win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\simple\dispatch_impl.h">
+      <Filter>simple-cpp-win32</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
