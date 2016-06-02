@@ -10,16 +10,16 @@
 //
 //	URLDownloadToFile
 //
-//	IEDownload_Callbacker	callbacker;
+//	IE_DownloadCallbacker	callbacker;
 //	callbacker.set_custom_header(L"App-Name", L"My Application");
 //	if(SUCCEEDED(URLDownloadToFile(NULL, "http://127.0.0.1:8080/", "a.txt", 0, &callbacker))
 //	{
 //		...
 //	}
 //
-class IEDownload_Callbacker : public IBindStatusCallback, public IHttpNegotiate {
+class IE_DownloadCallbacker : public IBindStatusCallback, public IHttpNegotiate {
 public:
-    IEDownload_Callbacker();
+    IE_DownloadCallbacker();
 
 public:
     const std::wstring&		uri();
@@ -105,13 +105,13 @@ private:
 //
 //	URLOpenStream
 //
-//	IEDownload_ContentCallbacker	callback;
+//	IE_DownloadContentCallbacker	callback;
 //	if( SUCCEEDED(URLOpenStream(NULL, "http://127.0.0.1:8080/?callback=asdf", 0, &callback))
 //	{
 //		...
 //	}
 //
-class	IEDownload_ContentCallbacker	: public IEDownload_Callbacker {
+class	IE_DownloadContentCallbacker	: public IE_DownloadCallbacker {
 public:
     std::string			content() {
         return	ss_.str();

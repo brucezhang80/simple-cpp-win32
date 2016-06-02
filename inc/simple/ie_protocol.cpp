@@ -3,7 +3,7 @@
 #include <shlwapi.h>
 
 
-CWebBrowserCustomProtocol::CWebBrowserCustomProtocol(bool bAutoDelete, bool bZeroRefCount)
+IE_CustomProtocol::IE_CustomProtocol(bool bAutoDelete, bool bZeroRefCount)
     :	DispatchImpl(bAutoDelete, bZeroRefCount)
     ,	m_bAutoDelete(bAutoDelete)
     ,	m_pOIProtSink(NULL)
@@ -11,19 +11,19 @@ CWebBrowserCustomProtocol::CWebBrowserCustomProtocol(bool bAutoDelete, bool bZer
     ,	m_nSize(0) {
 }
 
-CWebBrowserCustomProtocol*	CWebBrowserCustomProtocol::do_create_protocol() {
+IE_CustomProtocol*	IE_CustomProtocol::do_create_protocol() {
     return	this;
 }
 
-void						CWebBrowserCustomProtocol::do_destroy_protocol(CWebBrowserCustomProtocol*) {
+void						IE_CustomProtocol::do_destroy_protocol(IE_CustomProtocol*) {
     // Nothing.
 }
 
-bool						CWebBrowserCustomProtocol::do_object_load(const char* szUrl) {
+bool						IE_CustomProtocol::do_object_load(const char* szUrl) {
     return	false;
 }
 
-std::wstring				CWebBrowserCustomProtocol::do_object_MIME_type(const char* szUrl) {
+std::wstring				IE_CustomProtocol::do_object_MIME_type(const char* szUrl) {
     static	const char*		s_mime_ext[]	=	{
         ".htm",
         ".html",
@@ -91,16 +91,16 @@ std::wstring				CWebBrowserCustomProtocol::do_object_MIME_type(const char* szUrl
     return	L"";
 }
 
-size_t						CWebBrowserCustomProtocol::do_object_data_size(const char* szUrl) {
+size_t						IE_CustomProtocol::do_object_data_size(const char* szUrl) {
     return	0;
 }
 
-size_t						CWebBrowserCustomProtocol::do_object_data_read(void *pv, size_t size, size_t offset) {
+size_t						IE_CustomProtocol::do_object_data_read(void *pv, size_t size, size_t offset) {
     return	0;
 }
 
 // IUnknown 实现
-HRESULT STDMETHODCALLTYPE CWebBrowserCustomProtocol::QueryInterface(
+HRESULT STDMETHODCALLTYPE IE_CustomProtocol::QueryInterface(
     /* [in] */ REFIID riid,
     /* [iid_is][out] */ void ** ppvObject) {
     if(riid == IID_IInternetProtocol) {
@@ -124,17 +124,17 @@ HRESULT STDMETHODCALLTYPE CWebBrowserCustomProtocol::QueryInterface(
     return	DispatchImpl::QueryInterface(riid, ppvObject);
 }
 
-ULONG STDMETHODCALLTYPE CWebBrowserCustomProtocol::AddRef( void) {
+ULONG STDMETHODCALLTYPE IE_CustomProtocol::AddRef( void) {
     return	DispatchImpl::AddRef();
 }
 
-ULONG STDMETHODCALLTYPE CWebBrowserCustomProtocol::Release( void) {
+ULONG STDMETHODCALLTYPE IE_CustomProtocol::Release( void) {
     return	DispatchImpl::Release();
 }
 
 
 //  IClassFactory 实现
-/* [local] */ HRESULT STDMETHODCALLTYPE CWebBrowserCustomProtocol::CreateInstance(
+/* [local] */ HRESULT STDMETHODCALLTYPE IE_CustomProtocol::CreateInstance(
     /* [unique][in] */ IUnknown *pUnkOuter,
     /* [in] */ REFIID riid,
     /* [iid_is][out] */ void **ppvObject) {
@@ -146,7 +146,7 @@ ULONG STDMETHODCALLTYPE CWebBrowserCustomProtocol::Release( void) {
         return	CLASS_E_NOAGGREGATION;
     }
 
-    CWebBrowserCustomProtocol*	pObj	= do_create_protocol();
+    IE_CustomProtocol*	pObj	= do_create_protocol();
     HRESULT	hr	= pObj->QueryInterface(riid, ppvObject);
     if(FAILED(hr)) {
         do_destroy_protocol(pObj);
@@ -154,13 +154,13 @@ ULONG STDMETHODCALLTYPE CWebBrowserCustomProtocol::Release( void) {
     return	hr;
 }
 
-/* [local] */ HRESULT STDMETHODCALLTYPE CWebBrowserCustomProtocol::LockServer(
+/* [local] */ HRESULT STDMETHODCALLTYPE IE_CustomProtocol::LockServer(
     /* [in] */ BOOL fLock) {
     return	S_OK;
 }
 
 //  IInternetProtocolRoot 实现
-HRESULT STDMETHODCALLTYPE CWebBrowserCustomProtocol::Start(
+HRESULT STDMETHODCALLTYPE IE_CustomProtocol::Start(
     /* [in] */ LPCWSTR szUrl,
     /* [in] */ IInternetProtocolSink *pOIProtSink,
     /* [in] */ IInternetBindInfo *pOIBindInfo,
@@ -200,32 +200,32 @@ HRESULT STDMETHODCALLTYPE CWebBrowserCustomProtocol::Start(
     return	S_OK;
 }
 
-HRESULT STDMETHODCALLTYPE CWebBrowserCustomProtocol::Continue(
+HRESULT STDMETHODCALLTYPE IE_CustomProtocol::Continue(
     /* [in] */ PROTOCOLDATA *pProtocolData) {
     return	S_OK;
 }
 
-HRESULT STDMETHODCALLTYPE CWebBrowserCustomProtocol::Abort(
+HRESULT STDMETHODCALLTYPE IE_CustomProtocol::Abort(
     /* [in] */ HRESULT hrReason,
     /* [in] */ DWORD dwOptions) {
     return	S_OK;
 }
 
-HRESULT STDMETHODCALLTYPE CWebBrowserCustomProtocol::Terminate(
+HRESULT STDMETHODCALLTYPE IE_CustomProtocol::Terminate(
     /* [in] */ DWORD dwOptions) {
     return	S_OK;
 }
 
-HRESULT STDMETHODCALLTYPE CWebBrowserCustomProtocol::Suspend( void) {
+HRESULT STDMETHODCALLTYPE IE_CustomProtocol::Suspend( void) {
     return	E_NOTIMPL;
 }
 
-HRESULT STDMETHODCALLTYPE CWebBrowserCustomProtocol::Resume( void) {
+HRESULT STDMETHODCALLTYPE IE_CustomProtocol::Resume( void) {
     return	E_NOTIMPL;
 }
 
 //  IInternetProtocol 实现
-HRESULT STDMETHODCALLTYPE CWebBrowserCustomProtocol::Read(
+HRESULT STDMETHODCALLTYPE IE_CustomProtocol::Read(
     /* [length_is][size_is][out][in] */ void *pv,
     /* [in] */ ULONG cb,
     /* [out] */ ULONG *pcbRead) {
@@ -247,24 +247,24 @@ HRESULT STDMETHODCALLTYPE CWebBrowserCustomProtocol::Read(
     return	m_nPos >= m_nSize ? S_FALSE : S_OK;
 }
 
-HRESULT STDMETHODCALLTYPE CWebBrowserCustomProtocol::Seek(
+HRESULT STDMETHODCALLTYPE IE_CustomProtocol::Seek(
     /* [in] */ LARGE_INTEGER dlibMove,
     /* [in] */ DWORD dwOrigin,
     /* [out] */ ULARGE_INTEGER *plibNewPosition) {
     return E_NOTIMPL;
 }
 
-HRESULT STDMETHODCALLTYPE CWebBrowserCustomProtocol::LockRequest(
+HRESULT STDMETHODCALLTYPE IE_CustomProtocol::LockRequest(
     /* [in] */ DWORD dwOptions) {
     return S_OK;
 }
 
-HRESULT STDMETHODCALLTYPE CWebBrowserCustomProtocol::UnlockRequest( void) {
+HRESULT STDMETHODCALLTYPE IE_CustomProtocol::UnlockRequest( void) {
     return S_OK;
 }
 
 //  IInternetProtocolInfo 实现
-HRESULT STDMETHODCALLTYPE CWebBrowserCustomProtocol::ParseUrl(
+HRESULT STDMETHODCALLTYPE IE_CustomProtocol::ParseUrl(
     /* [in] */ LPCWSTR pwzUrl,
     /* [in] */ PARSEACTION ParseAction,
     /* [in] */ DWORD dwParseFlags,
@@ -275,7 +275,7 @@ HRESULT STDMETHODCALLTYPE CWebBrowserCustomProtocol::ParseUrl(
     return INET_E_DEFAULT_ACTION;
 }
 
-HRESULT STDMETHODCALLTYPE CWebBrowserCustomProtocol::CombineUrl(
+HRESULT STDMETHODCALLTYPE IE_CustomProtocol::CombineUrl(
     /* [in] */ LPCWSTR pwzBaseUrl,
     /* [in] */ LPCWSTR pwzRelativeUrl,
     /* [in] */ DWORD dwCombineFlags,
@@ -286,7 +286,7 @@ HRESULT STDMETHODCALLTYPE CWebBrowserCustomProtocol::CombineUrl(
     return INET_E_DEFAULT_ACTION;
 }
 
-HRESULT STDMETHODCALLTYPE CWebBrowserCustomProtocol::CompareUrl(
+HRESULT STDMETHODCALLTYPE IE_CustomProtocol::CompareUrl(
     /* [in] */ LPCWSTR pwzUrl1,
     /* [in] */ LPCWSTR pwzUrl2,
     /* [in] */ DWORD dwCompareFlags) {
@@ -302,7 +302,7 @@ HRESULT STDMETHODCALLTYPE CWebBrowserCustomProtocol::CompareUrl(
     return hr;
 }
 
-HRESULT STDMETHODCALLTYPE CWebBrowserCustomProtocol::QueryInfo(
+HRESULT STDMETHODCALLTYPE IE_CustomProtocol::QueryInfo(
     /* [in] */ LPCWSTR pwzUrl,
     /* [in] */ QUERYOPTION OueryOption,
     /* [in] */ DWORD dwQueryFlags,

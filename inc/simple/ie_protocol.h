@@ -7,20 +7,47 @@
 
 #include	"dispatch_impl.h"
 
+//
+//IInternetSession*	m_pInternetSession;
+//
+//
+//// 注册协议
+//if(FAILED(CoInternetGetSession(0, &m_pInternetSession, 0)))
+//{
+//	return	-1;
+//}
+//
+//if(FAILED(m_pInternetSession->RegisterNameSpace(
+//	m_pAppProtocol, CLSID_NULL, gs_sProtocolName, 0, NULL, 0))
+//	)
+//{
+//	// 协议注册失败的处理;
+//	return	-1;
+//}
+//
+//
+//// 注销协议
+//if(m_pInternetSession!=NULL)
+//{
+//	m_pInternetSession->UnregisterNameSpace(m_pAppProtocol, gs_sProtocolName);
+//	m_pInternetSession->Release();
+//	m_pInternetSession	= NULL;
+//}
+//
 
 //
-//	WebBrowser自定义协议支持
+//	IE WebBrowser自定义协议支持
 //
-class	CWebBrowserCustomProtocol : public DispatchImpl
+class	IE_CustomProtocol : public DispatchImpl
     ,	public IClassFactory
     ,	public IInternetProtocol
     ,	public IInternetProtocolInfo {
 public:
-    CWebBrowserCustomProtocol(bool bAutoDelete = false, bool bZeroRefCount = false);
+    IE_CustomProtocol(bool bAutoDelete = false, bool bZeroRefCount = false);
 
 protected:
-    virtual	CWebBrowserCustomProtocol*	do_create_protocol();
-    virtual	void						do_destroy_protocol(CWebBrowserCustomProtocol*);
+    virtual	IE_CustomProtocol*			do_create_protocol();
+    virtual	void						do_destroy_protocol(IE_CustomProtocol*);
     virtual	bool						do_object_load(const char* szUrl);
     virtual	std::wstring				do_object_MIME_type(const char* szUrl);
     virtual	size_t						do_object_data_size(const char* szUrl);
@@ -115,7 +142,7 @@ private:
     bool	m_bAutoDelete;
 
 public:
-    DISPATCH_ITEMS_BEGIN(CWebBrowserCustomProtocol)
+    DISPATCH_ITEMS_BEGIN(IE_CustomProtocol)
     DISPATCH_ITEMS_END();
 };
 

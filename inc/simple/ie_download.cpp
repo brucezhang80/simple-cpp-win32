@@ -2,7 +2,7 @@
 #include	"ie_download.h"
 #include	<wininet.h>
 
-IEDownload_Callbacker::IEDownload_Callbacker()
+IE_DownloadCallbacker::IE_DownloadCallbacker()
     : binding_(NULL)
     , binding_priority_(THREAD_PRIORITY_NORMAL)
     , binding_flags_(BINDF_ASYNCHRONOUS | BINDF_ASYNCSTORAGE |	BINDF_GETNEWESTVERSION | BINDF_RESYNCHRONIZE | BINDF_NOWRITECACHE)
@@ -12,65 +12,65 @@ IEDownload_Callbacker::IEDownload_Callbacker()
     , result_(S_OK) {
 }
 
-HRESULT	IEDownload_Callbacker::result() {
+HRESULT	IE_DownloadCallbacker::result() {
     return	result_;
 }
 
-const std::wstring&	IEDownload_Callbacker::uri() {
+const std::wstring&	IE_DownloadCallbacker::uri() {
     return	resource_url_;
 }
 
-IBinding*	IEDownload_Callbacker::get_IBinding() {
+IBinding*	IE_DownloadCallbacker::get_IBinding() {
     return	binding_;
 }
 
-long	IEDownload_Callbacker::binding_priority() {
+long	IE_DownloadCallbacker::binding_priority() {
     return	binding_priority_;
 }
 
-void	IEDownload_Callbacker::set_binding_priority(long priority) {
+void	IE_DownloadCallbacker::set_binding_priority(long priority) {
     binding_priority_	= priority;
 }
 
-DWORD	IEDownload_Callbacker::binding_flags() {
+DWORD	IE_DownloadCallbacker::binding_flags() {
     return	binding_flags_;
 }
 
-void	IEDownload_Callbacker::set_binding_flags(DWORD flags) {
+void	IE_DownloadCallbacker::set_binding_flags(DWORD flags) {
     binding_flags_	= flags;
 }
 
-int		IEDownload_Callbacker::binding_verb() {
+int		IE_DownloadCallbacker::binding_verb() {
     return	binding_verb_;
 }
 
-void	IEDownload_Callbacker::set_binding_verb(int verb) {
+void	IE_DownloadCallbacker::set_binding_verb(int verb) {
     binding_verb_	= verb;
 }
 
-void	IEDownload_Callbacker::set_binding_post_data(const char* data, size_t size) {
+void	IE_DownloadCallbacker::set_binding_post_data(const char* data, size_t size) {
     binding_verb_	= BINDVERB_POST;
     binding_post_data_		= data;
     binding_post_data_size_	= size;
 }
 
 
-void	IEDownload_Callbacker::set_custom_header(const std::wstring& key, const std::wstring& value) {
+void	IE_DownloadCallbacker::set_custom_header(const std::wstring& key, const std::wstring& value) {
     if(!key.empty() && !value.empty()) {
         custom_headers[key]	= value;
     }
 }
 
-std::wstring	IEDownload_Callbacker::get_custom_header(const std::wstring& key) {
+std::wstring	IE_DownloadCallbacker::get_custom_header(const std::wstring& key) {
     return	custom_headers[key];
 }
 
-void	IEDownload_Callbacker::clear_custom_headers() {
+void	IE_DownloadCallbacker::clear_custom_headers() {
     custom_headers.clear();
 }
 
 // IBindStatusCallback methods.
-HRESULT STDMETHODCALLTYPE IEDownload_Callbacker::OnStartBinding(
+HRESULT STDMETHODCALLTYPE IE_DownloadCallbacker::OnStartBinding(
     /* [in] */ DWORD dwReserved,
     /* [in] */ IBinding *pib) {
     binding_	= pib;
@@ -78,7 +78,7 @@ HRESULT STDMETHODCALLTYPE IEDownload_Callbacker::OnStartBinding(
     return S_OK;
 }
 
-HRESULT STDMETHODCALLTYPE IEDownload_Callbacker::GetPriority(
+HRESULT STDMETHODCALLTYPE IE_DownloadCallbacker::GetPriority(
     /* [out] */ LONG *pnPriority) {
     HRESULT hr = S_OK;
     if (NULL != pnPriority)
@@ -88,12 +88,12 @@ HRESULT STDMETHODCALLTYPE IEDownload_Callbacker::GetPriority(
     return hr;
 }
 
-HRESULT STDMETHODCALLTYPE IEDownload_Callbacker::OnLowResource(
+HRESULT STDMETHODCALLTYPE IE_DownloadCallbacker::OnLowResource(
     /* [in] */ DWORD reserved) {
     return S_OK;
 }
 
-HRESULT STDMETHODCALLTYPE IEDownload_Callbacker::OnProgress(
+HRESULT STDMETHODCALLTYPE IE_DownloadCallbacker::OnProgress(
     /* [in] */ ULONG ulProgress,
     /* [in] */ ULONG ulProgressMax,
     /* [in] */ ULONG ulStatusCode,
@@ -124,7 +124,7 @@ HRESULT STDMETHODCALLTYPE IEDownload_Callbacker::OnProgress(
     return S_OK;
 }
 
-HRESULT STDMETHODCALLTYPE IEDownload_Callbacker::OnStopBinding(
+HRESULT STDMETHODCALLTYPE IE_DownloadCallbacker::OnStopBinding(
     /* [in] */ HRESULT hresult,
     /* [unique][in] */ LPCWSTR szError) {
     if(NULL != binding_) {
@@ -136,7 +136,7 @@ HRESULT STDMETHODCALLTYPE IEDownload_Callbacker::OnStopBinding(
     return S_OK;
 }
 
-/* [local] */ HRESULT STDMETHODCALLTYPE IEDownload_Callbacker::GetBindInfo(
+/* [local] */ HRESULT STDMETHODCALLTYPE IE_DownloadCallbacker::GetBindInfo(
     /* [out] */ DWORD *pgrfBINDF,
     /* [unique][out][in] */ BINDINFO *pbindinfo) {
     if (pbindinfo==NULL || pbindinfo->cbSize==0 || pgrfBINDF==NULL) {
@@ -162,7 +162,7 @@ HRESULT STDMETHODCALLTYPE IEDownload_Callbacker::OnStopBinding(
     return S_OK;
 }
 
-/* [local] */ HRESULT STDMETHODCALLTYPE IEDownload_Callbacker::OnDataAvailable(
+/* [local] */ HRESULT STDMETHODCALLTYPE IE_DownloadCallbacker::OnDataAvailable(
     /* [in] */ DWORD grfBSCF,
     /* [in] */ DWORD dwSize,
     /* [in] */ FORMATETC *pformatetc,
@@ -170,14 +170,14 @@ HRESULT STDMETHODCALLTYPE IEDownload_Callbacker::OnStopBinding(
     return S_OK;
 }
 
-HRESULT STDMETHODCALLTYPE IEDownload_Callbacker::OnObjectAvailable(
+HRESULT STDMETHODCALLTYPE IE_DownloadCallbacker::OnObjectAvailable(
     /* [in] */ REFIID riid,
     /* [iid_is][in] */ IUnknown *punk) {
     return S_OK;
 }
 
 // IHttpNegotiate methods
-HRESULT STDMETHODCALLTYPE IEDownload_Callbacker::BeginningTransaction(
+HRESULT STDMETHODCALLTYPE IE_DownloadCallbacker::BeginningTransaction(
     /* [in] */ LPCWSTR szURL,
     /* [unique][in] */ LPCWSTR szHeaders,
     /* [in] */ DWORD dwReserved,
@@ -210,7 +210,7 @@ HRESULT STDMETHODCALLTYPE IEDownload_Callbacker::BeginningTransaction(
     return S_OK;
 }
 
-HRESULT STDMETHODCALLTYPE IEDownload_Callbacker::OnResponse(
+HRESULT STDMETHODCALLTYPE IE_DownloadCallbacker::OnResponse(
     /* [in] */ DWORD dwResponseCode,
     /* [unique][in] */ LPCWSTR szResponseHeaders,
     /* [unique][in] */ LPCWSTR szRequestHeaders,
@@ -220,7 +220,7 @@ HRESULT STDMETHODCALLTYPE IEDownload_Callbacker::OnResponse(
 
 // IUnknown methods.
 // @Note that IE never calls any of these methods, since the caller owns the IBindStatusCallback interface
-HRESULT STDMETHODCALLTYPE IEDownload_Callbacker::QueryInterface(
+HRESULT STDMETHODCALLTYPE IE_DownloadCallbacker::QueryInterface(
     /* [in] */ REFIID riid,
     /* [iid_is][out] */ void __RPC_FAR *__RPC_FAR *ppvObject) {
     *ppvObject = NULL;
@@ -238,15 +238,15 @@ HRESULT STDMETHODCALLTYPE IEDownload_Callbacker::QueryInterface(
     }
 }
 
-ULONG STDMETHODCALLTYPE IEDownload_Callbacker::AddRef(void) {
+ULONG STDMETHODCALLTYPE IE_DownloadCallbacker::AddRef(void) {
     return	1;
 }
 
-ULONG STDMETHODCALLTYPE IEDownload_Callbacker::Release(void) {
+ULONG STDMETHODCALLTYPE IE_DownloadCallbacker::Release(void) {
     return	1;
 }
 
-HRESULT STDMETHODCALLTYPE IEDownload_ContentCallbacker::OnDataAvailable(
+HRESULT STDMETHODCALLTYPE IE_DownloadContentCallbacker::OnDataAvailable(
     /* [in] */ DWORD grfBSCF,
     /* [in] */ DWORD dwSize,
     /* [in] */ FORMATETC *pformatetc,

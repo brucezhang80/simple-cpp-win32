@@ -43,6 +43,7 @@
     <ClInclude Include="..\inc\simple\dll.h" />
     <ClInclude Include="..\inc\simple\dynamic.h" />
     <ClInclude Include="..\inc\simple\exec.h" />
+    <ClInclude Include="..\inc\simple\ie.h" />
     <ClInclude Include="..\inc\simple\ie_download.h" />
     <ClInclude Include="..\inc\simple\ie_protocol.h" />
     <ClInclude Include="..\inc\simple\se.h" />
