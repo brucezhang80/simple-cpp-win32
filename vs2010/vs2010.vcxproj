@@ -32,6 +32,7 @@
     <ClCompile Include="..\inc\simple\ie_protocol.cpp" />
     <ClCompile Include="..\inc\simple\msg_thread.cpp" />
     <ClCompile Include="..\inc\simple\namedpipe.cpp" />
+    <ClCompile Include="..\inc\simple\patcher.cpp" />
     <ClCompile Include="..\inc\simple\res.cpp" />
     <ClCompile Include="..\inc\simple\se.cpp" />
     <ClCompile Include="..\inc\simple\wdf.cpp" />
@@ -56,6 +57,7 @@
     <ClInclude Include="..\inc\simple\msg_handler.h" />
     <ClInclude Include="..\inc\simple\msg_thread.h" />
     <ClInclude Include="..\inc\simple\namedpipe.h" />
+    <ClInclude Include="..\inc\simple\patcher.h" />
     <ClInclude Include="..\inc\simple\res.h" />
     <ClInclude Include="..\inc\simple\se.h" />
     <ClInclude Include="..\inc\simple\wdf.h" />
