@@ -31,8 +31,8 @@ protected:
 };
 
 #define MSG_HANDLER_BEGIN() 			virtual	HANDLER	do_find_msg_handler(UINT msg){\
-											switch(msg){\
-#define MSG_HANDLER(nMsg, memberFn) 		case (nMsg):	return	memberFn;break;
+											switch(msg){
+#define MSG_HANDLER(nMsg, memberFn) 		case (nMsg):	return	Msg_Handler::HANDLER(memberFn);break;
 #define MSG_HANDLER_END()					default:		return	__super::do_find_msg_handler(msg);\
 											}\
 										}
