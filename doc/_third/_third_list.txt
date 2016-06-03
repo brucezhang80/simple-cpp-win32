@@ -2,6 +2,7 @@
 CheckForDllExportedSymbols	http://www.codeproject.com/Tips/133747/Checking-for-exported-symbols-functions-in-a-DLL-w
 CDispatchPtr			https://github.com/mmorearty/DispatchPtr
 ExecApp				http://www.codeproject.com/Articles/26784/ExecApp-ExecRegisteredApp-and-LookupRegisteredApp
+MemLeakDetect			http://www.codeproject.com/Articles/8448/Memory-Leak-Detection
 MemoryModule			https://github.com/fancycode/MemoryModule
 MsgThread			http://www.codeproject.com/Articles/25747/Message-Thread-Using-IoCompletionPort
 ProcessRunner[modified]		http://www.netcult.ch/elmue

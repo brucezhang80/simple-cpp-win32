@@ -152,4 +152,9 @@
       <Filter>simple-cpp-win32</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\inc\simple\detect_mem_leak.inc">
+      <Filter>simple-cpp-win32</Filter>
+    </None>
+  </ItemGroup>
 </Project>

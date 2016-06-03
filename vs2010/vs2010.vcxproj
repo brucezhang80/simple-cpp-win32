@@ -62,6 +62,9 @@
     <ClInclude Include="..\inc\simple\wdf_fs.h" />
     <ClInclude Include="..\inc\simple\wdf_protocol.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\inc\simple\detect_mem_leak.inc" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{4134EC0F-BC22-481B-9AD1-27265FC542FC}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
