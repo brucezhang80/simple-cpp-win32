@@ -157,6 +157,9 @@
     <ClInclude Include="..\inc\simple\patcher.h">
       <Filter>simple-cpp-win32</Filter>
     </ClInclude>
+    <ClInclude Include="..\inc\simple\anti.h">
+      <Filter>simple-cpp-win32</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\inc\simple\detect_mem_leak.inc">

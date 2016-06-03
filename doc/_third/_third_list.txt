@@ -1,4 +1,6 @@
 
+AntiDebug			http://www.codeproject.com/Articles/1090943/Anti-Debug-Protection-Techniques-Implementation-an
+AntiRE				http://www.codeproject.com/Articles/30815/An-Anti-Reverse-Engineering-Guide
 CheckForDllExportedSymbols	http://www.codeproject.com/Tips/133747/Checking-for-exported-symbols-functions-in-a-DLL-w
 CDispatchPtr			https://github.com/mmorearty/DispatchPtr
 CPatch				http://www.codeproject.com/Articles/34237/A-C-Style-of-Intercepting-Functions
