@@ -9,11 +9,11 @@ public:
     typedef			void (Msg_Handler::*HANDLER)(WPARAM, LPARAM);
 
 public:
-	// 是否可以处理
+    // 是否可以处理
     bool			has_handler(UINT msg) {
         return (0 != this->do_find_msg_handler(msg));
     }
-	// 处理消息
+    // 处理消息
     bool			handle_msg(UINT msg, WPARAM wParam,LPARAM lParam) {
         HANDLER	handler	= this->do_find_msg_handler(msg);
         if(NULL == handler) {

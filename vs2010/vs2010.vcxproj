@@ -23,12 +23,13 @@
     <ClCompile Include="..\..\simple-cpp\inc\simple\_third_url_parser.c" />
     <ClCompile Include="..\inc\simple\dll.cpp" />
     <ClCompile Include="..\inc\simple\dynamic.cpp" />
-    <ClCompile Include="..\inc\simple\dynamic_x_buffer.cpp" />
-    <ClCompile Include="..\inc\simple\dynamic_x_json.cpp" />
+    <ClCompile Include="..\inc\simple\dynamic_buffer.cpp" />
+    <ClCompile Include="..\inc\simple\dynamic_json.cpp" />
     <ClCompile Include="..\inc\simple\exec.cpp" />
     <ClCompile Include="..\inc\simple\ie.cpp" />
     <ClCompile Include="..\inc\simple\ie_download.cpp" />
     <ClCompile Include="..\inc\simple\ie_protocol.cpp" />
+    <ClCompile Include="..\inc\simple\msg_thread.cpp" />
     <ClCompile Include="..\inc\simple\se.cpp" />
     <ClCompile Include="..\inc\simple\wdf.cpp" />
     <ClCompile Include="..\inc\simple\wdf_fs.cpp" />
@@ -48,6 +49,8 @@
     <ClInclude Include="..\inc\simple\ie.h" />
     <ClInclude Include="..\inc\simple\ie_download.h" />
     <ClInclude Include="..\inc\simple\ie_protocol.h" />
+    <ClInclude Include="..\inc\simple\msg_handler.h" />
+    <ClInclude Include="..\inc\simple\msg_thread.h" />
     <ClInclude Include="..\inc\simple\se.h" />
     <ClInclude Include="..\inc\simple\wdf.h" />
     <ClInclude Include="..\inc\simple\wdf_fs.h" />
