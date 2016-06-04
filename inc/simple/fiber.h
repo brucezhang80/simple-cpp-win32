@@ -34,6 +34,7 @@ public:
     size_t			get_scripts_sum();
     void			clear_scripts();
 
+    bool			start();
     bool			update(double dt, bool wait = false);
 
 protected:

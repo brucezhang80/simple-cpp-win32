@@ -87,7 +87,7 @@ static	void	UpdateFiles_DeleteBackupFiles(const FS_UpdateFileList& files) {
 }
 
 bool	FS_UpdateFiles(const FS_UpdateFileList& files) {
-    LOG_LOG("开始执行文件更新操作");
+    LOG_LOG("开始执行文件更新操作 ");
 
     FS_UpdateFileList::const_iterator	it, it_end;
 
@@ -95,7 +95,7 @@ bool	FS_UpdateFiles(const FS_UpdateFileList& files) {
     LOG_LOG("正在检查已下载的更新文件包...");
     for( it = files.begin(), it_end = files.end(); it != it_end; ++it ) {
         if( !PathFileExists(it->source_file.c_str()) ) {
-            LOG_LOG("错误： 临时文件["+it->source_file+"]不存在");
+            LOG_LOG("错误：临时文件["+it->source_file+"]不存在 ");
             return false;
         }
     }

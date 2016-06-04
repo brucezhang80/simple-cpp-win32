@@ -259,6 +259,10 @@ void Fiber_Executor::clear_scripts() {
     send_msg(Impl::OPERATION_CLEAR_ALL, 0, 0);
 }
 
+bool Fiber_Executor::start() {
+    return  Msg_Thread::start(impl_);
+}
+
 bool Fiber_Executor::update(double dt, bool wait) {
     impl_->timestamp_	+= dt;
     bool ret = (0 != send_msg(Impl::OPERATION_UPDATE_LOGIC, 0, 0));
