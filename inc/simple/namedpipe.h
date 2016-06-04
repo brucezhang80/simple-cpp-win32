@@ -1,10 +1,10 @@
-#ifndef NAMEDPIPE_H_66BC65DB_AFF6_43C8_8654_D1A2801635E2
+ï»¿#ifndef NAMEDPIPE_H_66BC65DB_AFF6_43C8_8654_D1A2801635E2
 #define NAMEDPIPE_H_66BC65DB_AFF6_43C8_8654_D1A2801635E2
 
 #include	<cassert>
 
 //
-//	ÃüÃû¹ÜµÀ¹«¹²²Ù×÷
+//	å‘½åç®¡é“å…¬å…±æ“ä½œ
 //
 class	NamedPipe {
 public:
@@ -38,7 +38,7 @@ protected:
 };
 
 //
-//	ÃüÃû¹ÜµÀ·şÎñ¶Ë
+//	å‘½åç®¡é“æœåŠ¡ç«¯
 //
 class	NamedPipe_Server : public NamedPipe {
 public:
@@ -61,7 +61,7 @@ protected:
 };
 
 //
-//	ÃüÃû¹ÜµÀ¿Í»§¶Ë
+//	å‘½åç®¡é“å®¢æˆ·ç«¯
 //
 class	NamedPipe_Client : public NamedPipe {
 public:

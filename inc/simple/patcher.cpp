@@ -1,4 +1,4 @@
-
+﻿
 #include	"patcher.h"
 
 #if	!defined(HEAP_CREATE_ENABLE_EXECUTE)

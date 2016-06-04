@@ -1,19 +1,19 @@
-#ifndef MSG_HANDLER_H_66BC65DB_AFF6_43C8_8654_D1A2801635E2
+ï»¿#ifndef MSG_HANDLER_H_66BC65DB_AFF6_43C8_8654_D1A2801635E2
 #define MSG_HANDLER_H_66BC65DB_AFF6_43C8_8654_D1A2801635E2
 
 //
-//	Windows ÏûÏ¢·Ö·¢´¦Àí
+//	Windows æ¶ˆæ¯åˆ†å‘å¤„ç†
 //
 class Msg_Handler {
 public:
     typedef			void (Msg_Handler::*HANDLER)(WPARAM, LPARAM);
 
 public:
-    // ÊÇ·ñ¿ÉÒÔ´¦Àí
+    // æ˜¯å¦å¯ä»¥å¤„ç†
     bool			has_handler(UINT msg) {
         return (0 != this->do_find_msg_handler(msg));
     }
-    // ´¦ÀíÏûÏ¢
+    // å¤„ç†æ¶ˆæ¯
     bool			handle_msg(UINT msg, WPARAM wParam,LPARAM lParam) {
         HANDLER	handler	= this->do_find_msg_handler(msg);
         if(NULL == handler) {

@@ -1,4 +1,4 @@
-
+ï»¿
 #include	<deque>
 
 #include	<Windows.h>
@@ -8,7 +8,7 @@
 #include	"msg_handler.h"
 
 //
-//	Fiber_ContextÊµÏÖ
+//	Fiber_Contextå®žçŽ°
 //
 class FiberContextImpl : public Fiber_Context {
 public:
@@ -211,7 +211,7 @@ Fiber_Executor::~Fiber_Executor(void) {
 
 unsigned long Fiber_Executor::add_script(FiberScript script, FiberScriptEndCallbacker callbacker, LPVOID param, bool wait, DWORD stack_size) {
     while(++impl_->id_seed_ == INVALID_FIBER_SCRIPT_ID) {
-        // TODO: ... IDÖØ¸´
+        // TODO: ... IDé‡å¤
     }
 
     int	script_id		= impl_->id_seed_;

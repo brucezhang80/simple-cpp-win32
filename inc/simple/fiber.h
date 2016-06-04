@@ -1,11 +1,11 @@
-#ifndef FIBER_H_66BC65DB_AFF6_43C8_8654_D1A2801635E2
+ï»¿#ifndef FIBER_H_66BC65DB_AFF6_43C8_8654_D1A2801635E2
 #define FIBER_H_66BC65DB_AFF6_43C8_8654_D1A2801635E2
 
 #include "simple/delegate.h"
 #include "msg_thread.h"
 
 //
-//	ÏË³ÌÉÏÏÂÎÄ
+//	çº¤ç¨‹ä¸Šä¸‹æ–‡
 //
 struct	Fiber_Context {
     virtual	void		wait(float dt)	= 0;
@@ -14,7 +14,7 @@ struct	Fiber_Context {
 };
 
 //
-//	ÏË³ÌÖ´ÐÐÆ÷
+//	çº¤ç¨‹æ‰§è¡Œå™¨
 //
 class Fiber_Executor : public Msg_Thread {
 public:

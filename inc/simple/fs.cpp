@@ -1,4 +1,4 @@
-#include <cassert>
+ï»¿#include <cassert>
 #include <windows.h>
 #include <shlwapi.h>
 
@@ -47,26 +47,26 @@ bool FS_ForceCreateDir(const char* pszFullPathFileName ) {
 }
 
 static	void	UpdateFiles_RollbackBackupFiles(const FS_UpdateFileList& files) {
-    LOG_LOG("ÕıÔÚ Rollback ÎÄ¼ş¸üĞÂ²Ù×÷");
+    LOG_LOG("æ­£åœ¨ Rollback æ–‡ä»¶æ›´æ–°æ“ä½œ");
 
     FS_UpdateFileList::const_iterator	it, it_end;
 
-    // È¥µôÎÄ¼şºó×ºÃû
+    // å»æ‰æ–‡ä»¶åç¼€å
     for( it = files.begin(), it_end = files.end(); it != it_end; ++it ) {
-        // Ô­Ê¼ÎÄ¼ş²»´æÔÚÇÒÄ¿±êÎÄ¼ş´æÔÚ£¬ËµÃ÷ÒÑ¾­½øĞĞÁË¸üĞÂ²Ù×÷£¬»Ö¸´Ô´ÎÄ¼ş¡£
+        // åŸå§‹æ–‡ä»¶ä¸å­˜åœ¨ä¸”ç›®æ ‡æ–‡ä»¶å­˜åœ¨ï¼Œè¯´æ˜å·²ç»è¿›è¡Œäº†æ›´æ–°æ“ä½œï¼Œæ¢å¤æºæ–‡ä»¶ã€‚
         if( PathFileExists(it->target_file.c_str()) && !PathFileExists(it->source_file.c_str()) ) {
-            LOG_LOG("ÕıÔÚ Rollback ÎÄ¼ş["+it->source_file+"]");
+            LOG_LOG("æ­£åœ¨ Rollback æ–‡ä»¶["+it->source_file+"]");
 
             int ret = rename( it->target_file.c_str(), it->source_file.c_str() );
-            assert( 0 == ret );// ¼´±ãÕâ¸öÊ±ºòÊ§°Ü£¬Ò²Ó¦¸Ã¼ÌĞøÑ­»·¡£
+            assert( 0 == ret );// å³ä¾¿è¿™ä¸ªæ—¶å€™å¤±è´¥ï¼Œä¹Ÿåº”è¯¥ç»§ç»­å¾ªç¯ã€‚
         }
-        // ±¸·İÎÄ¼ş´æÔÚÇÒÄ¿±êÎÄ¼ş²»´æÔÚ£¬ĞèÒª»Ö¸´Ä¿±êÎÄ¼ş¡£
+        // å¤‡ä»½æ–‡ä»¶å­˜åœ¨ä¸”ç›®æ ‡æ–‡ä»¶ä¸å­˜åœ¨ï¼Œéœ€è¦æ¢å¤ç›®æ ‡æ–‡ä»¶ã€‚
         const std::string backup_file = it->target_file + GS_UPDATE_BACKUP_POSTFIX;
         if( PathFileExists(backup_file.c_str()) && !PathFileExists(it->target_file.c_str()) ) {
-            LOG_LOG("ÕıÔÚ Rollback ÎÄ¼ş["+it->target_file+"]");
+            LOG_LOG("æ­£åœ¨ Rollback æ–‡ä»¶["+it->target_file+"]");
 
             int ret = rename( backup_file.c_str(), it->target_file.c_str() );
-            assert( 0 == ret );// ¼´±ãÕâ¸öÊ±ºòÊ§°Ü£¬Ò²Ó¦¸Ã¼ÌĞøÑ­»·¡£
+            assert( 0 == ret );// å³ä¾¿è¿™ä¸ªæ—¶å€™å¤±è´¥ï¼Œä¹Ÿåº”è¯¥ç»§ç»­å¾ªç¯ã€‚
         }
     }
 }
@@ -74,37 +74,37 @@ static	void	UpdateFiles_RollbackBackupFiles(const FS_UpdateFileList& files) {
 static	void	UpdateFiles_DeleteBackupFiles(const FS_UpdateFileList& files) {
     FS_UpdateFileList::const_iterator	it, it_end;
 
-    // È¥µôÎÄ¼şºó×ºÃû
+    // å»æ‰æ–‡ä»¶åç¼€å
     for( it = files.begin(), it_end = files.end(); it != it_end; ++it ) {
         const std::string backup_file = it->target_file + GS_UPDATE_BACKUP_POSTFIX;
         if( PathFileExists(backup_file.c_str()) ) {
-            LOG_LOG("ÕıÔÚÉ¾³ıÁÙÊ±ÎÄ¼ş["+backup_file+"]");
+            LOG_LOG("æ­£åœ¨åˆ é™¤ä¸´æ—¶æ–‡ä»¶["+backup_file+"]");
 
             int ret = remove(backup_file.c_str());
-            assert( 0 == ret );// ¼´±ãÕâ¸öÊ±ºòÊ§°Ü£¬Ò²Ó¦¸Ã¼ÌĞøÑ­»·¡£
+            assert( 0 == ret );// å³ä¾¿è¿™ä¸ªæ—¶å€™å¤±è´¥ï¼Œä¹Ÿåº”è¯¥ç»§ç»­å¾ªç¯ã€‚
         }
     }
 }
 
 bool	FS_UpdateFiles(const FS_UpdateFileList& files) {
-    LOG_LOG("¿ªÊ¼Ö´ĞĞÎÄ¼ş¸üĞÂ²Ù×÷");
+    LOG_LOG("å¼€å§‹æ‰§è¡Œæ–‡ä»¶æ›´æ–°æ“ä½œ");
 
     FS_UpdateFileList::const_iterator	it, it_end;
 
-    // ¼ì²éÔ­Ê¼ÎÄ¼şÕıÈ·ĞÔ
-    LOG_LOG("ÕıÔÚ¼ì²éÒÑÏÂÔØµÄ¸üĞÂÎÄ¼ş°ü...");
+    // æ£€æŸ¥åŸå§‹æ–‡ä»¶æ­£ç¡®æ€§
+    LOG_LOG("æ­£åœ¨æ£€æŸ¥å·²ä¸‹è½½çš„æ›´æ–°æ–‡ä»¶åŒ…...");
     for( it = files.begin(), it_end = files.end(); it != it_end; ++it ) {
         if( !PathFileExists(it->source_file.c_str()) ) {
-            LOG_LOG("´íÎó£º ÁÙÊ±ÎÄ¼ş["+it->source_file+"]²»´æÔÚ");
+            LOG_LOG("é”™è¯¯ï¼š ä¸´æ—¶æ–‡ä»¶["+it->source_file+"]ä¸å­˜åœ¨");
             return false;
         }
     }
 
-    // ±¸·İ´ı¸üĞÂµÄÎÄ¼ş£¨¸ü¸ÄÎÄ¼şÃû×Ö£©
-    LOG_LOG("ÕıÔÚ±¸·İÒª±»¸üĞÂµÄÎÄ¼ş...");
+    // å¤‡ä»½å¾…æ›´æ–°çš„æ–‡ä»¶ï¼ˆæ›´æ”¹æ–‡ä»¶åå­—ï¼‰
+    LOG_LOG("æ­£åœ¨å¤‡ä»½è¦è¢«æ›´æ–°çš„æ–‡ä»¶...");
     for( it = files.begin(), it_end = files.end(); it != it_end; ++it ) {
         if( PathFileExists(it->target_file.c_str()) ) {
-            // ±¸·İÄ¿±êÎÄ¼ş
+            // å¤‡ä»½ç›®æ ‡æ–‡ä»¶
             std::string backup_file = it->target_file + GS_UPDATE_BACKUP_POSTFIX;
             if( ::PathFileExists(backup_file.c_str()) ) {
                 ::remove(backup_file.c_str());
@@ -116,23 +116,23 @@ bool	FS_UpdateFiles(const FS_UpdateFileList& files) {
         }
     }
 
-    // Ö´ĞĞÎÄ¼ş¸üĞÂ²Ù×÷
-    LOG_LOG("ÕıÔÚÖ´ĞĞÎÄ¼ş¸üĞÂ...");
+    // æ‰§è¡Œæ–‡ä»¶æ›´æ–°æ“ä½œ
+    LOG_LOG("æ­£åœ¨æ‰§è¡Œæ–‡ä»¶æ›´æ–°...");
     for( it = files.begin(), it_end = files.end(); it != it_end; ++it ) {
-        LOG_LOG("ÕıÔÚ¸üĞÂÎÄ¼ş["+it->target_file+"]");
-        // Ê×ÏÈ¸´ÖÆÎÄ¼şµ½Ä¿±êÂ·¾¶
+        LOG_LOG("æ­£åœ¨æ›´æ–°æ–‡ä»¶["+it->target_file+"]");
+        // é¦–å…ˆå¤åˆ¶æ–‡ä»¶åˆ°ç›®æ ‡è·¯å¾„
         FS_ForceCreateDir(it->target_file.c_str());
         if( 0 == ::MoveFile(it->source_file.c_str(), it->target_file.c_str()) ) {
-            LOG_LOG("´íÎó£ºÎÄ¼ş["+it->target_file+"]¸üĞÂÊ§°Ü");
+            LOG_LOG("é”™è¯¯ï¼šæ–‡ä»¶["+it->target_file+"]æ›´æ–°å¤±è´¥");
             UpdateFiles_RollbackBackupFiles(files);
             return false;
         }
     }
 
-    // É¾³ı±¸·İµÄÎÄ¼ş
-    LOG_LOG("ÕıÔÚÉ¾³ı±¸·İµÄÎÄ¼ş...");
+    // åˆ é™¤å¤‡ä»½çš„æ–‡ä»¶
+    LOG_LOG("æ­£åœ¨åˆ é™¤å¤‡ä»½çš„æ–‡ä»¶...");
     UpdateFiles_DeleteBackupFiles(files);
 
-    LOG_LOG("ÎÄ¼ş¸üĞÂ³É¹¦Íê³É");
+    LOG_LOG("æ–‡ä»¶æ›´æ–°æˆåŠŸå®Œæˆ");
     return true;
 }

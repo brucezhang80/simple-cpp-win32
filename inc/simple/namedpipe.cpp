@@ -1,4 +1,4 @@
-#include	<Windows.h>
+﻿#include	<Windows.h>
 #include	"namedpipe.h"
 
 void	NamedPipe::do_close() {

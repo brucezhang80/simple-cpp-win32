@@ -1,4 +1,4 @@
-#include <string>
+ï»¿#include <string>
 #include <vector>
 
 #include <windows.h>
@@ -54,39 +54,39 @@ bool Res_ReplaceICO(const char* lpExeName, const char* sResID, const char* lpIco
     BOOL ret(FALSE);
     WORD i(0);
 
-    //´ò¿ªÍ¼±êÎÄ¼ş
+    //æ‰“å¼€å›¾æ ‡æ–‡ä»¶
     hIconFile = CreateFile(lpIconFile, GENERIC_READ, NULL, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
     if (hIconFile == INVALID_HANDLE_VALUE) {
         return	false;
     }
-    //¶ÁÈ¡ÎÄ¼şÍ·²¿ĞÅÏ¢
+    //è¯»å–æ–‡ä»¶å¤´éƒ¨ä¿¡æ¯
     ret=ReadFile(hIconFile, &header, sizeof(HEADER), &dwReserved, NULL);
     if (!ret) {
         CloseHandle(hIconFile);
         return	false;
     }
-    //½¨Á¢Ã¿Ò»¸öÍ¼±êµÄÄ¿Â¼ĞÅÏ¢´æ·ÅÇøÓò
+    //å»ºç«‹æ¯ä¸€ä¸ªå›¾æ ‡çš„ç›®å½•ä¿¡æ¯å­˜æ”¾åŒºåŸŸ
     pIconDirEntry = (LPICONDIRENTRY)new BYTE[header.idCount*sizeof(ICONDIRENTRY)];
     if (pIconDirEntry==NULL) {
         CloseHandle(hIconFile);
         return	false;
     }
-    //´ÓIconÎÄ¼şÖĞ¶ÁÈ¡Ã¿Ò»¸öÍ¼±êµÄÄ¿Â¼ĞÅÏ¢
+    //ä»Iconæ–‡ä»¶ä¸­è¯»å–æ¯ä¸€ä¸ªå›¾æ ‡çš„ç›®å½•ä¿¡æ¯
     ret = ReadFile(hIconFile, pIconDirEntry, header.idCount*sizeof(ICONDIRENTRY), &dwReserved, NULL);
     if (!ret) {
         delete[] pIconDirEntry;
         CloseHandle(hIconFile);
         return	false;
     }
-    //½¨Á¢EXEÎÄ¼şÖĞRT_GROUP_ICONËùĞèµÄÊı¾İ½á¹¹´æ·ÅÇøÓò
+    //å»ºç«‹EXEæ–‡ä»¶ä¸­RT_GROUP_ICONæ‰€éœ€çš„æ•°æ®ç»“æ„å­˜æ”¾åŒºåŸŸ
     nGSize=sizeof(GRPICONDIR)+header.idCount*sizeof(ICONDIRENTRY);
     pGrpIconDir=(LPGRPICONDIR)new BYTE[nGSize];
     ZeroMemory(pGrpIconDir, nSize);
-    //Ìî³äĞÅÏ¢£¬ÕâÀïÏàµ±ÓÚÒ»¸ö×ª»»µÄ¹ı³Ì
+    //å¡«å……ä¿¡æ¯ï¼Œè¿™é‡Œç›¸å½“äºä¸€ä¸ªè½¬æ¢çš„è¿‡ç¨‹
     pGrpIconDir->idReserved=header.idReserved;
     pGrpIconDir->idType=header.idType;
     pGrpIconDir->idCount=header.idCount;
-    //¸´ÖÆĞÅÏ¢²¢ÉèÖÃÃ¿Ò»¸öÍ¼±ê¶ÔÓ¦µÄID¡£IDÎªÎ»ÖÃË÷ÒıºÅ
+    //å¤åˆ¶ä¿¡æ¯å¹¶è®¾ç½®æ¯ä¸€ä¸ªå›¾æ ‡å¯¹åº”çš„IDã€‚IDä¸ºä½ç½®ç´¢å¼•å·
     for(i=0; i<header.idCount; i++) {
         pGrpIconDir->idEntries[i].bWidth=pIconDirEntry[i].bWidth;
         pGrpIconDir->idEntries[i].bHeight=pIconDirEntry[i].bHeight;
@@ -95,12 +95,12 @@ bool Res_ReplaceICO(const char* lpExeName, const char* sResID, const char* lpIco
         pGrpIconDir->idEntries[i].wPlanes=pIconDirEntry[i].wPlanes;
         pGrpIconDir->idEntries[i].wBitCount=pIconDirEntry[i].wBitCount;
         pGrpIconDir->idEntries[i].dwBytesInRes=pIconDirEntry[i].dwBytesInRes;
-        pGrpIconDir->idEntries[i].nID=i+1; //id == 0 ÊÇ RT_GROUP_ICON µÄid£¬ÎÒÕâÀïÌæ»»µÄÊ±ºò³öÏÖÎÊÌâ£¬ËùÒÔ¾Í + 1 ÁË¡£
+        pGrpIconDir->idEntries[i].nID=i+1; //id == 0 æ˜¯ RT_GROUP_ICON çš„idï¼Œæˆ‘è¿™é‡Œæ›¿æ¢çš„æ—¶å€™å‡ºç°é—®é¢˜ï¼Œæ‰€ä»¥å°± + 1 äº†ã€‚
     }
-    //¿ªÊ¼¸üĞÂEXEÖĞµÄÍ¼±ê×ÊÔ´£¬ID¶¨Îª×îĞ¡£°£¬Èç¹ûÔ­À´´æÔÚ£°IDµÄÍ¼±êĞÅÏ¢Ôò±»Ìæ»»ÎªĞÂµÄ¡£
+    //å¼€å§‹æ›´æ–°EXEä¸­çš„å›¾æ ‡èµ„æºï¼ŒIDå®šä¸ºæœ€å°ï¼ï¼Œå¦‚æœåŸæ¥å­˜åœ¨ï¼IDçš„å›¾æ ‡ä¿¡æ¯åˆ™è¢«æ›¿æ¢ä¸ºæ–°çš„ã€‚
     hUpdate = BeginUpdateResource(lpExeName, false);
     if (hUpdate!=NULL) {
-        //Ê×ÏÈ¸üĞÂRT_GROUP_ICONĞÅÏ¢
+        //é¦–å…ˆæ›´æ–°RT_GROUP_ICONä¿¡æ¯
         ret = UpdateResource(hUpdate, RT_GROUP_ICON, sResID, MAKELANGID(LANG_NEUTRAL, SUBLANG_NEUTRAL), (LPVOID)pGrpIconDir, nGSize);
         if (!ret) {
             delete[] pIconDirEntry;
@@ -109,16 +109,16 @@ bool Res_ReplaceICO(const char* lpExeName, const char* sResID, const char* lpIco
             return	false;
         }
 
-        //½Ó×ÅµÄÊÇÃ¿Ò»¸öIconµÄĞÅÏ¢´æ·Å
+        //æ¥ç€çš„æ˜¯æ¯ä¸€ä¸ªIconçš„ä¿¡æ¯å­˜æ”¾
         for(i=0; i<header.idCount; i++) {
-            //IconµÄ×Ö½ÚÊı
+            //Iconçš„å­—èŠ‚æ•°
             nSize = pIconDirEntry[i].dwBytesInRes;
-            //Æ«ÒÆÎÄ¼şµÄÖ¸Õëµ½µ±Ç°Í¼±êµÄ¿ªÊ¼´¦
+            //åç§»æ–‡ä»¶çš„æŒ‡é’ˆåˆ°å½“å‰å›¾æ ‡çš„å¼€å§‹å¤„
             dwRet=SetFilePointer(hIconFile, pIconDirEntry[i].dwImageOffset, NULL, FILE_BEGIN);
             if (dwRet==INVALID_SET_FILE_POINTER) {
                 break;
             }
-            //×¼±¸pIconBytesÀ´´æ·ÅÎÄ¼şÀïµÄByteĞÅÏ¢ÓÃÓÚ¸üĞÂµ½EXEÖĞ¡£
+            //å‡†å¤‡pIconBytesæ¥å­˜æ”¾æ–‡ä»¶é‡Œçš„Byteä¿¡æ¯ç”¨äºæ›´æ–°åˆ°EXEä¸­ã€‚
 
             delete[] pIconBytes;
 
@@ -128,13 +128,13 @@ bool Res_ReplaceICO(const char* lpExeName, const char* sResID, const char* lpIco
             if(!ret) {
                 break;
             }
-            //¸üĞÂÃ¿Ò»¸öID¶ÔÓ¦µÄRT_ICONĞÅÏ¢
+            //æ›´æ–°æ¯ä¸€ä¸ªIDå¯¹åº”çš„RT_ICONä¿¡æ¯
             ret = UpdateResource(hUpdate, RT_ICON, MAKEINTRESOURCE(pGrpIconDir->idEntries[i].nID), MAKELANGID(LANG_NEUTRAL, SUBLANG_NEUTRAL), (LPVOID)pIconBytes, nSize);
             if(!ret) {
                 break;
             }
         }
-        //½áÊøEXE×ÊÔ´µÄ¸üĞÂ²Ù×÷
+        //ç»“æŸEXEèµ„æºçš„æ›´æ–°æ“ä½œ
         if (pIconBytes!=NULL) {
             delete[] pIconBytes;
         }
@@ -144,7 +144,7 @@ bool Res_ReplaceICO(const char* lpExeName, const char* sResID, const char* lpIco
         }
     }
 
-    //ÇåÀí×ÊÔ´²¢¹Ø±ÕIconÎÄ¼ş£¬µ½´Ë¸üĞÂ²Ù×÷½áÊø£¡
+    //æ¸…ç†èµ„æºå¹¶å…³é—­Iconæ–‡ä»¶ï¼Œåˆ°æ­¤æ›´æ–°æ“ä½œç»“æŸï¼
     delete	[]pGrpIconDir;
     delete	[]pIconDirEntry;
     CloseHandle(hIconFile);
@@ -160,32 +160,32 @@ bool Res_ReplaceString(const char* pszApp, int nResID, const char* pszText) {
     HINSTANCE hInst = ::LoadLibrary(pszApp);
     if(hInst == NULL) return false;
 
-    std::vector<WCHAR> vStrTable;  // ×ÊÔ´Êı¾İ
+    std::vector<WCHAR> vStrTable;  // èµ„æºæ•°æ®
 
-    int idStr = (SourceId-1)/16 + 1;  // ×Ö·û´®±íID
+    int idStr = (SourceId-1)/16 + 1;  // å­—ç¬¦ä¸²è¡¨ID
     HRSRC hSrc = ::FindResource(hInst, MAKEINTRESOURCE(idStr), RT_STRING);
     if(hSrc != NULL) {
         LPVOID lpData = ::LockResource( ::LoadResource(hInst,hSrc) );
         DWORD dwSize = ::SizeofResource(hInst,hSrc);
         vStrTable.resize((dwSize+1)/sizeof(WCHAR));
-        ::CopyMemory(&vStrTable[0],lpData,dwSize); // È¡µÃÊı¾İ
+        ::CopyMemory(&vStrTable[0],lpData,dwSize); // å–å¾—æ•°æ®
     }
     ::FreeLibrary(hInst);
 
     HANDLE hUpdateRes=BeginUpdateResource(pszApp,false);
-    if(hUpdateRes == NULL) return false;  // ²»ÄÜ¸üĞÂ,ÀË·Ñ±íÇé
+    if(hUpdateRes == NULL) return false;  // ä¸èƒ½æ›´æ–°,æµªè´¹è¡¨æƒ…
 
-    int nIndex = (SourceId-1)%16; // ×Ö·û´®±íÖĞµÄÎ»ÖÃ
+    int nIndex = (SourceId-1)%16; // å­—ç¬¦ä¸²è¡¨ä¸­çš„ä½ç½®
 
     UINT nPos = 1;
-    for (int i = 0; i < nIndex; i++) {       // ÒÆµ½ÎÒÃÇÒªĞŞ¸ÄµÄÎ»ÖÃ
+    for (int i = 0; i < nIndex; i++) {       // ç§»åˆ°æˆ‘ä»¬è¦ä¿®æ”¹çš„ä½ç½®
         if(vStrTable.size() <= nPos) vStrTable.resize(nPos+1);
         nPos += vStrTable[nPos];
         nPos++;
     }
 
     if(vStrTable.size()<=nPos) vStrTable.resize(nPos+1);
-    // É¾³ıÔ­ÏÈÊı¾İ
+    // åˆ é™¤åŸå…ˆæ•°æ®
     if(vStrTable[nPos]>0) {
         std::vector<WCHAR>::iterator itrStart=vStrTable.begin();
         std::advance(itrStart,nPos+1);
@@ -197,19 +197,19 @@ bool Res_ReplaceString(const char* pszApp, int nResID, const char* pszText) {
     int nLen = ::lstrlenW(wText.c_str());
     vStrTable[nPos] = (WCHAR)nLen;
 
-    // ²åÈëÏÖÔÚµÄÊı¾İ
+    // æ’å…¥ç°åœ¨çš„æ•°æ®
     if(nLen>0) {
         std::vector<WCHAR>::iterator itrStart=vStrTable.begin();
         std::advance(itrStart,nPos+1);
         vStrTable.insert(itrStart,wText.c_str(),wText.c_str()+nLen);
     }
 
-    // ºÃÁË,¿ÉÒÔÌæ»»ÁË
+    // å¥½äº†,å¯ä»¥æ›¿æ¢äº†
 
     UpdateResource(hUpdateRes,
                    RT_STRING,
                    MAKEINTRESOURCE(idStr),
-                   MAKELANGID(LANG_NEUTRAL, SUBLANG_NEUTRAL),  // ×¢ÒâÎÒÕâÀïÓÃµÄÓïÑÔ²»Ò»Ñù:)
+                   MAKELANGID(LANG_NEUTRAL, SUBLANG_NEUTRAL),  // æ³¨æ„æˆ‘è¿™é‡Œç”¨çš„è¯­è¨€ä¸ä¸€æ ·:)
                    &vStrTable[0],
                    vStrTable.size()*sizeof(WCHAR));
 
