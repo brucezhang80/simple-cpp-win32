@@ -1,4 +1,4 @@
-#ifndef IE_H_66BC65DB_AFF6_43C8_8654_D1A2801635E2
+ï»¿#ifndef IE_H_66BC65DB_AFF6_43C8_8654_D1A2801635E2
 #define IE_H_66BC65DB_AFF6_43C8_8654_D1A2801635E2
 
 #include	<string>
@@ -9,7 +9,7 @@
 #include	"dispatch_ptr.h"
 
 //
-//	IDocHostUIHandler2ÊµÏÖÀà£¬Ê¹ÓÃÊ±¿ÉÔÚWebBrowserµÄOnDocumentCompletedÊÂ¼şÀïµ÷ÓÃAttachTo·½·¨
+//	IDocHostUIHandler2å®ç°ç±»ï¼Œä½¿ç”¨æ—¶å¯åœ¨WebBrowserçš„OnDocumentCompletedäº‹ä»¶é‡Œè°ƒç”¨AttachToæ–¹æ³•
 //
 class CDocHostUIHandlerImpl : public IDocHostUIHandler2 {
 public:
@@ -31,7 +31,7 @@ public:
     virtual ULONG STDMETHODCALLTYPE			AddRef();
     virtual ULONG STDMETHODCALLTYPE			Release();
 
-    //·µ»ØS_OK£¬ÆÁ±ÎµôÓÒ¼ü²Ëµ¥
+    //è¿”å›S_OKï¼Œå±è”½æ‰å³é”®èœå•
     virtual HRESULT STDMETHODCALLTYPE		ShowContextMenu(
         /* [in] */ DWORD dwID,
         /* [in] */ POINT __RPC_FAR *ppt,
@@ -90,7 +90,7 @@ private:
 };
 
 //
-//	µÈ´ıÒ³ÃæÔØÈë³É¹¦
+//	ç­‰å¾…é¡µé¢è½½å…¥æˆåŠŸ
 //
 template<typename WebBrowser>
 void	IE_WaitForLoaded(WebBrowser& browser) {
@@ -104,7 +104,7 @@ void	IE_WaitForLoaded(WebBrowser& browser) {
 }
 
 //
-//	ÔØÈëÒ³Ãæ
+//	è½½å…¥é¡µé¢
 //
 template<typename WebBrowser>
 void		IE_LoadPage(WebBrowser& browser, const char* pszPage, bool bWait = false) {
@@ -119,7 +119,7 @@ void		IE_LoadPage(WebBrowser& browser, const char* pszPage, bool bWait = false) 
 }
 
 //
-//	ÔØÈë¿ÕÒ³Ãæ
+//	è½½å…¥ç©ºé¡µé¢
 //
 template<typename WebBrowser>
 void		IE_LoadBlankPage(WebBrowser& browser, bool bWait = false) {
@@ -127,22 +127,22 @@ void		IE_LoadBlankPage(WebBrowser& browser, bool bWait = false) {
 }
 
 //
-//	»ñÈ¡È±Ê¡µÄ alert ¶Ô»°¿ò±êÌâ
+//	è·å–ç¼ºçœçš„ alert å¯¹è¯æ¡†æ ‡é¢˜
 //
 bool		IE_GetMessageBoxCaptioin(std::string& str);
 
 //
-//	´Ó×Ö·û´®¼ÓÔØÍøÒ³ÄÚÈİ
+//	ä»å­—ç¬¦ä¸²åŠ è½½ç½‘é¡µå†…å®¹
 //
 bool		IE_LoadFromString(LPDISPATCH pDocument, const char* pszText);
 
 //
-//	»ñÈ¡½Å±¾º¯Êı¶ÔÏó
+//	è·å–è„šæœ¬å‡½æ•°å¯¹è±¡
 //
 DispatchPtr	IE_GetScriptFunctions(LPDISPATCH pDocument);
 
 //
-//	ÉèÖÃµ±Ç°½ø³ÌÓÃµ½µÄ´úÀí·şÎñÆ÷
+//	è®¾ç½®å½“å‰è¿›ç¨‹ç”¨åˆ°çš„ä»£ç†æœåŠ¡å™¨
 //	http=http://xxxx.xxx.xxx:nnnn
 //
 bool		IE_SetProxy(const char* pszProxy, const char* pszAppName = "App");

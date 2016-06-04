@@ -1,4 +1,4 @@
-
+ï»¿
 #include	<cassert>
 
 #include	"ie_protocol.h"
@@ -101,7 +101,7 @@ size_t						IE_CustomProtocol::do_object_data_read(void *pv, size_t size, size_t
     return	0;
 }
 
-// IUnknown ÊµÏÖ
+// IUnknown å®ç°
 HRESULT STDMETHODCALLTYPE IE_CustomProtocol::QueryInterface(
     /* [in] */ REFIID riid,
     /* [iid_is][out] */ void ** ppvObject) {
@@ -135,15 +135,15 @@ ULONG STDMETHODCALLTYPE IE_CustomProtocol::Release( void) {
 }
 
 
-//  IClassFactory ÊµÏÖ
+//  IClassFactory å®ç°
 /* [local] */ HRESULT STDMETHODCALLTYPE IE_CustomProtocol::CreateInstance(
     /* [unique][in] */ IUnknown *pUnkOuter,
     /* [in] */ REFIID riid,
     /* [iid_is][out] */ void **ppvObject) {
-    // Í¨¹ıÇå³ıµ÷ÓÃÕßµÄ¾ä±ú³ÊÏÖÒ»¸ö´íÎó
+    // é€šè¿‡æ¸…é™¤è°ƒç”¨è€…çš„å¥æŸ„å‘ˆç°ä¸€ä¸ªé”™è¯¯
     *ppvObject = 0;
 
-    // ²»Ö§³Ö¾ÛºÏ
+    // ä¸æ”¯æŒèšåˆ
     if (NULL != pUnkOuter) {
         return	CLASS_E_NOAGGREGATION;
     }
@@ -161,7 +161,7 @@ ULONG STDMETHODCALLTYPE IE_CustomProtocol::Release( void) {
     return	S_OK;
 }
 
-//  IInternetProtocolRoot ÊµÏÖ
+//  IInternetProtocolRoot å®ç°
 HRESULT STDMETHODCALLTYPE IE_CustomProtocol::Start(
     /* [in] */ LPCWSTR szUrl,
     /* [in] */ IInternetProtocolSink *pOIProtSink,
@@ -226,7 +226,7 @@ HRESULT STDMETHODCALLTYPE IE_CustomProtocol::Resume( void) {
     return	E_NOTIMPL;
 }
 
-//  IInternetProtocol ÊµÏÖ
+//  IInternetProtocol å®ç°
 HRESULT STDMETHODCALLTYPE IE_CustomProtocol::Read(
     /* [length_is][size_is][out][in] */ void *pv,
     /* [in] */ ULONG cb,
@@ -265,7 +265,7 @@ HRESULT STDMETHODCALLTYPE IE_CustomProtocol::UnlockRequest( void) {
     return S_OK;
 }
 
-//  IInternetProtocolInfo ÊµÏÖ
+//  IInternetProtocolInfo å®ç°
 HRESULT STDMETHODCALLTYPE IE_CustomProtocol::ParseUrl(
     /* [in] */ LPCWSTR pwzUrl,
     /* [in] */ PARSEACTION ParseAction,

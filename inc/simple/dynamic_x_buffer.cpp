@@ -1,4 +1,4 @@
-#include <cassert>
+﻿#include <cassert>
 #include "dynamic.h"
 #include "simple/buffer.h"
 

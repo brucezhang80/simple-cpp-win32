@@ -1,4 +1,4 @@
-
+ï»¿
 #include	"ie.h"
 
 //#include	<mshtmdid.h>
@@ -117,7 +117,7 @@ ULONG STDMETHODCALLTYPE CDocHostUIHandlerImpl::Release() {
     }
     return refcount_;
 }
-//·µ»ØS_OK£¬ÆÁ±ÎµôÓÒ¼ü²Ëµ¥
+//è¿”å›S_OKï¼Œå±è”½æ‰å³é”®èœå•
 HRESULT STDMETHODCALLTYPE CDocHostUIHandlerImpl::ShowContextMenu(
     /* [in] */ DWORD dwID,
     /* [in] */ POINT __RPC_FAR *ppt,
@@ -213,29 +213,29 @@ HRESULT STDMETHODCALLTYPE CDocHostUIHandlerImpl::GetOverrideKeyPath(
 }
 
 //
-//	»ñÈ¡È±Ê¡µÄ alert ¶Ô»°¿ò±êÌâ
+//	è·å–ç¼ºçœçš„ alert å¯¹è¯æ¡†æ ‡é¢˜
 //
 bool		IE_GetMessageBoxCaptioin(std::string& str) {
     char	buffer[MAX_PATH]	= {0};
 
-    //ÔØÈëShdoclc.dll ºÍIEÏûÏ¢¿ò±êÌâ×Ö·û´®
+    //è½½å…¥Shdoclc.dll å’ŒIEæ¶ˆæ¯æ¡†æ ‡é¢˜å­—ç¬¦ä¸²
     HINSTANCE hinstSHDOCLC = LoadLibrary(TEXT("SHDOCLC.DLL"));
     if (NULL == hinstSHDOCLC) {
-        // ÔØÈëÄ£¿é´íÎó -- ¾¡¿ÉÄÜ°²È«µØÊ§°Ü
+        // è½½å…¥æ¨¡å—é”™è¯¯ -- å°½å¯èƒ½å®‰å…¨åœ°å¤±è´¥
         return	false;
     }
 
-    LoadStringA(hinstSHDOCLC, 2213, buffer, sizeof(buffer));	// 2213 Îª ´°¿Ú±êÌâ"Microsoft Internet Explorer"µÄ×ÊÔ´±êÊ¶
+    LoadStringA(hinstSHDOCLC, 2213, buffer, sizeof(buffer));	// 2213 ä¸º çª—å£æ ‡é¢˜"Microsoft Internet Explorer"çš„èµ„æºæ ‡è¯†
 
     str	= buffer;
 
-    //Ğ¶ÔØShdoclc.dll²¢ÇÒ·µ»Ø
+    //å¸è½½Shdoclc.dllå¹¶ä¸”è¿”å›
     FreeLibrary(hinstSHDOCLC);
     return	true;
 }
 
 //
-//	´Ó×Ö·û´®¼ÓÔØÍøÒ³ÄÚÈİ
+//	ä»å­—ç¬¦ä¸²åŠ è½½ç½‘é¡µå†…å®¹
 //
 bool IE_LoadFromString(LPDISPATCH pDocument, const char* pszText) {
     if(NULL == pszText || NULL == pDocument) {
@@ -276,7 +276,7 @@ bool IE_LoadFromString(LPDISPATCH pDocument, const char* pszText) {
 }
 
 //
-//	»ñÈ¡½Å±¾º¯Êı¶ÔÏó
+//	è·å–è„šæœ¬å‡½æ•°å¯¹è±¡
 //
 DispatchPtr	IE_GetScriptFunctions(LPDISPATCH pDocument) {
     do {
@@ -297,7 +297,7 @@ DispatchPtr	IE_GetScriptFunctions(LPDISPATCH pDocument) {
 };
 
 //
-//	ÉèÖÃµ±Ç°½ø³ÌÓÃµ½µÄ´úÀí·şÎñÆ÷
+//	è®¾ç½®å½“å‰è¿›ç¨‹ç”¨åˆ°çš„ä»£ç†æœåŠ¡å™¨
 //	http=http://xxxx.xxx.xxx:nnnn
 //
 bool	IE_SetProxy(const char* pszProxy, const char* pszAppName) {

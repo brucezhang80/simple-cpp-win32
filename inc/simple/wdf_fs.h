@@ -1,11 +1,11 @@
-#ifndef WDF_FS_H_66BC65DB_AFF6_43C8_8654_D1A2801635E2
+﻿#ifndef WDF_FS_H_66BC65DB_AFF6_43C8_8654_D1A2801635E2
 #define WDF_FS_H_66BC65DB_AFF6_43C8_8654_D1A2801635E2
 
 #include	<map>
 #include	<string>
 
 //
-//	WDF�ļ���ɵ��ļ�ϵͳ
+//	WDF文件组成的文件系统
 //
 class	WDF_File;
 class	WDF_DataFile;

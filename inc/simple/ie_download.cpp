@@ -1,4 +1,4 @@
-
+ï»¿
 #include	"ie_download.h"
 #include	<wininet.h>
 
@@ -189,7 +189,7 @@ HRESULT STDMETHODCALLTYPE IE_DownloadCallbacker::BeginningTransaction(
 
     *pszAdditionalHeaders = NULL;
     if(!custom_headers.empty()) {
-        // ×Ô¶¨ÒåHTTPÍ·
+        // è‡ªå®šä¹‰HTTPå¤´
         std::wstringstream	ss;
         std::map<std::wstring, std::wstring>::iterator	it		= custom_headers.begin();
         std::map<std::wstring, std::wstring>::iterator	it_end	= custom_headers.end();

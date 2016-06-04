@@ -1,4 +1,4 @@
-#ifndef IE_PROTOCOL_H_66BC65DB_AFF6_43C8_8654_D1A2801635E2
+Ôªø#ifndef IE_PROTOCOL_H_66BC65DB_AFF6_43C8_8654_D1A2801635E2
 #define IE_PROTOCOL_H_66BC65DB_AFF6_43C8_8654_D1A2801635E2
 
 #include	<string>
@@ -11,7 +11,7 @@
 //IInternetSession*	m_pInternetSession;
 //
 //
-//// ◊¢≤·–≠“È
+//// Ê≥®ÂÜåÂçèËÆÆ
 //if(FAILED(CoInternetGetSession(0, &m_pInternetSession, 0)))
 //{
 //	return	-1;
@@ -21,12 +21,12 @@
 //	m_pAppProtocol, CLSID_NULL, gs_sProtocolName, 0, NULL, 0))
 //	)
 //{
-//	// –≠“È◊¢≤· ß∞‹µƒ¥¶¿Ì;
+//	// ÂçèËÆÆÊ≥®ÂÜåÂ§±Ë¥•ÁöÑÂ§ÑÁêÜ;
 //	return	-1;
 //}
 //
 //
-//// ◊¢œ˙–≠“È
+//// Ê≥®ÈîÄÂçèËÆÆ
 //if(m_pInternetSession!=NULL)
 //{
 //	m_pInternetSession->UnregisterNameSpace(m_pAppProtocol, gs_sProtocolName);
@@ -36,7 +36,7 @@
 //
 
 //
-//	IE WebBrowser◊‘∂®“Â–≠“È÷ß≥÷
+//	IE WebBrowserËá™ÂÆö‰πâÂçèËÆÆÊîØÊåÅ
 //
 class	IE_CustomProtocol : public DispatchImpl
     ,	public IClassFactory
@@ -54,7 +54,7 @@ protected:
     virtual	size_t						do_object_data_read(void *pv, size_t size, size_t offset);
 
 public:
-    // IUnknown  µœ÷
+    // IUnknown ÂÆûÁé∞
     virtual HRESULT STDMETHODCALLTYPE QueryInterface(
         /* [in] */ REFIID riid,
         /* [iid_is][out] */ void ** ppvObject);
@@ -62,7 +62,7 @@ public:
     virtual ULONG STDMETHODCALLTYPE Release( void);
 
 public:
-    //  IClassFactory  µœ÷
+    //  IClassFactory ÂÆûÁé∞
     virtual /* [local] */ HRESULT STDMETHODCALLTYPE CreateInstance(
         /* [unique][in] */ IUnknown *pUnkOuter,
         /* [in] */ REFIID riid,
@@ -71,7 +71,7 @@ public:
         /* [in] */ BOOL fLock);
 
 public:
-    //  IInternetProtocolRoot  µœ÷
+    //  IInternetProtocolRoot ÂÆûÁé∞
     virtual HRESULT STDMETHODCALLTYPE Start(
         /* [in] */ LPCWSTR szUrl,
         /* [in] */ IInternetProtocolSink *pOIProtSink,
@@ -89,7 +89,7 @@ public:
     virtual HRESULT STDMETHODCALLTYPE Resume( void);
 
 public:
-    //  IInternetProtocol  µœ÷
+    //  IInternetProtocol ÂÆûÁé∞
     virtual HRESULT STDMETHODCALLTYPE Read(
         /* [length_is][size_is][out][in] */ void *pv,
         /* [in] */ ULONG cb,
@@ -103,7 +103,7 @@ public:
     virtual HRESULT STDMETHODCALLTYPE UnlockRequest( void);
 
 public:
-    //  IInternetProtocolInfo  µœ÷
+    //  IInternetProtocolInfo ÂÆûÁé∞
     virtual HRESULT STDMETHODCALLTYPE ParseUrl(
         /* [in] */ LPCWSTR pwzUrl,
         /* [in] */ PARSEACTION ParseAction,

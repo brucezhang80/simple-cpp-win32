@@ -1,4 +1,4 @@
-#include <cassert>
+﻿#include <cassert>
 #include "dynamic.h"
 
 void DynamicValue::clear_as_array() {

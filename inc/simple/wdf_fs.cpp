@@ -1,4 +1,4 @@
-#include	<cassert>
+﻿#include	<cassert>
 #include	<memory>
 #include	<windows.h>
 #include	<shlwapi.h>

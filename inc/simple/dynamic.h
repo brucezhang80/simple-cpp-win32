@@ -1,4 +1,4 @@
-#ifndef DYNAMIC_H_66BC65DB_AFF6_43C8_8654_D1A2801635E2
+ï»¿#ifndef DYNAMIC_H_66BC65DB_AFF6_43C8_8654_D1A2801635E2
 #define DYNAMIC_H_66BC65DB_AFF6_43C8_8654_D1A2801635E2
 
 //
@@ -17,7 +17,7 @@
 class	DynamicValue;
 class	DynamicData;
 //
-//	¶¯Ì¬Êı¾İÏî£¬´ú±í½á¹¹ÖĞµÄÏîµÄÖµ
+//	åŠ¨æ€æ•°æ®é¡¹ï¼Œä»£è¡¨ç»“æ„ä¸­çš„é¡¹çš„å€¼
 //
 class	DynamicValue {
 public:
@@ -25,7 +25,7 @@ public:
 
 public:
     enum	VALUE_TYPE {
-        VALUE_EMPTY		= VT_EMPTY,			//	¿Õ£¬Ê²Ã´Ò²Ã»ÓĞ
+        VALUE_EMPTY		= VT_EMPTY,			//	ç©ºï¼Œä»€ä¹ˆä¹Ÿæ²¡æœ‰
         VALUE_BOOL		= VT_BOOL,
         VALUE_INT8		= VT_I1,
         VALUE_UINT8		= VT_UI1,
@@ -249,7 +249,7 @@ private:
 };
 
 //
-//	¶¯Ì¬Êı¾İ½á¹¹
+//	åŠ¨æ€æ•°æ®ç»“æ„
 //
 class	DynamicData	: public DynamicValue {
 public:
@@ -277,20 +277,20 @@ private:
 
 public:
     //
-    //	½á¹¹±éÀú£¬¿ÉÍ¨¹ı´Ë·½·¨Éú³É XML/JSON/LUA µÈ¸ñÊ½
+    //	ç»“æ„éå†ï¼Œå¯é€šè¿‡æ­¤æ–¹æ³•ç”Ÿæˆ XML/JSON/LUA ç­‰æ ¼å¼
     //
 
-    //	±éÀú½ÚµãÀàĞÍ
+    //	éå†èŠ‚ç‚¹ç±»å‹
     enum	TRAVERSE_EVENT_TYPE {
-        TRAVERSE_BEGIN,				//	±éÀú¿ªÊ¼
-        TRAVERSE_ITEM,				//	ÆÕÍ¨Ïî
-        TRAVERSE_ARRAY_ITEM,		//	Êı×éÏî
-        TRAVERSE_OBJECT_ITEM,		//	¶ÔÏó³ÉÔ±Ïî
-        TRAVERSE_GROUP_END,			//	¶ÔÏó»òÊı×é½áÊøÊÂ¼ş
-        TRAVERSE_END,				//	±éÀú½áÊø
+        TRAVERSE_BEGIN,				//	éå†å¼€å§‹
+        TRAVERSE_ITEM,				//	æ™®é€šé¡¹
+        TRAVERSE_ARRAY_ITEM,		//	æ•°ç»„é¡¹
+        TRAVERSE_OBJECT_ITEM,		//	å¯¹è±¡æˆå‘˜é¡¹
+        TRAVERSE_GROUP_END,			//	å¯¹è±¡æˆ–æ•°ç»„ç»“æŸäº‹ä»¶
+        TRAVERSE_END,				//	éå†ç»“æŸ
     };
 
-    //	±éÀú½ÚµãÊÂ¼ş
+    //	éå†èŠ‚ç‚¹äº‹ä»¶
     struct	TraverseEvent {
         TRAVERSE_EVENT_TYPE		type;			//	traverse event type
         const DynamicValue&		item;			//	current	item, root if TRAVERSE_BEGIN/TRAVERSE_END
@@ -299,14 +299,14 @@ public:
         size_t					remain_siblings;//	array/object remain sibling items sum.
     };
 
-    //	µİ¹é±éÀú´¦Àíº¯Êı
+    //	é€’å½’éå†å¤„ç†å‡½æ•°
     typedef	delegate<void(const TraverseEvent& item)>	TraverseIterator;
-    //	Êı×é±éÀú
+    //	æ•°ç»„éå†
     typedef	delegate<void(int nIndex, const char* sKey, DynamicValue& item)>	ItemIterator;
 
-    //	µİ¹é±éÀú·½·¨
+    //	é€’å½’éå†æ–¹æ³•
     void			traverse(TraverseIterator func);
-    // ½ö±éÀúÖ±½Ó×ÓÏî
+    // ä»…éå†ç›´æ¥å­é¡¹
     bool			traverse(ItemIterator func);
 
 protected:

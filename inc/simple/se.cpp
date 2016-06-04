@@ -1,4 +1,4 @@
-#include	<new>
+﻿#include	<new>
 #include	<Windows.h>
 #include	"se.h"
 #include	"simple/string.h"

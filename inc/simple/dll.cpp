@@ -1,4 +1,4 @@
-
+﻿
 #define		ECFESResult					DCSResult
 #define		CheckForExportedSymbols		DLL_CheckSymbols
 
