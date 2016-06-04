@@ -4,11 +4,11 @@
 class	Msg_Handler;
 class	Msg_Thread {
 public:
-    Msg_Thread();
+    Msg_Thread(Msg_Handler* pHandler);
     virtual			~Msg_Thread();
 
 public:
-    bool			start(Msg_Handler* pHandler);
+    bool			start();
     bool			stop(const bool bKillOnTimeout = false, const UINT uTimeout = INFINITE);
     bool			kill();
 
@@ -35,6 +35,10 @@ protected:
     virtual	void	do_run();
     virtual	void	do_before_run()			{}
     virtual	void	do_after_run()			{}
+
+    void			do_set_msg_handler(Msg_Handler* pHandler) {
+        m_pHandler	= pHandler;
+    }
 
 private:
     bool			do_dispatch_msg(const UINT msg, const WPARAM wParam, const LPARAM lParam);

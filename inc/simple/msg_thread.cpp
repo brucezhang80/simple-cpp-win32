@@ -43,13 +43,13 @@ private:
     LPARAM	m_lParam;
 };
 
-Msg_Thread::Msg_Thread()
+Msg_Thread::Msg_Thread(Msg_Handler* pHandler)
     :
     m_nThreadId(0),
     m_hThread(NULL),
     m_hEvent(NULL),
     m_hIOPort(NULL),
-    m_pHandler(NULL) {
+    m_pHandler(pHandler) {
 }
 
 Msg_Thread::~Msg_Thread() {
@@ -76,15 +76,14 @@ DWORD	WINAPI	Msg_Thread::thread_entry(LPVOID lpParameter) {
     return 0;
 }
 
-bool	Msg_Thread::start(Msg_Handler* pHandler) {
-    if(NULL == pHandler) {
+bool	Msg_Thread::start() {
+    if(NULL == m_pHandler) {
         return	false;
     }
     if(NULL != m_hThread) {
         return	false;
     }
 
-    m_pHandler	= pHandler;
     if (!m_hEvent) {
         m_hEvent = CreateEvent(
                        NULL,

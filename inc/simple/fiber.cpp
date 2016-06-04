@@ -199,7 +199,9 @@ struct	Fiber_Executor::Impl : Msg_Handler {
 //
 //
 Fiber_Executor::Fiber_Executor(void)
-    :	impl_(new Impl()) {
+    :	Msg_Thread(NULL)
+    ,	impl_(new Impl()) {
+    do_set_msg_handler(impl_);
 }
 
 Fiber_Executor::~Fiber_Executor(void) {
@@ -257,10 +259,6 @@ size_t Fiber_Executor::get_scripts_sum() {
 
 void Fiber_Executor::clear_scripts() {
     send_msg(Impl::OPERATION_CLEAR_ALL, 0, 0);
-}
-
-bool Fiber_Executor::start() {
-    return  Msg_Thread::start(impl_);
 }
 
 bool Fiber_Executor::update(double dt, bool wait) {
