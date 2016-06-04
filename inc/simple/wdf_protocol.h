@@ -27,8 +27,8 @@ protected:
 
 protected:
     WDF_File			m_wdfFile;
-    WDF_FileSystem*	m_pFileSystem;
-    size_t			m_nPrefixLength;
+    WDF_FileSystem*		m_pFileSystem;
+    size_t				m_nPrefixLength;
 };
 
 #endif
