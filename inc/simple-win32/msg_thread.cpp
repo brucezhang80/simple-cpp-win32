@@ -45,8 +45,6 @@ private:
 
 Msg_Thread::Msg_Thread(Msg_Handler* pHandler)
     :
-    m_nThreadId(0),
-    m_hThread(NULL),
     m_hEvent(NULL),
     m_hIOPort(NULL),
     m_pHandler(pHandler) {
@@ -62,25 +60,14 @@ Msg_Thread::~Msg_Thread() {
         CloseHandle(m_hIOPort);
         m_hIOPort = NULL;
     }
-
-    if (m_hThread) {
-        CloseHandle(m_hThread);
-        m_hThread = NULL;
-    }
 }
 
-DWORD	WINAPI	Msg_Thread::thread_entry(LPVOID lpParameter) {
-    static_cast<Msg_Thread*>(lpParameter)->do_before_run();
-    static_cast<Msg_Thread*>(lpParameter)->do_run();
-    static_cast<Msg_Thread*>(lpParameter)->do_after_run();
-    return 0;
-}
-
-bool	Msg_Thread::start() {
+bool	Msg_Thread::do_start() {
     if(NULL == m_pHandler) {
         return	false;
     }
-    if(NULL != m_hThread) {
+
+    if(!Thread::do_start()) {
         return	false;
     }
 
@@ -95,17 +82,6 @@ bool	Msg_Thread::start() {
         }
     }
 
-    m_hThread = CreateThread(
-                    NULL,
-                    0,
-                    thread_entry,
-                    this,
-                    0,
-                    &m_nThreadId);
-    if (!m_hThread) {
-        return false;
-    }
-
     DWORD nRet = WaitForSingleObject(
                      m_hEvent,
                      INFINITE);
@@ -113,7 +89,7 @@ bool	Msg_Thread::start() {
     return (WAIT_OBJECT_0 == nRet);
 }
 
-bool	Msg_Thread::stop(const bool bKillOnTimeout, const UINT uTimeout) {
+bool	Msg_Thread::do_stop(bool bKillOnTimeout, UINT uTimeout) {
     PostQueuedCompletionStatus(
         m_hIOPort,
         0,
@@ -141,16 +117,6 @@ bool	Msg_Thread::stop(const bool bKillOnTimeout, const UINT uTimeout) {
     }
 
     return bStopped;
-}
-
-bool	Msg_Thread::kill() {
-    BOOL bStopped = TerminateThread(
-                        m_hThread,
-                        0);
-    CloseHandle(m_hThread);
-    m_hThread = NULL;
-
-    return (bStopped != FALSE);
 }
 
 void	Msg_Thread::do_run() {
@@ -230,8 +196,8 @@ bool	Msg_Thread::do_post_msg(
         return false;
     }
 
-    const bool bCreateEvent = ((uTimeout > 0) && !is_in_msg_thread());
-    const bool bDispatch = ((uTimeout > 0) && is_in_msg_thread());
+    const bool bCreateEvent = ((uTimeout > 0) && !is_current_thread());
+    const bool bDispatch = ((uTimeout > 0) && is_current_thread());
 
     LParamI* lParamI = new LParamI(
         bCreateEvent,

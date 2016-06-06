@@ -224,7 +224,7 @@ unsigned long Fiber_Executor::add_script(FiberScript script, FiberScriptEndCallb
     pScript->param_		= param;
     pScript->stack_size_= stack_size;
 
-    bool	bSucceed	= wait && !is_in_msg_thread()
+    bool	bSucceed	= wait && !is_current_thread()
                           ?	(0 != send_msg(Impl::OPERATION_EXECUTE_LOGIC, 0, LPARAM(pScript)))
                           :	(0 != post_msg(Impl::OPERATION_EXECUTE_LOGIC, 0, LPARAM(pScript)))
                           ;

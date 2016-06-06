@@ -36,6 +36,7 @@
     <ClCompile Include="..\inc\simple-win32\patcher.cpp" />
     <ClCompile Include="..\inc\simple-win32\res.cpp" />
     <ClCompile Include="..\inc\simple-win32\se.cpp" />
+    <ClCompile Include="..\inc\simple-win32\thread.cpp" />
     <ClCompile Include="..\inc\simple-win32\wdf.cpp" />
     <ClCompile Include="..\inc\simple-win32\wdf_fs.cpp" />
     <ClCompile Include="..\inc\simple-win32\wdf_protocol.cpp" />
@@ -63,6 +64,7 @@
     <ClInclude Include="..\inc\simple-win32\patcher.h" />
     <ClInclude Include="..\inc\simple-win32\res.h" />
     <ClInclude Include="..\inc\simple-win32\se.h" />
+    <ClInclude Include="..\inc\simple-win32\thread.h" />
     <ClInclude Include="..\inc\simple-win32\wdf.h" />
     <ClInclude Include="..\inc\simple-win32\wdf_fs.h" />
     <ClInclude Include="..\inc\simple-win32\wdf_protocol.h" />

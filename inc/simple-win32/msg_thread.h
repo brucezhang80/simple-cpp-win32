@@ -1,27 +1,17 @@
 ﻿#ifndef MSG_THREAD_H_66BC65DB_AFF6_43C8_8654_D1A2801635E2
 #define MSG_THREAD_H_66BC65DB_AFF6_43C8_8654_D1A2801635E2
 
+#include	"thread.h"
+
 class	Msg_Handler;
-class	Msg_Thread {
+class	Msg_Thread : public Thread {
 public:
     Msg_Thread(Msg_Handler* pHandler);
     virtual			~Msg_Thread();
 
-public:
-    bool			start();
-    bool			stop(const bool bKillOnTimeout = false, const UINT uTimeout = INFINITE);
-    bool			kill();
-
-public:
-    DWORD			thread_id()		const {
-        return m_nThreadId;
-    }
-    HANDLE			thread_handle()	const {
-        return m_hThread;
-    }
-    bool			is_in_msg_thread()		const {
-        return (GetCurrentThreadId() == m_nThreadId);
-    }
+protected:
+    virtual	bool	do_start();
+    virtual	bool	do_stop(bool bKillOnTimeout, UINT uTimeout);
 
 public:
     bool 			post_msg(const UINT nMsg,const WPARAM wParam,const LPARAM lParam) {
@@ -33,8 +23,6 @@ public:
 
 protected:
     virtual	void	do_run();
-    virtual	void	do_before_run()			{}
-    virtual	void	do_after_run()			{}
 
     void			do_set_msg_handler(Msg_Handler* pHandler) {
         m_pHandler	= pHandler;
@@ -44,11 +32,7 @@ private:
     bool			do_dispatch_msg(const UINT msg, const WPARAM wParam, const LPARAM lParam);
     bool 			do_post_msg(const UINT nMsg, const WPARAM wParam, const LPARAM lParam, const UINT uTimeout);
 
-    static DWORD WINAPI		thread_entry(LPVOID lpParameter);
-
 protected:
-    DWORD		m_nThreadId;
-    HANDLE		m_hThread;
     HANDLE		m_hEvent;
     HANDLE		m_hIOPort;
     Msg_Handler*m_pHandler;

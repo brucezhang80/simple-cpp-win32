@@ -90,6 +90,9 @@
     <ClCompile Include="..\inc\simple-win32\wdf_protocol.cpp">
       <Filter>simple-cpp-win32</Filter>
     </ClCompile>
+    <ClCompile Include="..\inc\simple-win32\thread.cpp">
+      <Filter>simple-cpp-win32</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="simple-cpp-win32">
@@ -164,6 +167,9 @@
       <Filter>simple-cpp-win32</Filter>
     </ClInclude>
     <ClInclude Include="..\inc\simple-win32\wdf_protocol.h">
+      <Filter>simple-cpp-win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\simple-win32\thread.h">
       <Filter>simple-cpp-win32</Filter>
     </ClInclude>
   </ItemGroup>
