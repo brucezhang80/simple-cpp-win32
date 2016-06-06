@@ -17,12 +17,12 @@ if exist *.module	@del /f /q	*.module
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;rem	compile and run the tests.
 if "%OSTYPE%"=="cygwin"	(
-	gcc	inc/simple/*.cpp inc/simple/*.c tests/main.cpp tests/%test_files%.cpp	-o _test.exe	-D NDEBUG	-D _WIN32_WINNT=0x0501	-I inc	-I tests	-I ../simple-cpp/inc	-lstdc++
+	ECHO	[cygwin] NOT SUPPORT!
 ) else (
 	cl	/nologo		/EP		vspatch\cl-param.txt 2>&1 | findstr "@" > .\cl_param.cmd
 	CALL	.\cl_param.cmd
 	DEL	/Q	.\cl_param.cmd
-	cl	inc\simple\*.cpp inc\simple\*.c ..\simple-cpp\inc\simple\*.cpp ..\simple-cpp\inc\simple\*.c tests\main.cpp tests\%test_files%.cpp	%MSVC_CL_PARAM%	/Fe_test.exe	/DNDEBUG	/D_WIN32_WINNT=0x0501	/Iinc				/I..\simple-cpp\inc	/EHa /wd4819
+	cl	inc\simple-win32\*.cpp inc\simple-win32\*.c ..\simple-cpp\inc\simple\*.cpp ..\simple-cpp\inc\simple\*.c tests\main.cpp tests\%test_files%.cpp	%MSVC_CL_PARAM%	/Fe_test.exe	/DNDEBUG	/D_WIN32_WINNT=0x0501	/Iinc				/I..\simple-cpp\inc	/EHa /wd4819
 )
 if not	exist _test.exe			goto ERROR
 if exist *.obj		@del /f /q	*.obj

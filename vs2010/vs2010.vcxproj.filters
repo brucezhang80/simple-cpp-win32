@@ -12,15 +12,6 @@
     <ClCompile Include="..\..\simple-cpp\inc\simple\string_mime.cpp">
       <Filter>simple-cpp</Filter>
     </ClCompile>
-    <ClCompile Include="..\inc\simple\_third_memory_module.c">
-      <Filter>simple-cpp-win32</Filter>
-    </ClCompile>
-    <ClCompile Include="..\inc\simple\dll.cpp">
-      <Filter>simple-cpp-win32</Filter>
-    </ClCompile>
-    <ClCompile Include="..\inc\simple\exec.cpp">
-      <Filter>simple-cpp-win32</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\simple-cpp\inc\simple\_third_convert_utf.cpp">
       <Filter>simple-cpp</Filter>
     </ClCompile>
@@ -29,12 +20,6 @@
     </ClCompile>
     <ClCompile Include="..\..\simple-cpp\inc\simple\_third_url_parser.c">
       <Filter>simple-cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="..\inc\simple\se.cpp">
-      <Filter>simple-cpp-win32</Filter>
-    </ClCompile>
-    <ClCompile Include="..\inc\simple\dynamic.cpp">
-      <Filter>simple-cpp-win32</Filter>
     </ClCompile>
     <ClCompile Include="..\..\simple-cpp\inc\simple\buffer.cpp">
       <Filter>simple-cpp</Filter>
@@ -48,46 +33,61 @@
     <ClCompile Include="..\..\simple-cpp\inc\simple\_third_jwrite.c">
       <Filter>simple-cpp</Filter>
     </ClCompile>
-    <ClCompile Include="..\inc\simple\wdf.cpp">
+    <ClCompile Include="..\inc\simple-win32\_third_memory_module.c">
       <Filter>simple-cpp-win32</Filter>
     </ClCompile>
-    <ClCompile Include="..\inc\simple\wdf_fs.cpp">
+    <ClCompile Include="..\inc\simple-win32\dll.cpp">
       <Filter>simple-cpp-win32</Filter>
     </ClCompile>
-    <ClCompile Include="..\inc\simple\ie_download.cpp">
+    <ClCompile Include="..\inc\simple-win32\dynamic.cpp">
       <Filter>simple-cpp-win32</Filter>
     </ClCompile>
-    <ClCompile Include="..\inc\simple\ie_protocol.cpp">
+    <ClCompile Include="..\inc\simple-win32\dynamic_buffer.cpp">
       <Filter>simple-cpp-win32</Filter>
     </ClCompile>
-    <ClCompile Include="..\inc\simple\ie.cpp">
+    <ClCompile Include="..\inc\simple-win32\dynamic_json.cpp">
       <Filter>simple-cpp-win32</Filter>
     </ClCompile>
-    <ClCompile Include="..\inc\simple\wdf_protocol.cpp">
+    <ClCompile Include="..\inc\simple-win32\exec.cpp">
       <Filter>simple-cpp-win32</Filter>
     </ClCompile>
-    <ClCompile Include="..\inc\simple\dynamic_buffer.cpp">
+    <ClCompile Include="..\inc\simple-win32\fiber.cpp">
       <Filter>simple-cpp-win32</Filter>
     </ClCompile>
-    <ClCompile Include="..\inc\simple\dynamic_json.cpp">
+    <ClCompile Include="..\inc\simple-win32\fs.cpp">
       <Filter>simple-cpp-win32</Filter>
     </ClCompile>
-    <ClCompile Include="..\inc\simple\msg_thread.cpp">
+    <ClCompile Include="..\inc\simple-win32\ie.cpp">
       <Filter>simple-cpp-win32</Filter>
     </ClCompile>
-    <ClCompile Include="..\inc\simple\fiber.cpp">
+    <ClCompile Include="..\inc\simple-win32\ie_download.cpp">
       <Filter>simple-cpp-win32</Filter>
     </ClCompile>
-    <ClCompile Include="..\inc\simple\namedpipe.cpp">
+    <ClCompile Include="..\inc\simple-win32\ie_protocol.cpp">
       <Filter>simple-cpp-win32</Filter>
     </ClCompile>
-    <ClCompile Include="..\inc\simple\res.cpp">
+    <ClCompile Include="..\inc\simple-win32\msg_thread.cpp">
       <Filter>simple-cpp-win32</Filter>
     </ClCompile>
-    <ClCompile Include="..\inc\simple\patcher.cpp">
+    <ClCompile Include="..\inc\simple-win32\namedpipe.cpp">
       <Filter>simple-cpp-win32</Filter>
     </ClCompile>
-    <ClCompile Include="..\inc\simple\fs.cpp">
+    <ClCompile Include="..\inc\simple-win32\patcher.cpp">
+      <Filter>simple-cpp-win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\inc\simple-win32\res.cpp">
+      <Filter>simple-cpp-win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\inc\simple-win32\se.cpp">
+      <Filter>simple-cpp-win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\inc\simple-win32\wdf.cpp">
+      <Filter>simple-cpp-win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\inc\simple-win32\wdf_fs.cpp">
+      <Filter>simple-cpp-win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\inc\simple-win32\wdf_protocol.cpp">
       <Filter>simple-cpp-win32</Filter>
     </ClCompile>
   </ItemGroup>
@@ -103,72 +103,72 @@
     <ClInclude Include="..\..\simple-cpp\inc\simple\string.h">
       <Filter>simple-cpp</Filter>
     </ClInclude>
-    <ClInclude Include="..\inc\simple\dll.h">
-      <Filter>simple-cpp-win32</Filter>
-    </ClInclude>
-    <ClInclude Include="..\inc\simple\exec.h">
-      <Filter>simple-cpp-win32</Filter>
-    </ClInclude>
-    <ClInclude Include="..\inc\simple\se.h">
-      <Filter>simple-cpp-win32</Filter>
-    </ClInclude>
-    <ClInclude Include="..\inc\simple\dynamic.h">
-      <Filter>simple-cpp-win32</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\simple-cpp\inc\simple\buffer.h">
       <Filter>simple-cpp</Filter>
     </ClInclude>
-    <ClInclude Include="..\inc\simple\dispatch_ptr.h">
+    <ClInclude Include="..\inc\simple-win32\anti.h">
       <Filter>simple-cpp-win32</Filter>
     </ClInclude>
-    <ClInclude Include="..\inc\simple\dispatch_impl.h">
+    <ClInclude Include="..\inc\simple-win32\dispatch_impl.h">
       <Filter>simple-cpp-win32</Filter>
     </ClInclude>
-    <ClInclude Include="..\inc\simple\wdf.h">
+    <ClInclude Include="..\inc\simple-win32\dispatch_ptr.h">
       <Filter>simple-cpp-win32</Filter>
     </ClInclude>
-    <ClInclude Include="..\inc\simple\wdf_fs.h">
+    <ClInclude Include="..\inc\simple-win32\dll.h">
       <Filter>simple-cpp-win32</Filter>
     </ClInclude>
-    <ClInclude Include="..\inc\simple\ie_download.h">
+    <ClInclude Include="..\inc\simple-win32\dynamic.h">
       <Filter>simple-cpp-win32</Filter>
     </ClInclude>
-    <ClInclude Include="..\inc\simple\ie_protocol.h">
+    <ClInclude Include="..\inc\simple-win32\exec.h">
       <Filter>simple-cpp-win32</Filter>
     </ClInclude>
-    <ClInclude Include="..\inc\simple\ie.h">
+    <ClInclude Include="..\inc\simple-win32\fiber.h">
       <Filter>simple-cpp-win32</Filter>
     </ClInclude>
-    <ClInclude Include="..\inc\simple\wdf_protocol.h">
+    <ClInclude Include="..\inc\simple-win32\fs.h">
       <Filter>simple-cpp-win32</Filter>
     </ClInclude>
-    <ClInclude Include="..\inc\simple\msg_handler.h">
+    <ClInclude Include="..\inc\simple-win32\ie.h">
       <Filter>simple-cpp-win32</Filter>
     </ClInclude>
-    <ClInclude Include="..\inc\simple\msg_thread.h">
+    <ClInclude Include="..\inc\simple-win32\ie_download.h">
       <Filter>simple-cpp-win32</Filter>
     </ClInclude>
-    <ClInclude Include="..\inc\simple\fiber.h">
+    <ClInclude Include="..\inc\simple-win32\ie_protocol.h">
       <Filter>simple-cpp-win32</Filter>
     </ClInclude>
-    <ClInclude Include="..\inc\simple\namedpipe.h">
+    <ClInclude Include="..\inc\simple-win32\msg_handler.h">
       <Filter>simple-cpp-win32</Filter>
     </ClInclude>
-    <ClInclude Include="..\inc\simple\res.h">
+    <ClInclude Include="..\inc\simple-win32\msg_thread.h">
       <Filter>simple-cpp-win32</Filter>
     </ClInclude>
-    <ClInclude Include="..\inc\simple\patcher.h">
+    <ClInclude Include="..\inc\simple-win32\namedpipe.h">
       <Filter>simple-cpp-win32</Filter>
     </ClInclude>
-    <ClInclude Include="..\inc\simple\anti.h">
+    <ClInclude Include="..\inc\simple-win32\patcher.h">
       <Filter>simple-cpp-win32</Filter>
     </ClInclude>
-    <ClInclude Include="..\inc\simple\fs.h">
+    <ClInclude Include="..\inc\simple-win32\res.h">
+      <Filter>simple-cpp-win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\simple-win32\se.h">
+      <Filter>simple-cpp-win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\simple-win32\wdf.h">
+      <Filter>simple-cpp-win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\simple-win32\wdf_fs.h">
+      <Filter>simple-cpp-win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\simple-win32\wdf_protocol.h">
       <Filter>simple-cpp-win32</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\inc\simple\detect_mem_leak.inc">
+    <None Include="..\inc\simple-win32\detect_mem_leak.inc">
       <Filter>simple-cpp-win32</Filter>
     </None>
   </ItemGroup>
