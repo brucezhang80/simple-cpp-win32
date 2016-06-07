@@ -19,6 +19,9 @@ public:
     bool			kill() {
         return	this->do_kill();
     }
+    bool			is_running() {
+        return	this->m_running;
+    }
 
 public:
     DWORD			thread_id()		const {
@@ -46,8 +49,9 @@ protected:
     static DWORD WINAPI		thread_entry(LPVOID lpParameter);
 
 protected:
-    DWORD		m_thread_id;
-    HANDLE		m_thread_handle;
+    DWORD			m_thread_id;
+    HANDLE			m_thread_handle;
+    volatile bool	m_running;
 };
 
 #endif

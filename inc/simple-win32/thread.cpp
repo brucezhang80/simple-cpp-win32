@@ -9,7 +9,8 @@
 Thread::Thread()
     :
     m_thread_id(0),
-    m_thread_handle(NULL) {
+    m_thread_handle(NULL),
+    m_running(false) {
 }
 
 Thread::~Thread() {
@@ -21,11 +22,25 @@ Thread::~Thread() {
 }
 
 DWORD	WINAPI	Thread::thread_entry(LPVOID lpParameter) {
-    if(! static_cast<Thread*>(lpParameter)->do_before_run() ) {
+    class	StatusGuard {
+    public:
+        StatusGuard(volatile bool& data, bool curr, bool final):data_(data), final_(final) {
+            data_=curr;
+        }
+        ~StatusGuard() {
+            data_	= final_;
+        }
+    private:
+        volatile bool&	data_;
+        bool			final_;
+    };
+    Thread*	thread	= static_cast<Thread*>(lpParameter);
+    StatusGuard	guard(thread->m_running, true, false);
+    if(!thread->do_before_run() ) {
         return	-1;
     }
-    static_cast<Thread*>(lpParameter)->do_run();
-    static_cast<Thread*>(lpParameter)->do_after_run();
+    thread->do_run();
+    thread->do_after_run();
     return 0;
 }
 
