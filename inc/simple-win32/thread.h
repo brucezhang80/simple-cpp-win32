@@ -22,17 +22,19 @@ public:
 
 public:
     DWORD			thread_id()		const {
-        return m_nThreadId;
+        return m_thread_id;
     }
     HANDLE			thread_handle()	const {
-        return m_hThread;
+        return m_thread_handle;
     }
     bool			is_current_thread()		const {
-        return (GetCurrentThreadId() == m_nThreadId);
+        return (GetCurrentThreadId() == m_thread_id);
     }
 
 protected:
-    virtual	void	do_before_run()			{}
+    virtual	bool	do_before_run() {
+        return true;
+    }
     virtual	void	do_run()				{}
     virtual	void	do_after_run()			{}
 
@@ -44,8 +46,8 @@ protected:
     static DWORD WINAPI		thread_entry(LPVOID lpParameter);
 
 protected:
-    DWORD		m_nThreadId;
-    HANDLE		m_hThread;
+    DWORD		m_thread_id;
+    HANDLE		m_thread_handle;
 };
 
 #endif

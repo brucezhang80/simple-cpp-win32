@@ -283,8 +283,9 @@ bool Fiber_Executor::update(double dt, bool wait) {
     return ret;
 }
 
-void Fiber_Executor::do_before_run() {
+bool Fiber_Executor::do_before_run() {
     impl_->main_fiber_	= ::ConvertThreadToFiber(NULL);
+    return	(NULL != impl_->main_fiber_);
 }
 
 void Fiber_Executor::do_after_run() {

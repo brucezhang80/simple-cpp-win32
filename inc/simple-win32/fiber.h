@@ -37,7 +37,7 @@ public:
     bool			update(double dt, bool wait = false);
 
 protected:
-    virtual void	do_before_run();
+    virtual bool	do_before_run();
     virtual void	do_after_run();
 
 private:

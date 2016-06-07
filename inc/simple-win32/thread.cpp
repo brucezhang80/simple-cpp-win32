@@ -8,37 +8,40 @@
 
 Thread::Thread()
     :
-    m_nThreadId(0),
-    m_hThread(NULL) {
+    m_thread_id(0),
+    m_thread_handle(NULL) {
 }
 
 Thread::~Thread() {
-    if (m_hThread) {
-        CloseHandle(m_hThread);
-        m_hThread = NULL;
+    if (m_thread_handle) {
+        CloseHandle(m_thread_handle);
+        m_thread_handle = NULL;
+        m_thread_id	= 0;
     }
 }
 
 DWORD	WINAPI	Thread::thread_entry(LPVOID lpParameter) {
-    static_cast<Thread*>(lpParameter)->do_before_run();
+    if(! static_cast<Thread*>(lpParameter)->do_before_run() ) {
+        return	-1;
+    }
     static_cast<Thread*>(lpParameter)->do_run();
     static_cast<Thread*>(lpParameter)->do_after_run();
     return 0;
 }
 
 bool	Thread::do_start() {
-    if(NULL != m_hThread) {
+    if(NULL != m_thread_handle) {
         return	false;
     }
 
-    m_hThread = CreateThread(
-                    NULL,
-                    0,
-                    thread_entry,
-                    this,
-                    0,
-                    &m_nThreadId);
-    if (!m_hThread) {
+    m_thread_handle = CreateThread(
+                          NULL,
+                          0,
+                          thread_entry,
+                          this,
+                          0,
+                          &m_thread_id);
+    if (!m_thread_handle) {
         return false;
     }
 
@@ -47,7 +50,7 @@ bool	Thread::do_start() {
 
 bool	Thread::do_stop(bool bKillOnTimeout, UINT uTimeout) {
     DWORD nRet = WaitForSingleObject(
-                     m_hThread,
+                     m_thread_handle,
                      uTimeout);
 
     if (bKillOnTimeout &&
@@ -57,8 +60,8 @@ bool	Thread::do_stop(bool bKillOnTimeout, UINT uTimeout) {
 
     bool bStopped = (WAIT_OBJECT_0 == nRet);
     if(bStopped) {
-        m_hThread	= NULL;
-        m_nThreadId	= 0;
+        m_thread_handle	= NULL;
+        m_thread_id	= 0;
     }
 
     return bStopped;
@@ -66,10 +69,11 @@ bool	Thread::do_stop(bool bKillOnTimeout, UINT uTimeout) {
 
 bool	Thread::do_kill() {
     BOOL bStopped = TerminateThread(
-                        m_hThread,
+                        m_thread_handle,
                         -1);
-    CloseHandle(m_hThread);
-    m_hThread = NULL;
+    CloseHandle(m_thread_handle);
+    m_thread_handle = NULL;
+    m_thread_id	= 0;
 
     return (bStopped != FALSE);
 }

@@ -108,8 +108,8 @@ bool	Msg_Thread::do_stop(bool bKillOnTimeout, UINT uTimeout) {
 
     bool bStopped = (WAIT_OBJECT_0 == nRet);
     if(bStopped) {
-        m_hThread	= NULL;
-        m_nThreadId	= 0;
+        m_thread_handle	= NULL;
+        m_thread_id	= 0;
         if (m_hEvent) {
             CloseHandle(m_hEvent);
             m_hEvent = NULL;
@@ -192,7 +192,7 @@ bool	Msg_Thread::do_post_msg(
     const LPARAM	lParam,
     const UINT		uTimeout
 ) {
-    if(NULL == m_hThread) {
+    if(NULL == m_thread_handle) {
         return false;
     }
 

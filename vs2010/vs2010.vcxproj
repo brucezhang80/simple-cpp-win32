@@ -31,6 +31,7 @@
     <ClCompile Include="..\inc\simple-win32\ie.cpp" />
     <ClCompile Include="..\inc\simple-win32\ie_download.cpp" />
     <ClCompile Include="..\inc\simple-win32\ie_protocol.cpp" />
+    <ClCompile Include="..\inc\simple-win32\io_thread.cpp" />
     <ClCompile Include="..\inc\simple-win32\msg_thread.cpp" />
     <ClCompile Include="..\inc\simple-win32\namedpipe.cpp" />
     <ClCompile Include="..\inc\simple-win32\patcher.cpp" />
@@ -58,6 +59,7 @@
     <ClInclude Include="..\inc\simple-win32\ie.h" />
     <ClInclude Include="..\inc\simple-win32\ie_download.h" />
     <ClInclude Include="..\inc\simple-win32\ie_protocol.h" />
+    <ClInclude Include="..\inc\simple-win32\io_thread.h" />
     <ClInclude Include="..\inc\simple-win32\msg_handler.h" />
     <ClInclude Include="..\inc\simple-win32\msg_thread.h" />
     <ClInclude Include="..\inc\simple-win32\namedpipe.h" />
