@@ -15,6 +15,10 @@ public:
     virtual			~IO_Thread();
 
 public:
+    bool			start();
+    bool			start(package_handler* handler);
+
+public:
     package*		pop_package();
     void			push_package(package* pkg);
     bool			destroy_package(package* pkg);

@@ -30,6 +30,15 @@ IO_Thread::~IO_Thread() {
     ::DeleteCriticalSection(&m_io_locker);
 }
 
+bool	IO_Thread::start() {
+    return	Thread::start();
+}
+
+bool	IO_Thread::start(package_handler* handler) {
+    this->set_package_handler(handler);
+    return	Thread::start();
+}
+
 package_handler*	IO_Thread::get_package_handler() {
     return	m_pkg_handler;
 }

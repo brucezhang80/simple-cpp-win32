@@ -34,6 +34,7 @@
     <ClCompile Include="..\inc\simple-win32\io_thread.cpp" />
     <ClCompile Include="..\inc\simple-win32\msg_thread.cpp" />
     <ClCompile Include="..\inc\simple-win32\namedpipe.cpp" />
+    <ClCompile Include="..\inc\simple-win32\namedpipe_thread.cpp" />
     <ClCompile Include="..\inc\simple-win32\patcher.cpp" />
     <ClCompile Include="..\inc\simple-win32\res.cpp" />
     <ClCompile Include="..\inc\simple-win32\se.cpp" />
@@ -63,6 +64,7 @@
     <ClInclude Include="..\inc\simple-win32\msg_handler.h" />
     <ClInclude Include="..\inc\simple-win32\msg_thread.h" />
     <ClInclude Include="..\inc\simple-win32\namedpipe.h" />
+    <ClInclude Include="..\inc\simple-win32\namedpipe_thread.h" />
     <ClInclude Include="..\inc\simple-win32\patcher.h" />
     <ClInclude Include="..\inc\simple-win32\res.h" />
     <ClInclude Include="..\inc\simple-win32\se.h" />
