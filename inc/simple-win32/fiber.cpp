@@ -78,7 +78,6 @@ struct	Fiber_Executor::Impl : Msg_Handler {
         Fiber_Executor::FiberScriptEndCallbacker	handler;
     };
     typedef			std::deque<FiberScriptEndHandler>	SCRIPT_END_HANDLER_LIST;
-    SCRIPT_END_HANDLER_LIST	end_handlers_;
 
     enum OPERATION_TYPE {
         OPERATION_NONE,
@@ -106,6 +105,7 @@ struct	Fiber_Executor::Impl : Msg_Handler {
     }
 
     void do_update_logic(WPARAM wParam, LPARAM lParam) {
+        Impl::SCRIPT_END_HANDLER_LIST*	end_handlers	= reinterpret_cast<Impl::SCRIPT_END_HANDLER_LIST*>(lParam);
         {
             SCRIPT_LIST::iterator	it		= scripts_.begin();
             for(; it != scripts_.end(); ++it) {
@@ -121,13 +121,13 @@ struct	Fiber_Executor::Impl : Msg_Handler {
             SCRIPT_LIST::iterator	it		= scripts_.begin();
             for(; it != scripts_.end(); ) {
                 FiberContextImpl*	pScript = static_cast<FiberContextImpl*>(*it);
-                if(!pScript->is_running()) {
+                if(!pScript->is_running() && (NULL != end_handlers)) {
                     if(pScript->callbacker_) {
                         FiberScriptEndHandler handler;
                         handler.id				= pScript->id_;
                         handler.param			= pScript->param_;
                         handler.handler			= pScript->callbacker_;
-                        end_handlers_.push_back(handler);
+                        end_handlers->push_back(handler);
                     }
 
                     DeleteFiber(pScript->fiber_);
@@ -263,11 +263,17 @@ void Fiber_Executor::clear_scripts() {
 
 bool Fiber_Executor::update(double dt, bool wait) {
     impl_->timestamp_	+= dt;
-    bool ret = (0 != send_msg(Impl::OPERATION_UPDATE_LOGIC, 0, 0));
 
-    while(!impl_->end_handlers_.empty()) {
-        Impl::FiberScriptEndHandler	AHandler	= impl_->end_handlers_.front();
-        impl_->end_handlers_.pop_front();
+    if(!wait) {
+        return	(0 != send_msg(Impl::OPERATION_UPDATE_LOGIC, 0, 0));
+    }
+
+    Impl::SCRIPT_END_HANDLER_LIST	end_handlers;
+    bool ret = (0 != send_msg(Impl::OPERATION_UPDATE_LOGIC, 0, LPARAM(&end_handlers), INFINITE));
+
+    while(!end_handlers.empty()) {
+        Impl::FiberScriptEndHandler	AHandler	= end_handlers.front();
+        end_handlers.pop_front();
 
         if(AHandler.handler) {
             AHandler.handler(AHandler.id, AHandler.param);
