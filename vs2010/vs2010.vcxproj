@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\simple-cpp\inc\simple\buffer.cpp" />
+    <ClCompile Include="..\..\simple-cpp\inc\simple\package.cpp" />
     <ClCompile Include="..\..\simple-cpp\inc\simple\string.cpp" />
     <ClCompile Include="..\..\simple-cpp\inc\simple\string_ex.cpp" />
     <ClCompile Include="..\..\simple-cpp\inc\simple\string_mime.cpp" />
@@ -48,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\simple-cpp\inc\simple\buffer.h" />
+    <ClInclude Include="..\..\simple-cpp\inc\simple\package.h" />
     <ClInclude Include="..\..\simple-cpp\inc\simple\string.h" />
     <ClInclude Include="..\inc\simple-win32\anti.h" />
     <ClInclude Include="..\inc\simple-win32\dispatch_impl.h" />

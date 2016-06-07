@@ -99,6 +99,9 @@
     <ClCompile Include="..\inc\simple-win32\namedpipe_thread.cpp">
       <Filter>simple-cpp-win32</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\simple-cpp\inc\simple\package.cpp">
+      <Filter>simple-cpp</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="simple-cpp-win32">
@@ -183,6 +186,9 @@
     </ClInclude>
     <ClInclude Include="..\inc\simple-win32\namedpipe_thread.h">
       <Filter>simple-cpp-win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\simple-cpp\inc\simple\package.h">
+      <Filter>simple-cpp</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
