@@ -128,3 +128,25 @@ void NamedPipe_PackageHandler::destroy_package(package* pkg) {
         delete	(NamedPipe_Package*)pkg;
     }
 }
+
+NamedPipe_ServerReader::NamedPipe_ServerReader()
+	:	m_client_connected(false){
+}
+
+void	NamedPipe_ServerReader::do_run(){
+	m_client_connected	= false;
+	if(m_pPipe->Connect())
+	{
+		m_client_connected	= true;
+
+		{
+			__super::DoWork();
+		}
+
+		m_pPipe->Disconnect();
+		m_client_connected	= false;
+	}
+}
+
+void	NamedPipe_ServerWriter::do_run(){
+}
