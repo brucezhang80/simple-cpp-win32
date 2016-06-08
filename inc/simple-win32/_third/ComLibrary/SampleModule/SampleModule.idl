@@ -1,0 +1,36 @@
+// SampleModule.idl : IDL source for SampleModule
+//
+
+// This file will be processed by the MIDL tool to
+// produce the type library (SampleModule.tlb) and marshalling code.
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+[
+	object,
+	uuid(3F79AC74-12EE-44B6-8000-D6EBECB8F5E4),
+  local,
+	pointer_default(unique)
+]
+interface IFoobar : IUnknown
+{
+  INT DoSomethingUseful(INT a, INT b);
+};
+
+[
+	uuid(D15E01FD-9AED-46B6-99BF-64033FB3C4AD),
+	version(1.0),
+]
+library SampleModuleLib
+{
+	importlib("stdole2.tlb");
+	[
+		uuid(530BD770-9EEE-4357-8A69-75A095834D2B)		
+	]
+	coclass Foobar
+	{
+		[default] interface IFoobar;
+	};
+};
+
