@@ -1,6 +1,8 @@
 ﻿#ifndef THREAD_H_66BC65DB_AFF6_43C8_8654_D1A2801635E2
 #define THREAD_H_66BC65DB_AFF6_43C8_8654_D1A2801635E2
 
+#include	"simple/delegate.h"
+
 //
 //	simple thread base class.
 //
@@ -19,9 +21,11 @@ public:
     bool			kill() {
         return	this->do_kill();
     }
-    bool			is_running() {
+    bool			is_running()	const {
         return	this->m_running;
     }
+
+    delegate<void(Thread*)>			event_thread_ended;
 
 public:
     DWORD			thread_id()		const {

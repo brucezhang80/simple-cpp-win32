@@ -30,15 +30,6 @@ IO_Thread::~IO_Thread() {
     ::DeleteCriticalSection(&m_io_locker);
 }
 
-bool	IO_Thread::start() {
-    return	Thread::start();
-}
-
-bool	IO_Thread::start(package_handler* handler) {
-    this->set_package_handler(handler);
-    return	Thread::start();
-}
-
 package_handler*	IO_Thread::get_package_handler() {
     return	m_pkg_handler;
 }
@@ -86,7 +77,7 @@ bool IO_Thread::destroy_package(package* pkg) {
     return	true;
 }
 
-void	IO_Reader::do_run() {
+void	IO_ThreadReader::do_run() {
     package_handler*	pkg_handler	= this->get_package_handler();
     if(NULL == pkg_handler) {
         return;
@@ -119,7 +110,7 @@ void	IO_Reader::do_run() {
     }
 }
 
-void	IO_Writer::do_run() {
+void	IO_ThreadWriter::do_run() {
     package_handler*	pkg_handler	= this->get_package_handler();
     if(NULL == pkg_handler) {
         return;
@@ -162,5 +153,107 @@ void	IO_Writer::do_run() {
 
     if(NULL != pkg) {
         pkg_handler->destroy_package(pkg);
+    }
+}
+
+IO_ThreadWorker::IO_ThreadWorker()
+    :	m_reader(NULL)
+    ,	m_writer(NULL) {
+}
+
+IO_ThreadWorker::~IO_ThreadWorker() {
+    if(NULL != m_reader) {
+        if(m_reader->is_running()) {
+            m_reader->stop(true, INFINITE);
+        }
+        delete	m_reader;
+        m_reader	= NULL;
+    }
+    if(NULL != m_writer) {
+        if(m_writer->is_running()) {
+            m_writer->stop(true, INFINITE);
+        }
+        delete	m_writer;
+        m_writer	= NULL;
+    }
+}
+
+bool	IO_ThreadWorker::do_start() {
+    if(NULL == m_reader || NULL == m_writer) {
+        return	false;
+    }
+
+    m_reader->event_thread_ended.bind(this, &IO_ThreadWorker::do_event_thread_ended);
+    m_writer->event_thread_ended.bind(this, &IO_ThreadWorker::do_event_thread_ended);
+
+    if(!m_writer->start()) {
+        return	false;
+    }
+    if(!m_reader->start()) {
+        m_writer->stop();
+        return	false;
+    }
+
+    return	true;
+}
+
+bool	IO_ThreadWorker::do_stop(bool bKillOnTimeout, UINT uTimeout) {
+    if(NULL == m_reader || NULL == m_writer) {
+        return	false;
+    }
+
+    m_reader->stop(bKillOnTimeout, uTimeout);
+    m_writer->stop(bKillOnTimeout, uTimeout);
+    return	true;
+}
+
+package*	IO_ThreadWorker::pop_package() {
+    if(NULL == m_reader) {
+        return	NULL;
+    }
+
+    return	m_reader->pop_package();
+}
+
+bool	IO_ThreadWorker::push_package(package* pkg) {
+    if(NULL == m_writer) {
+        return	false;
+    }
+
+    m_writer->push_package(pkg);
+    return	true;
+}
+
+bool	IO_ThreadWorker::destroy_package(package* pkg) {
+    if(NULL == m_writer) {
+        return	m_writer->destroy_package(pkg);
+    }
+    if(NULL == m_reader) {
+        return	m_reader->destroy_package(pkg);
+    }
+}
+
+IO_ThreadReader*	IO_ThreadWorker::get_reader() {
+    return	m_reader;
+}
+
+void	IO_ThreadWorker::set_reader(IO_ThreadReader* reader) {
+    m_reader	= reader;
+}
+
+IO_ThreadWriter*	IO_ThreadWorker::get_writer() {
+    return	 m_writer;
+}
+
+void	IO_ThreadWorker::set_writer(IO_ThreadWriter* writer) {
+    m_writer	= writer;
+}
+
+void	IO_ThreadWorker::do_event_thread_ended(Thread* thread) {
+    if(thread != m_reader && m_reader != NULL) {
+        m_reader->stop();
+    }
+    if(thread != m_reader && m_writer != NULL) {
+        m_writer->stop();
     }
 }

@@ -24,23 +24,29 @@ Thread::~Thread() {
 DWORD	WINAPI	Thread::thread_entry(LPVOID lpParameter) {
     class	StatusGuard {
     public:
-        StatusGuard(volatile bool& data, bool curr, bool final):data_(data), final_(final) {
-            data_=curr;
+        StatusGuard(Thread* thread):thread_(thread) {
+            thread_->m_running	= true;
         }
         ~StatusGuard() {
-            data_	= final_;
+            thread_->m_running	= false;
+            if(thread_->event_thread_ended) {
+                thread_->event_thread_ended(thread_);
+            }
         }
     private:
-        volatile bool&	data_;
-        bool			final_;
+        Thread*	thread_;
     };
+
     Thread*	thread	= static_cast<Thread*>(lpParameter);
-    StatusGuard	guard(thread->m_running, true, false);
-    if(!thread->do_before_run() ) {
-        return	-1;
+    {
+        StatusGuard	guard(thread);
+        if(!thread->do_before_run() ) {
+            return	-1;
+        }
+        thread->do_run();
+        thread->do_after_run();
     }
-    thread->do_run();
-    thread->do_after_run();
+
     return 0;
 }
 
