@@ -1,4 +1,5 @@
 inc/simple-win32
+	comlib.h/cpp			_third/ComLibrary/ComLibrary.h/cpp
 	drawhtml.h/c			_third/DrawHTML/DrawHTML.h/c
 	msg_handler.h			_third/MsgThread/MsgHandle.h/cpp
 	msg_thread.h/cpp		_third/MsgThread/MsgThread.h/cpp
