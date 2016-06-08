@@ -4,12 +4,15 @@
 #include	<deque>
 #include	"thread.h"
 
+class	IO_ThreadWorker;
+
 //
 //	simple io thread.
 //
 struct	package;
 class	package_handler;
 class	IO_Thread : public Thread {
+    friend	class	IO_ThreadWorker;
 public:
     IO_Thread();
     virtual				~IO_Thread();
@@ -17,6 +20,7 @@ public:
 public:
     package*			pop_package();
     void				push_package(package* pkg);
+    package*			create_package(int32_t cmd, const void* data, size_t size, uint32_t flag = 0);
     bool				destroy_package(package* pkg);
 
 protected:
@@ -90,10 +94,14 @@ public:
     bool			stop(bool bKillOnTimeout = false, UINT uTimeout = INFINITE) {
         return	this->do_stop(bKillOnTimeout, uTimeout);
     }
+    bool			is_running() {
+        return	(0 != m_reader && m_reader->is_running()) && (0 != m_writer && m_writer->is_running());
+    }
 
 public:
     package*		pop_package();
     bool			push_package(package* pkg);
+    package*		create_package(int32_t cmd, const void* data, size_t size, uint32_t flag = 0);
     bool			destroy_package(package* pkg);
 
 protected:
@@ -106,6 +114,8 @@ protected:
 
     IO_ThreadWriter*	get_writer();
     void				set_writer(IO_ThreadWriter*);
+
+    void				set_package_handler(package_handler*);
 
 private:
     void				do_event_thread_ended(Thread*);

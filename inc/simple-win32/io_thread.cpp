@@ -68,6 +68,13 @@ void IO_Thread::push_package(package* pkg) {
     }
 }
 
+package* IO_Thread::create_package(int32_t cmd, const void* data, size_t size, uint32_t flag) {
+    if(NULL == m_pkg_handler) {
+        return	false;
+    }
+    return	m_pkg_handler->create_package(cmd, data, size, flag);
+}
+
 bool IO_Thread::destroy_package(package* pkg) {
     if(NULL == m_pkg_handler) {
         return	false;
@@ -99,6 +106,7 @@ void	IO_ThreadReader::do_run() {
 
             if(0 == nRet) {
                 push_package(pkg);
+                pkg	= NULL;
             }
         } catch(...) {
             // log ???
@@ -224,13 +232,24 @@ bool	IO_ThreadWorker::push_package(package* pkg) {
     return	true;
 }
 
+package* IO_ThreadWorker::create_package(int32_t cmd, const void* data, size_t size, uint32_t flag) {
+    if(NULL != m_writer) {
+        return	m_writer->create_package(cmd, data, size, flag);
+    }
+    if(NULL != m_reader) {
+        return	m_reader->create_package(cmd, data, size, flag);
+    }
+    return	NULL;
+}
+
 bool	IO_ThreadWorker::destroy_package(package* pkg) {
-    if(NULL == m_writer) {
+    if(NULL != m_writer) {
         return	m_writer->destroy_package(pkg);
     }
-    if(NULL == m_reader) {
+    if(NULL != m_reader) {
         return	m_reader->destroy_package(pkg);
     }
+    return	false;
 }
 
 IO_ThreadReader*	IO_ThreadWorker::get_reader() {
@@ -249,11 +268,20 @@ void	IO_ThreadWorker::set_writer(IO_ThreadWriter* writer) {
     m_writer	= writer;
 }
 
+void	IO_ThreadWorker::set_package_handler(package_handler* pkg_handler) {
+    if(NULL != m_writer) {
+        m_writer->set_package_handler(pkg_handler);
+    }
+    if(NULL != m_reader) {
+        m_reader->set_package_handler(pkg_handler);
+    }
+}
+
 void	IO_ThreadWorker::do_event_thread_ended(Thread* thread) {
-    if(thread != m_reader && m_reader != NULL) {
+    if(thread != m_reader && m_reader != NULL && m_reader->is_running()) {
         m_reader->stop();
     }
-    if(thread != m_reader && m_writer != NULL) {
+    if(thread != m_writer && m_writer != NULL && m_writer->is_running()) {
         m_writer->stop();
     }
 }

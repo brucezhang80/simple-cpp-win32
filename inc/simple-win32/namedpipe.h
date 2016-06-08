@@ -2,6 +2,7 @@
 #define NAMEDPIPE_H_66BC65DB_AFF6_43C8_8654_D1A2801635E2
 
 #include	<cassert>
+#include	<string>
 
 //
 //	命名管道公共操作
@@ -43,6 +44,10 @@ protected:
 class	NamedPipe_Server : public NamedPipe {
 public:
     bool		open(const char* pName, DWORD dwInBuffer = 0, DWORD dwOutBuffer = 0, SECURITY_ATTRIBUTES* pSecAttrs = NULL, DWORD* pErrCode = NULL) {
+        if(NULL == pName) {
+            return	false;
+        }
+        m_pipename.assign(pName);
         return	this->do_open(pName, dwInBuffer, dwOutBuffer, pSecAttrs, pErrCode);
     }
 
@@ -54,10 +59,17 @@ public:
         return	this->do_disconnect();
     }
 
+    const char*	pipename() {
+        return	m_pipename.c_str();
+    }
+
 protected:
     virtual	bool	do_open(const char* pName, DWORD dwInBuffer, DWORD dwOutBuffer, SECURITY_ATTRIBUTES* pSecAttrs, DWORD* pErrCode);
     virtual bool	do_connect();
     virtual bool	do_disconnect();
+
+private:
+    std::string		m_pipename;
 };
 
 //

@@ -4,8 +4,7 @@
 #include	<cassert>
 #include	"simple/package.h"
 #include	"io_thread.h"
-
-class	NamedPipe;
+#include	"namedpipe.h"
 
 //
 //	NamedPipe package handler
@@ -30,37 +29,43 @@ protected:
 };
 
 //
+//	Thread NamedPipe Server
 //
-//
-class	NamedPipe_ServerReader : public IO_Reader{
+class	NamedPipe_ThreadServer : public IO_ThreadWorker {
 public:
-	NamedPipe_ServerReader();
+    NamedPipe_ThreadServer();
+    virtual			~NamedPipe_ThreadServer();
+
+public:
+    bool			start(const char* pipename, DWORD dwInBuffer = 0, DWORD dwOutBuffer = 0, SECURITY_ATTRIBUTES* pSecAttrs = NULL, DWORD* pErrCode = NULL);
 
 protected:
-    virtual	void	do_run();
+    virtual	bool	do_start();
+    virtual	bool	do_stop(bool bKillOnTimeout, UINT uTimeout);
 
 private:
-	volatile bool	m_client_connected;
+    NamedPipe_Server			m_pipe;
+    NamedPipe_PackageHandler	m_pkg_handler;
 };
 
 //
+//	Thread NamedPipe Client
 //
-//
-class	NamedPipe_ServerWriter : public IO_Writer{
+class	NamedPipe_ThreadClient : public IO_ThreadWorker {
+public:
+    NamedPipe_ThreadClient();
+    virtual			~NamedPipe_ThreadClient();
+
+public:
+    bool			start(const char* pipename);
+
 protected:
-    virtual	void	do_run();
-};
+    virtual	bool	do_start();
+    virtual	bool	do_stop(bool bKillOnTimeout, UINT uTimeout);
 
-//
-//
-//
-class	NamedPipe_ClientReader : public IO_Reader{
-};
-
-//
-//
-//
-class	NamedPipe_ClientWriter : public IO_Writer{
+private:
+    NamedPipe_Client			m_pipe;
+    NamedPipe_PackageHandler	m_pkg_handler;
 };
 
 #endif
