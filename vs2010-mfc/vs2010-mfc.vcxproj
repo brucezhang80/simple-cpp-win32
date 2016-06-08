@@ -12,11 +12,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\simple-cpp\inc\simple\string.cpp" />
+    <ClCompile Include="..\inc\simple-win32\drawhtml.cpp" />
     <ClCompile Include="..\inc\simple-win32\dynamic.cpp" />
     <ClCompile Include="..\inc\simple-win32\flashcall.cpp" />
     <ClCompile Include="..\inc\simple-win32\mfc\DlgTemplate.cpp" />
     <ClCompile Include="..\inc\simple-win32\mfc\FlashCtrl.cpp" />
     <ClCompile Include="..\inc\simple-win32\mfc\FlashCtrlEx.cpp" />
+    <ClCompile Include="..\inc\simple-win32\mfc\HtmlStatic.cpp" />
     <ClCompile Include="..\inc\simple-win32\mfc\IECtrl.cpp" />
     <ClCompile Include="..\inc\simple-win32\mfc\IECtrlEx.cpp" />
     <ClCompile Include="..\tests\main.cpp" />
@@ -25,11 +27,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\simple-cpp\inc\simple\string.h" />
+    <ClInclude Include="..\inc\simple-win32\drawhtml.h" />
     <ClInclude Include="..\inc\simple-win32\dynamic.h" />
     <ClInclude Include="..\inc\simple-win32\flashcall.h" />
     <ClInclude Include="..\inc\simple-win32\mfc\DlgTemplate.h" />
     <ClInclude Include="..\inc\simple-win32\mfc\FlashCtrl.h" />
     <ClInclude Include="..\inc\simple-win32\mfc\FlashCtrlEx.h" />
+    <ClInclude Include="..\inc\simple-win32\mfc\HtmlStatic.h" />
     <ClInclude Include="..\inc\simple-win32\mfc\IECtrl.h" />
     <ClInclude Include="..\inc\simple-win32\mfc\IECtrlEx.h" />
     <ClInclude Include="stdafx.h" />
