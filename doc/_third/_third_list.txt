@@ -3,6 +3,7 @@ AntiDebug			http://www.codeproject.com/Articles/1090943/Anti-Debug-Protection-Te
 AntiRE				http://www.codeproject.com/Articles/30815/An-Anti-Reverse-Engineering-Guide
 CheckForDllExportedSymbols	http://www.codeproject.com/Tips/133747/Checking-for-exported-symbols-functions-in-a-DLL-w
 CDispatchPtr			https://github.com/mmorearty/DispatchPtr
+ComLibrary			http://www.codeproject.com/Tips/1037909/Using-COM-Without-Registration
 CPatch				http://www.codeproject.com/Articles/34237/A-C-Style-of-Intercepting-Functions
 DlgTemplateBuilder		http://www.vckbase.com/document/viewdoc/?id=1524
 DrawHTML			http://www.codeproject.com/Articles/7936/DrawHTML
@@ -10,4 +11,4 @@ ExecApp				http://www.codeproject.com/Articles/26784/ExecApp-ExecRegisteredApp-a
 MemLeakDetect			http://www.codeproject.com/Articles/8448/Memory-Leak-Detection
 MemoryModule			https://github.com/fancycode/MemoryModule
 MsgThread			http://www.codeproject.com/Articles/25747/Message-Thread-Using-IoCompletionPort
-ProcessRunner[modified]		http://www.netcult.ch/elmue
+ProcessRunner[modified]	http://www.netcult.ch/elmue
