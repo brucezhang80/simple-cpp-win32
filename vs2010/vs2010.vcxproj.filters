@@ -108,6 +108,9 @@
     <ClCompile Include="..\inc\simple-win32\flash.cpp">
       <Filter>simple-cpp-win32</Filter>
     </ClCompile>
+    <ClCompile Include="..\inc\simple-win32\flashcall.cpp">
+      <Filter>simple-cpp-win32</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="simple-cpp-win32">
@@ -200,6 +203,9 @@
       <Filter>simple-cpp-win32</Filter>
     </ClInclude>
     <ClInclude Include="..\inc\simple-win32\flash.h">
+      <Filter>simple-cpp-win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\simple-win32\flashcall.h">
       <Filter>simple-cpp-win32</Filter>
     </ClInclude>
   </ItemGroup>

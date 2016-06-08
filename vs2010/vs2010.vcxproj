@@ -30,6 +30,7 @@
     <ClCompile Include="..\inc\simple-win32\exec.cpp" />
     <ClCompile Include="..\inc\simple-win32\fiber.cpp" />
     <ClCompile Include="..\inc\simple-win32\flash.cpp" />
+    <ClCompile Include="..\inc\simple-win32\flashcall.cpp" />
     <ClCompile Include="..\inc\simple-win32\fs.cpp" />
     <ClCompile Include="..\inc\simple-win32\ie.cpp" />
     <ClCompile Include="..\inc\simple-win32\ie_download.cpp" />
@@ -62,6 +63,7 @@
     <ClInclude Include="..\inc\simple-win32\exec.h" />
     <ClInclude Include="..\inc\simple-win32\fiber.h" />
     <ClInclude Include="..\inc\simple-win32\flash.h" />
+    <ClInclude Include="..\inc\simple-win32\flashcall.h" />
     <ClInclude Include="..\inc\simple-win32\fs.h" />
     <ClInclude Include="..\inc\simple-win32\ie.h" />
     <ClInclude Include="..\inc\simple-win32\ie_download.h" />
