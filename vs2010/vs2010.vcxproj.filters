@@ -114,6 +114,9 @@
     <ClCompile Include="..\inc\simple-win32\bitmaphdc.cpp">
       <Filter>simple-cpp-win32</Filter>
     </ClCompile>
+    <ClCompile Include="..\inc\simple-win32\comlib.cpp">
+      <Filter>simple-cpp-win32</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="simple-cpp-win32">
@@ -212,6 +215,9 @@
       <Filter>simple-cpp-win32</Filter>
     </ClInclude>
     <ClInclude Include="..\inc\simple-win32\bitmaphdc.h">
+      <Filter>simple-cpp-win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\simple-win32\comlib.h">
       <Filter>simple-cpp-win32</Filter>
     </ClInclude>
   </ItemGroup>
