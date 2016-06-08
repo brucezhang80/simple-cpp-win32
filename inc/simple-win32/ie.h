@@ -11,10 +11,10 @@
 //
 //	IDocHostUIHandler2实现类，使用时可在WebBrowser的OnDocumentCompleted事件里调用AttachTo方法
 //
-class CDocHostUIHandlerImpl : public IDocHostUIHandler2 {
+class IE_DocHostUIHandler : public IDocHostUIHandler2 {
 public:
-    CDocHostUIHandlerImpl(bool bAutoDelete = false, bool bZeroRefCount = false);
-    virtual ~CDocHostUIHandlerImpl();
+    IE_DocHostUIHandler(bool bAutoDelete = false, bool bZeroRefCount = false);
+    virtual ~IE_DocHostUIHandler();
 
 public:
     bool		AttachTo(IDispatch* pDoc);

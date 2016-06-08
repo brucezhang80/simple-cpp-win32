@@ -7,18 +7,18 @@
 #include	<wininet.h>
 
 
-CDocHostUIHandlerImpl::CDocHostUIHandlerImpl(bool bAutoDelete, bool bZeroRefCount)
+IE_DocHostUIHandler::IE_DocHostUIHandler(bool bAutoDelete, bool bZeroRefCount)
     : refcount_(1), external_(NULL), auto_delete_(bAutoDelete) {
     if (bZeroRefCount) {
         refcount_ = 0;
     }
 }
 
-CDocHostUIHandlerImpl::~CDocHostUIHandlerImpl() {
+IE_DocHostUIHandler::~IE_DocHostUIHandler() {
 
 }
 
-bool		CDocHostUIHandlerImpl::AttachTo(IDispatch* pDoc) {
+bool		IE_DocHostUIHandler::AttachTo(IDispatch* pDoc) {
     if( NULL == pDoc ) {
         return false;
     }
@@ -34,7 +34,7 @@ bool		CDocHostUIHandlerImpl::AttachTo(IDispatch* pDoc) {
     }
     return false;
 }
-bool		CDocHostUIHandlerImpl::AttachTo(IHTMLDocument2* pDoc) {
+bool		IE_DocHostUIHandler::AttachTo(IHTMLDocument2* pDoc) {
     if( NULL == pDoc ) {
         return false;
     }
@@ -50,7 +50,7 @@ bool		CDocHostUIHandlerImpl::AttachTo(IHTMLDocument2* pDoc) {
     }
     return false;
 }
-bool		CDocHostUIHandlerImpl::DetachFrom(IDispatch* pDoc) {
+bool		IE_DocHostUIHandler::DetachFrom(IDispatch* pDoc) {
     if( NULL == pDoc ) {
         return false;
     }
@@ -66,7 +66,7 @@ bool		CDocHostUIHandlerImpl::DetachFrom(IDispatch* pDoc) {
     }
     return false;
 }
-bool		CDocHostUIHandlerImpl::DetachFrom(IHTMLDocument2* pDoc) {
+bool		IE_DocHostUIHandler::DetachFrom(IHTMLDocument2* pDoc) {
     if( NULL == pDoc ) {
         return false;
     }
@@ -83,15 +83,15 @@ bool		CDocHostUIHandlerImpl::DetachFrom(IHTMLDocument2* pDoc) {
     return false;
 }
 
-IDispatch*	CDocHostUIHandlerImpl::GetExternalDispatch() {
+IDispatch*	IE_DocHostUIHandler::GetExternalDispatch() {
     return external_;
 }
-void		CDocHostUIHandlerImpl::SetExternalDispatch(IDispatch* obj) {
+void		IE_DocHostUIHandler::SetExternalDispatch(IDispatch* obj) {
     external_ = obj;
 }
 
 // IDocHostUIHandler Impls.
-HRESULT STDMETHODCALLTYPE CDocHostUIHandlerImpl::QueryInterface(REFIID classid, void** intf) {
+HRESULT STDMETHODCALLTYPE IE_DocHostUIHandler::QueryInterface(REFIID classid, void** intf) {
     if (classid == IID_IUnknown) {
         *intf = (IUnknown*)this;
         AddRef();
@@ -106,11 +106,11 @@ HRESULT STDMETHODCALLTYPE CDocHostUIHandlerImpl::QueryInterface(REFIID classid, 
     }
     return S_OK;
 }
-ULONG STDMETHODCALLTYPE CDocHostUIHandlerImpl::AddRef() {
+ULONG STDMETHODCALLTYPE IE_DocHostUIHandler::AddRef() {
     InterlockedIncrement(&refcount_);
     return refcount_;
 }
-ULONG STDMETHODCALLTYPE CDocHostUIHandlerImpl::Release() {
+ULONG STDMETHODCALLTYPE IE_DocHostUIHandler::Release() {
     InterlockedDecrement(&refcount_);
     if (refcount_ == 0 && auto_delete_) {
         delete this;
@@ -118,19 +118,19 @@ ULONG STDMETHODCALLTYPE CDocHostUIHandlerImpl::Release() {
     return refcount_;
 }
 //返回S_OK，屏蔽掉右键菜单
-HRESULT STDMETHODCALLTYPE CDocHostUIHandlerImpl::ShowContextMenu(
+HRESULT STDMETHODCALLTYPE IE_DocHostUIHandler::ShowContextMenu(
     /* [in] */ DWORD dwID,
     /* [in] */ POINT __RPC_FAR *ppt,
     /* [in] */ IUnknown __RPC_FAR *pcmdtReserved,
     /* [in] */ IDispatch __RPC_FAR *pdispReserved) {
     return S_FALSE;
 }
-HRESULT STDMETHODCALLTYPE CDocHostUIHandlerImpl::GetHostInfo(
+HRESULT STDMETHODCALLTYPE IE_DocHostUIHandler::GetHostInfo(
     /* [out][in] */ DOCHOSTUIINFO __RPC_FAR *pInfo) {
     pInfo->dwFlags	|= DOCHOSTUIFLAG_DIALOG;
     return S_OK;
 }
-HRESULT STDMETHODCALLTYPE CDocHostUIHandlerImpl::ShowUI(
+HRESULT STDMETHODCALLTYPE IE_DocHostUIHandler::ShowUI(
     /* [in] */ DWORD dwID,
     /* [in] */ IOleInPlaceActiveObject __RPC_FAR *pActiveObject,
     /* [in] */ IOleCommandTarget __RPC_FAR *pCommandTarget,
@@ -138,47 +138,47 @@ HRESULT STDMETHODCALLTYPE CDocHostUIHandlerImpl::ShowUI(
     /* [in] */ IOleInPlaceUIWindow __RPC_FAR *pDoc) {
     return S_FALSE;
 }
-HRESULT STDMETHODCALLTYPE CDocHostUIHandlerImpl::HideUI( void) {
+HRESULT STDMETHODCALLTYPE IE_DocHostUIHandler::HideUI( void) {
     return S_FALSE;
 }
-HRESULT STDMETHODCALLTYPE CDocHostUIHandlerImpl::UpdateUI( void) {
+HRESULT STDMETHODCALLTYPE IE_DocHostUIHandler::UpdateUI( void) {
     return S_FALSE;
 }
-HRESULT STDMETHODCALLTYPE CDocHostUIHandlerImpl::EnableModeless(
+HRESULT STDMETHODCALLTYPE IE_DocHostUIHandler::EnableModeless(
     /* [in] */ BOOL fEnable) {
     return S_FALSE;
 }
-HRESULT STDMETHODCALLTYPE CDocHostUIHandlerImpl::OnDocWindowActivate(
+HRESULT STDMETHODCALLTYPE IE_DocHostUIHandler::OnDocWindowActivate(
     /* [in] */ BOOL fActivate) {
     return S_FALSE;
 }
-HRESULT STDMETHODCALLTYPE CDocHostUIHandlerImpl::OnFrameWindowActivate(
+HRESULT STDMETHODCALLTYPE IE_DocHostUIHandler::OnFrameWindowActivate(
     /* [in] */ BOOL fActivate) {
     return S_FALSE;
 }
-HRESULT STDMETHODCALLTYPE CDocHostUIHandlerImpl::ResizeBorder(
+HRESULT STDMETHODCALLTYPE IE_DocHostUIHandler::ResizeBorder(
     /* [in] */ LPCRECT prcBorder,
     /* [in] */ IOleInPlaceUIWindow __RPC_FAR *pUIWindow,
     /* [in] */ BOOL fRameWindow) {
     return S_FALSE;
 }
-HRESULT STDMETHODCALLTYPE CDocHostUIHandlerImpl::TranslateAccelerator(
+HRESULT STDMETHODCALLTYPE IE_DocHostUIHandler::TranslateAccelerator(
     /* [in] */ LPMSG lpMsg,
     /* [in] */ const GUID __RPC_FAR *pguidCmdGroup,
     /* [in] */ DWORD nCmdID) {
     return S_FALSE;
 }
-HRESULT STDMETHODCALLTYPE CDocHostUIHandlerImpl::GetOptionKeyPath(
+HRESULT STDMETHODCALLTYPE IE_DocHostUIHandler::GetOptionKeyPath(
     /* [out] */ LPOLESTR __RPC_FAR *pchKey,
     /* [in] */ DWORD dw) {
     return S_FALSE;
 }
-HRESULT STDMETHODCALLTYPE CDocHostUIHandlerImpl::GetDropTarget(
+HRESULT STDMETHODCALLTYPE IE_DocHostUIHandler::GetDropTarget(
     /* [in] */ IDropTarget __RPC_FAR *pDropTarget,
     /* [out] */ IDropTarget __RPC_FAR *__RPC_FAR *ppDropTarget) {
     return S_FALSE;
 }
-HRESULT STDMETHODCALLTYPE CDocHostUIHandlerImpl::GetExternal(
+HRESULT STDMETHODCALLTYPE IE_DocHostUIHandler::GetExternal(
     /* [out] */ IDispatch __RPC_FAR *__RPC_FAR *ppDispatch) {
     if(ppDispatch == NULL) {
         return E_POINTER;
@@ -193,20 +193,20 @@ HRESULT STDMETHODCALLTYPE CDocHostUIHandlerImpl::GetExternal(
 
     return S_FALSE;
 }
-HRESULT STDMETHODCALLTYPE CDocHostUIHandlerImpl::TranslateUrl(
+HRESULT STDMETHODCALLTYPE IE_DocHostUIHandler::TranslateUrl(
     /* [in] */ DWORD dwTranslate,
     /* [in] */ OLECHAR __RPC_FAR *pchURLIn,
     /* [out] */ OLECHAR __RPC_FAR *__RPC_FAR *ppchURLOut) {
     return S_FALSE;
 }
-HRESULT STDMETHODCALLTYPE CDocHostUIHandlerImpl::FilterDataObject(
+HRESULT STDMETHODCALLTYPE IE_DocHostUIHandler::FilterDataObject(
     /* [in] */ IDataObject __RPC_FAR *pDO,
     /* [out] */ IDataObject __RPC_FAR *__RPC_FAR *ppDORet) {
     return S_FALSE;
 }
 
 // IDocHostUIHandler2 Impls.
-HRESULT STDMETHODCALLTYPE CDocHostUIHandlerImpl::GetOverrideKeyPath(
+HRESULT STDMETHODCALLTYPE IE_DocHostUIHandler::GetOverrideKeyPath(
     /* [out] */ LPOLESTR *pchKey,
     /* [in] */ DWORD dw) {
     return	S_FALSE;
