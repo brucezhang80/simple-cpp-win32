@@ -34,6 +34,9 @@
     <ClCompile Include="..\inc\simple-win32\drawhtml.cpp">
       <Filter>simple-cpp-win32</Filter>
     </ClCompile>
+    <ClCompile Include="..\inc\simple-win32\mfc\BitmapDC.cpp">
+      <Filter>simple-cpp-win32\mfc</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="simple-cpp-win32">
@@ -78,6 +81,9 @@
     </ClInclude>
     <ClInclude Include="..\inc\simple-win32\drawhtml.h">
       <Filter>simple-cpp-win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\simple-win32\mfc\BitmapDC.h">
+      <Filter>simple-cpp-win32\mfc</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

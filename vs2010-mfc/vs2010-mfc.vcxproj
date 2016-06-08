@@ -15,6 +15,7 @@
     <ClCompile Include="..\inc\simple-win32\drawhtml.cpp" />
     <ClCompile Include="..\inc\simple-win32\dynamic.cpp" />
     <ClCompile Include="..\inc\simple-win32\flashcall.cpp" />
+    <ClCompile Include="..\inc\simple-win32\mfc\BitmapDC.cpp" />
     <ClCompile Include="..\inc\simple-win32\mfc\DlgTemplate.cpp" />
     <ClCompile Include="..\inc\simple-win32\mfc\FlashCtrl.cpp" />
     <ClCompile Include="..\inc\simple-win32\mfc\FlashCtrlEx.cpp" />
@@ -30,6 +31,7 @@
     <ClInclude Include="..\inc\simple-win32\drawhtml.h" />
     <ClInclude Include="..\inc\simple-win32\dynamic.h" />
     <ClInclude Include="..\inc\simple-win32\flashcall.h" />
+    <ClInclude Include="..\inc\simple-win32\mfc\BitmapDC.h" />
     <ClInclude Include="..\inc\simple-win32\mfc\DlgTemplate.h" />
     <ClInclude Include="..\inc\simple-win32\mfc\FlashCtrl.h" />
     <ClInclude Include="..\inc\simple-win32\mfc\FlashCtrlEx.h" />
