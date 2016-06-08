@@ -438,7 +438,7 @@ public:
         return	do_call_function(func_name, args, ret_);
     }
     template<typename ValueType>
-    bool		get_return_value(ValueType& value) {
+    bool			get_return_value(ValueType& value) {
         return	ret_.value(value);
     }
     DynamicData&	get_return_value() {

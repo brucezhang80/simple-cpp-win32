@@ -13,6 +13,21 @@
       <Filter>simple-cpp-win32\mfc</Filter>
     </ClCompile>
     <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="..\inc\simple-win32\mfc\FlashCtrl.cpp">
+      <Filter>simple-cpp-win32\mfc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\inc\simple-win32\mfc\FlashCtrlEx.cpp">
+      <Filter>simple-cpp-win32\mfc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\inc\simple-win32\dynamic.cpp">
+      <Filter>simple-cpp-win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\inc\simple-win32\flashcall.cpp">
+      <Filter>simple-cpp-win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\simple-cpp\inc\simple\string.cpp">
+      <Filter>simple-cpp</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="simple-cpp-win32">
@@ -37,5 +52,20 @@
     </ClInclude>
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="..\inc\simple-win32\mfc\FlashCtrl.h">
+      <Filter>simple-cpp-win32\mfc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\simple-win32\mfc\FlashCtrlEx.h">
+      <Filter>simple-cpp-win32\mfc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\simple-win32\dynamic.h">
+      <Filter>simple-cpp-win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\simple-win32\flashcall.h">
+      <Filter>simple-cpp-win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\simple-cpp\inc\simple\string.h">
+      <Filter>simple-cpp</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
