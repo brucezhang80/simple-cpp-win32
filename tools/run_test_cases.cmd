@@ -19,6 +19,7 @@ if exist *.module	@del /f /q	*.module
 if "%OSTYPE%"=="cygwin"	(
 	ECHO	[cygwin] NOT SUPPORT!
 ) else (
+	DEL	/Q	.\cl_param.cmd
 	cl	/nologo		/EP		vspatch\cl-param.txt 2>&1 | findstr "@" > .\cl_param.cmd
 	CALL	.\cl_param.cmd
 	DEL	/Q	.\cl_param.cmd

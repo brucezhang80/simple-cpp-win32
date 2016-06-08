@@ -4,6 +4,7 @@ AntiRE				http://www.codeproject.com/Articles/30815/An-Anti-Reverse-Engineering-
 CheckForDllExportedSymbols	http://www.codeproject.com/Tips/133747/Checking-for-exported-symbols-functions-in-a-DLL-w
 CDispatchPtr			https://github.com/mmorearty/DispatchPtr
 CPatch				http://www.codeproject.com/Articles/34237/A-C-Style-of-Intercepting-Functions
+DrawHTML			http://www.codeproject.com/Articles/7936/DrawHTML
 ExecApp				http://www.codeproject.com/Articles/26784/ExecApp-ExecRegisteredApp-and-LookupRegisteredApp
 MemLeakDetect			http://www.codeproject.com/Articles/8448/Memory-Leak-Detection
 MemoryModule			https://github.com/fancycode/MemoryModule

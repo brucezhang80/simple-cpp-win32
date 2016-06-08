@@ -102,6 +102,9 @@
     <ClCompile Include="..\..\simple-cpp\inc\simple\package.cpp">
       <Filter>simple-cpp</Filter>
     </ClCompile>
+    <ClCompile Include="..\inc\simple-win32\drawhtml.cpp">
+      <Filter>simple-cpp-win32</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="simple-cpp-win32">
@@ -189,6 +192,9 @@
     </ClInclude>
     <ClInclude Include="..\..\simple-cpp\inc\simple\package.h">
       <Filter>simple-cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\simple-win32\drawhtml.h">
+      <Filter>simple-cpp-win32</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

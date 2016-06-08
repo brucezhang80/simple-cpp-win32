@@ -23,6 +23,7 @@
     <ClCompile Include="..\..\simple-cpp\inc\simple\_third_pwgen.c" />
     <ClCompile Include="..\..\simple-cpp\inc\simple\_third_url_parser.c" />
     <ClCompile Include="..\inc\simple-win32\dll.cpp" />
+    <ClCompile Include="..\inc\simple-win32\drawhtml.cpp" />
     <ClCompile Include="..\inc\simple-win32\dynamic.cpp" />
     <ClCompile Include="..\inc\simple-win32\dynamic_buffer.cpp" />
     <ClCompile Include="..\inc\simple-win32\dynamic_json.cpp" />
@@ -55,6 +56,7 @@
     <ClInclude Include="..\inc\simple-win32\dispatch_impl.h" />
     <ClInclude Include="..\inc\simple-win32\dispatch_ptr.h" />
     <ClInclude Include="..\inc\simple-win32\dll.h" />
+    <ClInclude Include="..\inc\simple-win32\drawhtml.h" />
     <ClInclude Include="..\inc\simple-win32\dynamic.h" />
     <ClInclude Include="..\inc\simple-win32\exec.h" />
     <ClInclude Include="..\inc\simple-win32\fiber.h" />
