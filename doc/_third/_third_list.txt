@@ -12,3 +12,4 @@ MemLeakDetect			http://www.codeproject.com/Articles/8448/Memory-Leak-Detection
 MemoryModule			https://github.com/fancycode/MemoryModule
 MsgThread			http://www.codeproject.com/Articles/25747/Message-Thread-Using-IoCompletionPort
 ProcessRunner[modified]	http://www.netcult.ch/elmue
+StorageManager			http://www.codeproject.com/Tips/832893/The-StorageManager-class-easy-data-storing
