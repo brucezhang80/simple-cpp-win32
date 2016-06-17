@@ -1,5 +1,6 @@
 ﻿#include <string>
 #include <vector>
+#include <fstream>
 
 #include <windows.h>
 
@@ -214,4 +215,63 @@ bool Res_ReplaceString(const char* pszApp, int nResID, const char* pszText) {
                    vStrTable.size()*sizeof(WCHAR));
 
     return (FALSE != EndUpdateResource(hUpdateRes,FALSE));
+}
+
+//
+//	获取资源内容
+//
+bool	Res_LoadResource(
+    HMODULE		hModule,
+    const char*	res_name,
+    const char*	res_type,
+    void*&		res_data,
+    size_t&		res_size
+) {
+    HRSRC hRsrc		= FindResourceA(hModule, res_name, res_type);
+    if(NULL == hRsrc)	return false;
+
+    DWORD dwSize	= SizeofResource(hModule, hRsrc);
+    if(0 == dwSize)		return false;
+
+    HGLOBAL hGlobal	= LoadResource(hModule, hRsrc);
+    if(NULL == hGlobal)	return false;
+
+    LPVOID pBuffer	= LockResource(hGlobal);
+    if(NULL == pBuffer)	return false;
+
+    res_data	=	pBuffer;
+    res_size	=	dwSize;
+
+    return	true;
+}
+
+//
+//	获取文件内容(必须确保空间足够大)
+//
+bool	Res_LoadFile(
+    const char*	file_name,
+    void*		res_data,
+    size_t&		res_size
+) {
+    std::ifstream	ifs(file_name, std::ios::binary);
+    if(!ifs) {
+        return	false;
+    }
+
+    ifs.seekg(0, std::ios::end);
+    size_t	file_size	= size_t(ifs.tellg());
+    if(NULL == res_data) {
+        res_size	= file_size;
+        return	true;
+    }
+
+    if(res_size < file_size) {
+        return	false;
+    }
+
+    res_size	= file_size;
+    ifs.seekg(0, std::ios::beg);
+    ifs.read((char*)res_data, res_size);
+
+    return	true;
 }
