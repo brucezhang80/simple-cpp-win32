@@ -49,6 +49,7 @@
     <ClCompile Include="..\inc\simple-win32\wdf.cpp" />
     <ClCompile Include="..\inc\simple-win32\wdf_fs.cpp" />
     <ClCompile Include="..\inc\simple-win32\wdf_protocol.cpp" />
+    <ClCompile Include="..\inc\simple-win32\win.cpp" />
     <ClCompile Include="..\inc\simple-win32\_third_memory_module.c" />
     <ClCompile Include="..\tests\main.cpp" />
     <ClCompile Include="test_cases.cpp" />
@@ -86,6 +87,7 @@
     <ClInclude Include="..\inc\simple-win32\wdf.h" />
     <ClInclude Include="..\inc\simple-win32\wdf_fs.h" />
     <ClInclude Include="..\inc\simple-win32\wdf_protocol.h" />
+    <ClInclude Include="..\inc\simple-win32\win.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\inc\simple-win32\detect_mem_leak.inc" />
