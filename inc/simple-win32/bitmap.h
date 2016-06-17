@@ -1,13 +1,16 @@
-#ifndef BITMAPHDC_H_66BC65DB_AFF6_43C8_8654_D1A2801635E2
-#define BITMAPHDC_H_66BC65DB_AFF6_43C8_8654_D1A2801635E2
+#ifndef BITMAPHDC_H_WIN_66BC65DB_AFF6_43C8_8654_D1A2801635E2
+#define BITMAPHDC_H_WIN_66BC65DB_AFF6_43C8_8654_D1A2801635E2
+
+//	获取HBITMAP大小
+bool	Bitmap_GetSize(HBITMAP hbmp, long& nWidth, long& nHeight);
 
 //
 //  内存Bitmap绘图类
 //
-class BitmapHDC {
+class Bitmap_HDC {
 public:
-    BitmapHDC();
-    virtual		~BitmapHDC();
+    Bitmap_HDC();
+    virtual		~Bitmap_HDC();
 
     void		initialize(int nWidth, int nHeight, HDC hDC = NULL, COLORREF clrBackground = RGB(255,255,255));
     void		uninitialize();
@@ -37,6 +40,5 @@ protected:
     int         m_nBmpWidth;
     int         m_nBmpHeight;
 };
-
 
 #endif  //BITMAPHDC_H__089BB269_EC67_495d_885A_CAB04219E370__INCLUDED_

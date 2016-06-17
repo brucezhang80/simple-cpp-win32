@@ -1,14 +1,26 @@
 #include	<Windows.h>
-#include	"bitmaphdc.h"
+#include	"bitmap.h"
 
-BitmapHDC::BitmapHDC() : m_hDC(NULL), m_hOldBmp(NULL), m_hBitmap(NULL), m_nBmpWidth(0), m_nBmpHeight(0) {
+//	获取HBITMAP大小
+bool	Bitmap_GetSize(HBITMAP hbmp, long& nWidth, long& nHeight){
+	BITMAP bmp;
+	if(NULL == hbmp || !::GetObject(hbmp, sizeof(BITMAP), &bmp)){
+		return false;
+	}
+
+	nWidth	= bmp.bmWidth;
+	nHeight	= bmp.bmHeight;
+	return true;
 }
 
-BitmapHDC::~BitmapHDC() {
+Bitmap_HDC::Bitmap_HDC() : m_hDC(NULL), m_hOldBmp(NULL), m_hBitmap(NULL), m_nBmpWidth(0), m_nBmpHeight(0) {
+}
+
+Bitmap_HDC::~Bitmap_HDC() {
     uninitialize();
 }
 
-void    BitmapHDC::initialize(int nWidth, int nHeight, HDC hDC, COLORREF clrBackground) {
+void    Bitmap_HDC::initialize(int nWidth, int nHeight, HDC hDC, COLORREF clrBackground) {
     uninitialize();
 
     HDC dcScreen	= NULL;
@@ -39,7 +51,7 @@ void    BitmapHDC::initialize(int nWidth, int nHeight, HDC hDC, COLORREF clrBack
     }
 }
 
-void    BitmapHDC::uninitialize() {
+void    Bitmap_HDC::uninitialize() {
     m_nBmpWidth     = 0;
     m_nBmpHeight    = 0;
 
@@ -53,7 +65,7 @@ void    BitmapHDC::uninitialize() {
     }
 }
 
-void	BitmapHDC::set_use_bitmap(bool bSelect) {
+void	Bitmap_HDC::set_use_bitmap(bool bSelect) {
     if(bSelect) {
         if(NULL != m_hBitmap)   ::SelectObject(m_hDC, m_hBitmap);
     } else {
