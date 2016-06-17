@@ -22,7 +22,7 @@
     <ClCompile Include="..\..\simple-cpp\inc\simple\_third_jwrite.c" />
     <ClCompile Include="..\..\simple-cpp\inc\simple\_third_pwgen.c" />
     <ClCompile Include="..\..\simple-cpp\inc\simple\_third_url_parser.c" />
-    <ClCompile Include="..\inc\simple-win32\bitmaphdc.cpp" />
+    <ClCompile Include="..\inc\simple-win32\bitmap.cpp" />
     <ClCompile Include="..\inc\simple-win32\comlib.cpp" />
     <ClCompile Include="..\inc\simple-win32\dll.cpp" />
     <ClCompile Include="..\inc\simple-win32\drawhtml.cpp" />
@@ -44,6 +44,7 @@
     <ClCompile Include="..\inc\simple-win32\patcher.cpp" />
     <ClCompile Include="..\inc\simple-win32\res.cpp" />
     <ClCompile Include="..\inc\simple-win32\se.cpp" />
+    <ClCompile Include="..\inc\simple-win32\shortcut.cpp" />
     <ClCompile Include="..\inc\simple-win32\thread.cpp" />
     <ClCompile Include="..\inc\simple-win32\wdf.cpp" />
     <ClCompile Include="..\inc\simple-win32\wdf_fs.cpp" />
@@ -57,7 +58,7 @@
     <ClInclude Include="..\..\simple-cpp\inc\simple\package.h" />
     <ClInclude Include="..\..\simple-cpp\inc\simple\string.h" />
     <ClInclude Include="..\inc\simple-win32\anti.h" />
-    <ClInclude Include="..\inc\simple-win32\bitmaphdc.h" />
+    <ClInclude Include="..\inc\simple-win32\bitmap.h" />
     <ClInclude Include="..\inc\simple-win32\comlib.h" />
     <ClInclude Include="..\inc\simple-win32\dispatch_impl.h" />
     <ClInclude Include="..\inc\simple-win32\dispatch_ptr.h" />
@@ -80,6 +81,7 @@
     <ClInclude Include="..\inc\simple-win32\patcher.h" />
     <ClInclude Include="..\inc\simple-win32\res.h" />
     <ClInclude Include="..\inc\simple-win32\se.h" />
+    <ClInclude Include="..\inc\simple-win32\shortcut.h" />
     <ClInclude Include="..\inc\simple-win32\thread.h" />
     <ClInclude Include="..\inc\simple-win32\wdf.h" />
     <ClInclude Include="..\inc\simple-win32\wdf_fs.h" />

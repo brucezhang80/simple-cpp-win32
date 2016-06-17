@@ -111,10 +111,13 @@
     <ClCompile Include="..\inc\simple-win32\flashcall.cpp">
       <Filter>simple-cpp-win32</Filter>
     </ClCompile>
-    <ClCompile Include="..\inc\simple-win32\bitmaphdc.cpp">
+    <ClCompile Include="..\inc\simple-win32\comlib.cpp">
       <Filter>simple-cpp-win32</Filter>
     </ClCompile>
-    <ClCompile Include="..\inc\simple-win32\comlib.cpp">
+    <ClCompile Include="..\inc\simple-win32\bitmap.cpp">
+      <Filter>simple-cpp-win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\inc\simple-win32\shortcut.cpp">
       <Filter>simple-cpp-win32</Filter>
     </ClCompile>
   </ItemGroup>
@@ -214,10 +217,13 @@
     <ClInclude Include="..\inc\simple-win32\flashcall.h">
       <Filter>simple-cpp-win32</Filter>
     </ClInclude>
-    <ClInclude Include="..\inc\simple-win32\bitmaphdc.h">
+    <ClInclude Include="..\inc\simple-win32\comlib.h">
       <Filter>simple-cpp-win32</Filter>
     </ClInclude>
-    <ClInclude Include="..\inc\simple-win32\comlib.h">
+    <ClInclude Include="..\inc\simple-win32\bitmap.h">
+      <Filter>simple-cpp-win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\inc\simple-win32\shortcut.h">
       <Filter>simple-cpp-win32</Filter>
     </ClInclude>
   </ItemGroup>

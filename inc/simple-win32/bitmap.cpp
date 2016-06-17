@@ -2,15 +2,15 @@
 #include	"bitmap.h"
 
 //	获取HBITMAP大小
-bool	Bitmap_GetSize(HBITMAP hbmp, long& nWidth, long& nHeight){
-	BITMAP bmp;
-	if(NULL == hbmp || !::GetObject(hbmp, sizeof(BITMAP), &bmp)){
-		return false;
-	}
+bool	Bitmap_GetSize(HBITMAP hbmp, long& nWidth, long& nHeight) {
+    BITMAP bmp;
+    if(NULL == hbmp || !::GetObject(hbmp, sizeof(BITMAP), &bmp)) {
+        return false;
+    }
 
-	nWidth	= bmp.bmWidth;
-	nHeight	= bmp.bmHeight;
-	return true;
+    nWidth	= bmp.bmWidth;
+    nHeight	= bmp.bmHeight;
+    return true;
 }
 
 Bitmap_HDC::Bitmap_HDC() : m_hDC(NULL), m_hOldBmp(NULL), m_hBitmap(NULL), m_nBmpWidth(0), m_nBmpHeight(0) {
