@@ -24,6 +24,7 @@
     <ClCompile Include="..\..\simple-cpp\inc\simple\_third_url_parser.c" />
     <ClCompile Include="..\inc\simple-win32\bitmap.cpp" />
     <ClCompile Include="..\inc\simple-win32\comlib.cpp" />
+    <ClCompile Include="..\inc\simple-win32\desktop.cpp" />
     <ClCompile Include="..\inc\simple-win32\dll.cpp" />
     <ClCompile Include="..\inc\simple-win32\drawhtml.cpp" />
     <ClCompile Include="..\inc\simple-win32\dynamic.cpp" />
@@ -61,6 +62,7 @@
     <ClInclude Include="..\inc\simple-win32\anti.h" />
     <ClInclude Include="..\inc\simple-win32\bitmap.h" />
     <ClInclude Include="..\inc\simple-win32\comlib.h" />
+    <ClInclude Include="..\inc\simple-win32\desktop.h" />
     <ClInclude Include="..\inc\simple-win32\dispatch_impl.h" />
     <ClInclude Include="..\inc\simple-win32\dispatch_ptr.h" />
     <ClInclude Include="..\inc\simple-win32\dll.h" />
