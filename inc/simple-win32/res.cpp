@@ -56,7 +56,7 @@ bool Res_ReplaceICO(const char* lpExeName, const char* sResID, const char* lpIco
     WORD i(0);
 
     //打开图标文件
-    hIconFile = CreateFile(lpIconFile, GENERIC_READ, NULL, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+    hIconFile = CreateFileA(lpIconFile, GENERIC_READ, NULL, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
     if (hIconFile == INVALID_HANDLE_VALUE) {
         return	false;
     }
@@ -99,10 +99,10 @@ bool Res_ReplaceICO(const char* lpExeName, const char* sResID, const char* lpIco
         pGrpIconDir->idEntries[i].nID=i+1; //id == 0 是 RT_GROUP_ICON 的id，我这里替换的时候出现问题，所以就 + 1 了。
     }
     //开始更新EXE中的图标资源，ID定为最小０，如果原来存在０ID的图标信息则被替换为新的。
-    hUpdate = BeginUpdateResource(lpExeName, false);
+    hUpdate = BeginUpdateResourceA(lpExeName, false);
     if (hUpdate!=NULL) {
         //首先更新RT_GROUP_ICON信息
-        ret = UpdateResource(hUpdate, RT_GROUP_ICON, sResID, MAKELANGID(LANG_NEUTRAL, SUBLANG_NEUTRAL), (LPVOID)pGrpIconDir, nGSize);
+        ret = UpdateResourceA(hUpdate, (LPSTR)RT_GROUP_ICON, sResID, MAKELANGID(LANG_NEUTRAL, SUBLANG_NEUTRAL), (LPVOID)pGrpIconDir, nGSize);
         if (!ret) {
             delete[] pIconDirEntry;
             delete[] pGrpIconDir;
@@ -158,7 +158,7 @@ bool Res_ReplaceString(const char* pszApp, int nResID, const char* pszText) {
     string_ansi_to_utf16(pszText,	wText);
 
     int SourceId	= nResID;
-    HINSTANCE hInst = ::LoadLibrary(pszApp);
+    HINSTANCE hInst = ::LoadLibraryA(pszApp);
     if(hInst == NULL) return false;
 
     std::vector<WCHAR> vStrTable;  // 资源数据
@@ -173,7 +173,7 @@ bool Res_ReplaceString(const char* pszApp, int nResID, const char* pszText) {
     }
     ::FreeLibrary(hInst);
 
-    HANDLE hUpdateRes=BeginUpdateResource(pszApp,false);
+    HANDLE hUpdateRes=BeginUpdateResourceA(pszApp,false);
     if(hUpdateRes == NULL) return false;  // 不能更新,浪费表情
 
     int nIndex = (SourceId-1)%16; // 字符串表中的位置
