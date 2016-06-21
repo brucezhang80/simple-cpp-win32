@@ -35,6 +35,7 @@
     <ClCompile Include="..\inc\simple-win32\flash.cpp" />
     <ClCompile Include="..\inc\simple-win32\flashcall.cpp" />
     <ClCompile Include="..\inc\simple-win32\fs.cpp" />
+    <ClCompile Include="..\inc\simple-win32\gdiplus\subimage.cpp" />
     <ClCompile Include="..\inc\simple-win32\ie.cpp" />
     <ClCompile Include="..\inc\simple-win32\ie_download.cpp" />
     <ClCompile Include="..\inc\simple-win32\ie_protocol.cpp" />
@@ -73,6 +74,7 @@
     <ClInclude Include="..\inc\simple-win32\flash.h" />
     <ClInclude Include="..\inc\simple-win32\flashcall.h" />
     <ClInclude Include="..\inc\simple-win32\fs.h" />
+    <ClInclude Include="..\inc\simple-win32\gdiplus\subimage.h" />
     <ClInclude Include="..\inc\simple-win32\ie.h" />
     <ClInclude Include="..\inc\simple-win32\ie_download.h" />
     <ClInclude Include="..\inc\simple-win32\ie_protocol.h" />
