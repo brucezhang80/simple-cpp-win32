@@ -1,6 +1,10 @@
 ﻿#include	<Windows.h>
 #include	<tchar.h>
 
+#include	<memory>
+
+#include	"res.h"
+
 //
 //	判断是否64位系统
 //
@@ -33,7 +37,7 @@ HWND	Win_FindChildByClass(HWND hWnd, const char* sClass) {
 
     do {
         char	buf[MAX_PATH]	= {};
-        GetClassName(hChild, buf, sizeof(buf) - 1);
+        GetClassNameA(hChild, buf, sizeof(buf) - 1);
         if(0 == _strcmpi(buf, sClass)) {
             return	hChild;
         }
@@ -42,4 +46,41 @@ HWND	Win_FindChildByClass(HWND hWnd, const char* sClass) {
     } while(hChild != NULL);
 
     return	NULL;
+}
+
+bool	Win_SetRgn(HWND hWnd, RGNDATA* data, size_t size) {
+    XFORM xform;
+    xform.eM11 = (FLOAT) 1.0;
+    xform.eM22 = (FLOAT) 1.0;
+    xform.eM12 = (FLOAT) 0.0;
+    xform.eM21 = (FLOAT) 0.0;
+    xform.eDx  = (FLOAT) 0.0;
+    xform.eDy  = (FLOAT) 0.0;
+
+    HRGN rgn = ExtCreateRegion(&xform, DWORD(size), (RGNDATA*)data);
+    return (FALSE != SetWindowRgn(hWnd, rgn, FALSE));
+}
+
+bool	Win_SetRgnFromFile(HWND hWnd, const char* file) {
+    size_t	size	= 0;
+    if(!Res_LoadFile(file, NULL, size)) {
+        return	true;
+    }
+    std::auto_ptr<char>	data(new char[size]);
+    if(!Res_LoadFile(file, data.get(), size)) {
+        return	true;
+    }
+
+    return	Win_SetRgn(hWnd, (RGNDATA*)data.get(), size);
+}
+
+bool	Win_SetRgnFromRes(HWND hWnd, HMODULE hModule, const char* res_name, const char*	res_type) {
+    void*	data;
+    size_t	size;
+
+    if(!Res_LoadResource(hModule, res_name, res_type, data, size)) {
+        return	false;
+    }
+
+    return	Win_SetRgn(hWnd, (RGNDATA*)data, size);
 }

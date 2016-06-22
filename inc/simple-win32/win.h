@@ -11,4 +11,11 @@ bool	Win_Is64bitsSystem();
 //
 HWND	Win_FindChildByClass(HWND hWnd, const char* sClass);
 
+//
+//	设置窗口区域数据
+//
+bool	Win_SetRgn(HWND hWnd, const void* data, size_t size);
+bool	Win_SetRgnFromFile(HWND hWnd, const char* file);
+bool	Win_SetRgnFromRes(HWND hWnd, HMODULE hModule, const char* res_name, const char*	res_type);
+
 #endif

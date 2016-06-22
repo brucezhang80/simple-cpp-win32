@@ -11,8 +11,17 @@ inline	bool	String_ToSize(const std::string& str, SIZE& size) {
     return	string_tonumbers(str, size.cx, size.cy);
 }
 
-inline	bool	String_ToRect(const std::string& str, RECT& rc) {
+inline	bool	String_ToWHRect(const std::string& str, RECT& rc) {
     return	string_tonumbers(str, rc.left, rc.top, rc.right, rc.bottom);
+}
+
+inline	bool	String_ToRect(const std::string& str, RECT& rc) {
+    if(!string_tonumbers(str, rc.left, rc.top, rc.right, rc.bottom)) {
+        return	false;
+    }
+    rc.right	+= rc.left;
+    rc.bottom	+= rc.top;
+    return	true;
 }
 
 #endif
