@@ -1,0 +1,116 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML><HEAD>
+<STYLE type=text/css>.title {
+	FONT: bold 16pt Arial; COLOR: #ff6633; TEXT-ALIGN: center; TEXT-DECORATION: none
+}
+.newtitle {
+	FONT: bold 12pt Tahoma; COLOR: #ff6633; TEXT-ALIGN: left; TEXT-DECORATION: none
+}
+.standard {
+	FONT: 11pt Verdana; COLOR: #000000; TEXT-ALIGN: left; TEXT-DECORATION: none
+}
+</STYLE>
+
+<META http-equiv=Content-Type content="text/html; charset=windows-1252">
+<META content="MSHTML 5.50.4134.600" name=GENERATOR></HEAD>
+<BODY>
+<P class=title> CAtlBitmapButton - ATL/WTL Ownerdraw Superclassed Bitmap Button</P>
+<META GENERATOR="xSite - Version 1.0.0.233">
+<PRE>
+Author:      Amit Dey
+Email:       amitdey@joymail.com
+Subject:     Bitmap Button, ATL/WTL 
+Level:       Beginners/Intermediate
+</PRE>
+<P class=newtitle>Introduction</P>
+<p class=standard> Recently, in one of my projects, I needed to build a simple user interface consisting of a series of bitmap buttons in a dialog. Something simple and probably easy to use. About the same time, I came across <b>David Pizzolato's</b> very nice article on skinned button at codeproject.com, that got me thinking. What came out of the whole endevour was <b>CAtlBitmapButton</b> - an ATL/WTL ownerdrawn superclassed bitmap button. The class is not really complete and represents work in progress. I'll be glad if any of you find this useful :-).<br><br>
+
+
+CAtlBitmapButton class is very friendly and you can learn to use it in no time. The hardest part might be drawing the bitmaps (if you are as artistically challenged as I am !). <br><br>
+Now let's get down to the basics. We'll be building an ATL/WTL Dialog-based application so I assume you are slightly familiar with ATL/WTL and ATL Windowing. 
+</p> 
+
+<IMG SRC="snapshot.jpg" WIDTH=231 HEIGHT=386>  &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;
+<IMG SRC="snapshot2.jpg" WIDTH=231 HEIGHT=386>
+<p class=newtitle> How to use </p>
+<p class=standard>To build the client, fire up Visual C++ and create a new Win32 application . Next we shall rig up ATL support to the project. Since we'd like to have ATL Wizard support, just follow the instructions step-by-step. If you already know how to do this, you can skip this part. First, in project's stdafx.h file, replace
+<pre> #include &ltwindows.h&gt</pre> with
+<pre>
+#define RICHEDIT_VER 0x0100
+#include &ltatlbase.h&gt <br>extern CComModule _Module;<br>#include &ltatlcom.h&gt <br>#include &ltatlwin.h&gt
+#include &ltatlapp.h&gt
+#include &ltatlctrls.h&gt
+ </pre>
+
+</p>
+<p class=standard> Now add a new IDL file to the project that contains a blank library definition block like</p>
+<pre>library &ltProject Name&gt
+{
+
+
+
+};  </pre>
+<p class=standard> Now, in ClassView, right-click the IDL file you just added, and choose <b>Settings.</b> In the <b>General</b> tab of the project settings dialog, check the <b>Exclude file from build</b> option.
+
+<p class=standard> Next modify your projects .cpp file so that it looks like:  
+<pre>CComModule _Module;
+
+BEGIN_OBJECT_MAP(ObjectMap)
+END_OBJECT_MAP()
+
+int APIENTRY WinMain(HINSTANCE hInstance,
+                     HINSTANCE hPrevInstance,
+                     LPSTR     lpCmdLine,
+                     int       nCmdShow)
+{
+	// TODO: Place code here.
+	_Module.Init(0, hInstance);
+	
+	
+	_Module.Term();
+	return 0;
+}
+
+  </pre></p>
+<p class=standard>Having rigged up ATL/WTL support, goto <b>Insert->New ATL Object</b>. In the <b>Miscellaneous</b> category, choose <b>Dialog</b> and click on <b>Next</b>.Enter the short name as<b> Dialog</b>.</p>
+<p class=standard>In the dialog resource, add 4 buttons(IDC_BUTTON1,IDC_BUTTON2,IDC_BUTTON3 and IDC_BUTTON4) and set the <b>Ownerdraw</b> properties of these buttons to true. You would also need to add a few bitmaps to the project such that each button has three state bitmaps (Selected, Down and Over).</p>
+<p class=standard> Add the file, <b>CAtlBitmapButton.h</b> to the project. In ClassView, right click the dialog class and add four member variables of type CAtlBitmapButton to it like</p> 
+<pre> CAtlBitmapButton m_button1,m_button2,m_button3,m_button4;</pre>
+<p class=standard>In the dialog's OnInitDialog(), add the following code :</p>
+<pre>	m_button1.SubclassWindow(GetDlgItem(IDC_BUTTON1));
+	m_button1.LoadStateBitmaps(IDB_LOADU, IDB_LOADD, IDB_LOAD);
+	
+	m_button2.SubclassWindow(GetDlgItem(IDC_BUTTON2));
+	m_button2.LoadStateBitmaps(IDB_PLAYU, IDB_PLAYD, IDB_PLAY);
+	
+	m_button3.SubclassWindow(GetDlgItem(IDC_BUTTON3));
+	m_button3.LoadStateBitmaps(IDB_SAVEU, IDB_SAVED, IDB_SAVE);
+	
+	m_button4.SubclassWindow(GetDlgItem(ID_BUTTON4));
+	m_button4.LoadStateBitmaps(IDB_QUITU, IDB_QUITD, IDB_QUIT);
+	</pre>
+
+<p class=standard>CAtlBitmapButton has a method LoadStateBitmaps() to load the state bitmaps.   The last thing to do is to add the ATL macro REFLECT_NOTIFICATIONS() to the dialog's message map like:</p>
+<pre>
+
+	BEGIN_MSG_MAP(CDialog)
+	MESSAGE_HANDLER(WM_INITDIALOG, OnInitDialog)
+	COMMAND_ID_HANDLER(IDOK, OnOK)
+	COMMAND_ID_HANDLER(IDCANCEL, OnCancel)
+	COMMAND_ID_HANDLER(ID_QUIT, OnQuit)
+	REFLECT_NOTIFICATIONS()
+	END_MSG_MAP() </pre>
+
+<p class=standard> Build the project and run it. Check that the buttons are displaying the correct state bitmap. To handle button-clicks. use ATL macro COMMAND_ID_HANDLER() in the messagemap as shown in above code for the OK and Cancel button. OnCancel looks like: </p>
+<pre>LRESULT OnCancel(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled)
+{
+	EndDialog(wID);
+	return 0;
+}</pre>
+<p class=standard> That's it. Yippee!<br> Have fun.
+<P class=newtitle>Author</P>
+<P class=standard>Amit Dey.<br> amitdey@joymail.com
+</P>
+<P class=newtitle>Acknowledgements</P>
+<P class=standard>David Pizzolato.</P>
+</DIV></BODY></HTML>
