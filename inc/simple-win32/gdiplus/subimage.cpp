@@ -15,6 +15,10 @@ bool	SubImage_Load(SubImage* img, const std::string& param) {
 }
 
 bool	SubImage_Load(SubImage* img, const std::string& param, SubImage_ImageCache* cache) {
+    if(NULL == img) {
+        return	false;
+    }
+
     size_t		pos	= param.find(',');
     std::string	file(param), rect;
     if(pos != std::string::npos) {
@@ -22,19 +26,22 @@ bool	SubImage_Load(SubImage* img, const std::string& param, SubImage_ImageCache*
         rect	= param.substr(pos+1, param.length()-pos-1);
     }
 
-    {
+    //	img
+    if(NULL != cache && cache->has(file)) {
+        img->image	= cache->get(file);
+    } else {
         wchar_t	fn[MAX_PATH]	= {};
         ::MultiByteToWideChar(CP_ACP, NULL,
                               file.c_str(), int(file.size()), fn, MAX_PATH);
-        if(NULL != img) {
-            img->image	= new Gdiplus::Image(fn);
+        img->image	= new Gdiplus::Image(fn);
+        if(NULL != cache) {
+            cache->set(file, img->image);
         }
     }
 
-    if(NULL != img) {
-        if(!string_tonumbers(rect, img->rect.X, img->rect.Y, img->rect.Width, img->rect.Height)) {
-            img->rect	= Gdiplus::Rect(0, 0, img->image->GetWidth(), img->image->GetHeight());
-        }
+    //	rect
+    if(!string_tonumbers(rect, img->rect.X, img->rect.Y, img->rect.Width, img->rect.Height)) {
+        img->rect	= Gdiplus::Rect(0, 0, img->image->GetWidth(), img->image->GetHeight());
     }
 
     return	true;
