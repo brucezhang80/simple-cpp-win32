@@ -247,6 +247,9 @@
     <ClInclude Include="..\inc\simple-win32\gdiplus\subimage.h">
       <Filter>simple-cpp-win32\gdiplus</Filter>
     </ClInclude>
+    <ClInclude Include="..\inc\simple-win32\string.h">
+      <Filter>simple-cpp-win32</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\inc\simple-win32\detect_mem_leak.inc">

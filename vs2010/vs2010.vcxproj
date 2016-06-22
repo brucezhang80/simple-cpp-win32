@@ -87,6 +87,7 @@
     <ClInclude Include="..\inc\simple-win32\res.h" />
     <ClInclude Include="..\inc\simple-win32\se.h" />
     <ClInclude Include="..\inc\simple-win32\shortcut.h" />
+    <ClInclude Include="..\inc\simple-win32\string.h" />
     <ClInclude Include="..\inc\simple-win32\thread.h" />
     <ClInclude Include="..\inc\simple-win32\wdf.h" />
     <ClInclude Include="..\inc\simple-win32\wdf_fs.h" />

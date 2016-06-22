@@ -34,6 +34,11 @@ bool	SubImage_Load(SubImage* img, const std::string& param, SubImage_ImageCache*
         ::MultiByteToWideChar(CP_ACP, NULL,
                               file.c_str(), int(file.size()), fn, MAX_PATH);
         img->image	= new Gdiplus::Image(fn);
+        if(img->image->GetLastStatus() != Gdiplus::Ok) {
+            delete	img->image;
+            img->image	= NULL;
+            return	false;
+        }
         if(NULL != cache) {
             cache->set(file, img->image);
         }
@@ -73,7 +78,7 @@ void	SubImage_ImageCache::clear() {
 }
 
 bool	SubImage_ImageCache::has(const std::string& key) {
-    return	data_.end() == data_.find(key);
+    return	data_.end() != data_.find(key);
 }
 
 Gdiplus::Image*	SubImage_ImageCache::get(const std::string& key) {
