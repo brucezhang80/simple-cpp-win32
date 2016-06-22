@@ -3,4 +3,4 @@
 @SET	MSVC_CL_PARAM=/Ivspatch\vs2003
 #endif
 
-@SET	MSVC_CL_PARAM=%MSVC_CL_PARAM%  kernel32.lib  user32.lib  gdi32.lib  shell32.lib  dbghelp.lib  comsupp.lib  comsuppw.lib  wininet.lib  shlwapi.lib
+@SET	MSVC_CL_PARAM=%MSVC_CL_PARAM%  kernel32.lib  user32.lib  gdi32.lib  shell32.lib  dbghelp.lib  comsupp.lib  comsuppw.lib  wininet.lib  shlwapi.lib gdiplus.lib

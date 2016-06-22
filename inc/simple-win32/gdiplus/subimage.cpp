@@ -1,8 +1,8 @@
 ﻿#include	<Windows.h>
 
-#include	"subimage.h"
+#include	"simple/string.h"
 
-using	namespace	Gdiplus;
+#include	"subimage.h"
 
 void	SubImage_Clear(SubImage* img) {
     img->image	= NULL;
@@ -15,8 +15,29 @@ bool	SubImage_Load(SubImage* img, const std::string& param) {
 }
 
 bool	SubImage_Load(SubImage* img, const std::string& param, SubImage_ImageCache* cache) {
-    // TODO: ...
-    return	false;
+    size_t		pos	= param.find(',');
+    std::string	file(param), rect;
+    if(pos != std::string::npos) {
+        file	= param.substr(0, pos);
+        rect	= param.substr(pos+1, param.length()-pos-1);
+    }
+
+    {
+        wchar_t	fn[MAX_PATH]	= {};
+        ::MultiByteToWideChar(CP_ACP, NULL,
+                              file.c_str(), int(file.size()), fn, MAX_PATH);
+        if(NULL != img) {
+            img->image	= new Gdiplus::Image(fn);
+        }
+    }
+
+    if(NULL != img) {
+        if(!string_tonumbers(rect, img->rect.X, img->rect.Y, img->rect.Width, img->rect.Height)) {
+            img->rect	= Gdiplus::Rect(0, 0, img->image->GetWidth(), img->image->GetHeight());
+        }
+    }
+
+    return	true;
 }
 
 void	SubImage_Destroy(SubImage* img) {
