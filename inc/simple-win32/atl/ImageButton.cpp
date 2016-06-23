@@ -1,11 +1,11 @@
 #include <atlbase.h>
 
-#include "BitmapButton.h"
+#include "ImageButton.h"
 
 #include	"simple-win32/gdiplus/subimage.h"
 
 
-BitmapButton::BitmapButton(void)
+ImageButton::ImageButton(void)
     :	NormalImage(NULL)
     ,	DownImage(NULL)
     ,	HoverImage(NULL)
@@ -15,25 +15,25 @@ BitmapButton::BitmapButton(void)
 }
 
 
-BitmapButton::~BitmapButton(void) {
+ImageButton::~ImageButton(void) {
 }
 
-UINT BitmapButton::state() const {
+UINT ImageButton::state() const {
     ATLASSERT(::IsWindow(m_hWnd));
     return (UINT)::SendMessage(m_hWnd, BM_GETSTATE, 0, 0L);
 }
 
-void BitmapButton::set_state(bool selected) {
+void ImageButton::set_state(bool selected) {
     ATLASSERT(::IsWindow(m_hWnd));
     ::SendMessage(m_hWnd, BM_SETSTATE, selected, 0L);
 }
 
-LRESULT BitmapButton::OnEraseBkgnd(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/) {
+LRESULT ImageButton::OnEraseBkgnd(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/) {
     return 1;
 }
 
 
-LRESULT BitmapButton::OnLButtonDown(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& bHandled) {
+LRESULT ImageButton::OnLButtonDown(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& bHandled) {
     if (m_tracking) {
         TRACKMOUSEEVENT t = {
             sizeof(TRACKMOUSEEVENT),
@@ -53,7 +53,7 @@ LRESULT BitmapButton::OnLButtonDown(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*l
 }
 
 
-LRESULT BitmapButton::OnLButtonUp(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& bHandled) {
+LRESULT ImageButton::OnLButtonUp(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& bHandled) {
     m_btndown = false;
 
     bHandled = false;
@@ -61,7 +61,7 @@ LRESULT BitmapButton::OnLButtonUp(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lPa
 }
 
 
-LRESULT BitmapButton::OnKillFocus(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& bHandled) {
+LRESULT ImageButton::OnKillFocus(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& bHandled) {
     if (::GetCapture() == m_hWnd) {
         ::ReleaseCapture();
         ATLASSERT(!m_tracking);
@@ -73,7 +73,7 @@ LRESULT BitmapButton::OnKillFocus(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lPa
 }
 
 
-LRESULT BitmapButton::OnMouseMove(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM lParam, BOOL& bHandled) {
+LRESULT ImageButton::OnMouseMove(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM lParam, BOOL& bHandled) {
     if ((m_btndown) &&(::GetCapture() == m_hWnd)) {
         POINT p2;
         p2.x = LOWORD(lParam);
@@ -108,7 +108,7 @@ LRESULT BitmapButton::OnMouseMove(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM lPara
 }
 
 
-LRESULT BitmapButton::OnMouseLeave(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/) {
+LRESULT ImageButton::OnMouseLeave(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/) {
     m_tracking = false;
     Invalidate();
 
@@ -116,7 +116,7 @@ LRESULT BitmapButton::OnMouseLeave(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lP
 }
 
 
-LRESULT BitmapButton::OnDrawItem(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM lParam, BOOL& /*bHandled*/) {
+LRESULT ImageButton::OnDrawItem(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM lParam, BOOL& /*bHandled*/) {
     POINT	mouse_pos;
     UINT	curr_state	= this->state();
     if ((m_btndown) &&(::GetCapture() == m_hWnd) &&(::GetCursorPos(&mouse_pos))) {

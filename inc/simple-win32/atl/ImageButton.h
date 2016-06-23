@@ -4,17 +4,17 @@
 
 struct	SubImage;
 
-class BitmapButton :
-    public CWindowImpl<BitmapButton, CWindow, CWinTraits<WS_CHILD|WS_VISIBLE|BS_OWNERDRAW> > {
+class ImageButton :
+    public CWindowImpl<ImageButton, CWindow, CWinTraits<WS_CHILD|WS_VISIBLE|BS_OWNERDRAW> > {
 public:
-    BitmapButton(void);
-    ~BitmapButton(void);
+    ImageButton(void);
+    ~ImageButton(void);
 
 public:
     SubImage	*NormalImage
-    ,		*DownImage
-    ,		*HoverImage
-    ,		*DisabledImage
+    ,			*DownImage
+    ,			*HoverImage
+    ,			*DisabledImage
     ;
 
     UINT		state() const;
@@ -25,7 +25,7 @@ private:
     bool		m_btndown;
 
 private:
-    BEGIN_MSG_MAP(BitmapButton)
+    BEGIN_MSG_MAP(ImageButton)
     MESSAGE_HANDLER(OCM_DRAWITEM, OnDrawItem)
     MESSAGE_HANDLER(WM_ERASEBKGND, OnEraseBkgnd)
     MESSAGE_HANDLER(WM_MOUSEMOVE, OnMouseMove)

@@ -8,4 +8,4 @@ inc/simple-win32/mfc
 	DlgTemplate.h/cpp		_third/DlgTemplateBuilder/DlgTemplateBuilder.h/cpp
 
 inc/simple-win32/atl
-	BitmapButton.h			_third/CAtlBitmapButton/AtlBitmapSkinButton.h
+	ImageButton.h/cpp		_third/CAtlBitmapButton/AtlBitmapSkinButton.h
