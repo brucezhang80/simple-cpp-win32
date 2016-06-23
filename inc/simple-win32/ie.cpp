@@ -301,12 +301,12 @@ DispatchPtr	IE_GetScriptFunctions(LPDISPATCH pDocument) {
 //	http=http://xxxx.xxx.xxx:nnnn
 //
 bool	IE_SetProxy(const char* pszProxy, const char* pszAppName) {
-    HINTERNET	hInternet		= InternetOpen(pszAppName,
+    HINTERNET	hInternet		= InternetOpenA(pszAppName,
                                   INTERNET_OPEN_TYPE_DIRECT,
                                   NULL, NULL, 0
-                                       );
+                                        );
 
-    INTERNET_PER_CONN_OPTION	options[3];
+    INTERNET_PER_CONN_OPTIONA	options[3];
     {
         options[0].dwOption			= INTERNET_PER_CONN_FLAGS;
         options[0].Value.dwValue	= (NULL == pszProxy || 0 == pszProxy[0]) ? 0 : PROXY_TYPE_PROXY;
@@ -319,7 +319,7 @@ bool	IE_SetProxy(const char* pszProxy, const char* pszAppName) {
         options[2].Value.pszValue	= "local";
     }
 
-    INTERNET_PER_CONN_OPTION_LIST	list;
+    INTERNET_PER_CONN_OPTION_LISTA	list;
     unsigned   long					nSize   =   sizeof(list);
     {
         list.dwSize					= sizeof(list);
