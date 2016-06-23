@@ -2,16 +2,14 @@
 
 #include "ImageButton.h"
 
-#include	"simple-win32/gdiplus/subimage.h"
-
 
 ImageButton::ImageButton(void)
-    :	NormalImage(NULL)
-    ,	DownImage(NULL)
-    ,	HoverImage(NULL)
-    ,	DisabledImage(NULL)
-    ,	m_tracking(false)
+    :	m_tracking(false)
     ,	m_btndown(false) {
+    SubImage_Clear(&NormalImage);
+    SubImage_Clear(&SelectedImage);
+    SubImage_Clear(&HoverImage);
+    SubImage_Clear(&DisabledImage);
 }
 
 
@@ -48,7 +46,7 @@ LRESULT ImageButton::OnLButtonDown(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lP
 
     m_btndown = true;
 
-    bHandled = false;
+    bHandled = FALSE;
     return 0;
 }
 
@@ -56,7 +54,7 @@ LRESULT ImageButton::OnLButtonDown(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lP
 LRESULT ImageButton::OnLButtonUp(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& bHandled) {
     m_btndown = false;
 
-    bHandled = false;
+    bHandled = FALSE;
     return 0;
 }
 
@@ -68,7 +66,7 @@ LRESULT ImageButton::OnKillFocus(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lPar
         m_btndown = false;
     }
 
-    bHandled = false;
+    bHandled = FALSE;
     return 0;
 }
 
@@ -103,7 +101,7 @@ LRESULT ImageButton::OnMouseMove(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM lParam
         }
     }
 
-    bHandled = false;
+    bHandled = FALSE;
     return 0;
 }
 
@@ -142,20 +140,20 @@ LRESULT ImageButton::OnDrawItem(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM lParam,
         lpdis->rcItem.bottom- lpdis->rcItem.top
     );
 
-    SubImage*	img	= this->NormalImage;
+    SubImage	img	= this->NormalImage;
     if (lpdis->itemState & ODS_SELECTED) {
-        img	= this->DownImage;
+        img	= this->SelectedImage;
     } else if (lpdis->itemState & ODS_DISABLED) {
         img	= this->DisabledImage;
     } else if (m_tracking) {
         img	= this->HoverImage;
     }
 
-    if(NULL != img && NULL != img->image) {
+    if(NULL != img.image) {
         Gdiplus::Graphics	graphics(lpdis->hDC);
-        graphics.DrawImage(img->image, rect,
-                           img->rect.X, img->rect.Y,
-                           img->rect.Width, img->rect.Height,
+        graphics.DrawImage(img.image, rect,
+                           img.rect.X, img.rect.Y,
+                           img.rect.Width, img.rect.Height,
                            Gdiplus::UnitPixel
                           );
     }

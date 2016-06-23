@@ -2,19 +2,21 @@
 
 #include "atlwin.h"
 
-struct	SubImage;
+#include	"simple-win32/gdiplus/subimage.h"
 
 class ImageButton :
-    public CWindowImpl<ImageButton, CWindow, CWinTraits<WS_CHILD|WS_VISIBLE|BS_OWNERDRAW> > {
+    public CWindowImpl<ImageButton, CWindow, CWinTraits<WS_VISIBLE|WS_CHILD|BS_OWNERDRAW,0> > {
 public:
     ImageButton(void);
     ~ImageButton(void);
 
+    DECLARE_WND_SUPERCLASS(NULL, _T("BUTTON"))
+
 public:
-    SubImage	*NormalImage
-    ,			*DownImage
-    ,			*HoverImage
-    ,			*DisabledImage
+    SubImage	NormalImage
+    ,			SelectedImage
+    ,			HoverImage
+    ,			DisabledImage
     ;
 
     UINT		state() const;
@@ -27,6 +29,7 @@ private:
 private:
     BEGIN_MSG_MAP(ImageButton)
     MESSAGE_HANDLER(OCM_DRAWITEM, OnDrawItem)
+    MESSAGE_HANDLER(WM_DRAWITEM, OnDrawItem)
     MESSAGE_HANDLER(WM_ERASEBKGND, OnEraseBkgnd)
     MESSAGE_HANDLER(WM_MOUSEMOVE, OnMouseMove)
     MESSAGE_HANDLER(WM_MOUSELEAVE, OnMouseLeave)
