@@ -1,6 +1,6 @@
 #pragma once
 
-class IEHostWindow
+class ATL_NO_VTABLE IEHostWindow
     :	public	CAxHostWindow
     ,	public	IDocHostShowUI {
 public:
