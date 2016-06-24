@@ -142,11 +142,15 @@ LRESULT ImageButton::OnDrawItem(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM lParam,
 
     SubImage	img	= this->NormalImage;
     if (lpdis->itemState & ODS_SELECTED) {
-        img	= this->SelectedImage;
+        if(NULL != this->SelectedImage.image) {
+            img	= this->SelectedImage;
+        }
     } else if (lpdis->itemState & ODS_DISABLED) {
         img	= this->DisabledImage;
     } else if (m_tracking) {
-        img	= this->HoverImage;
+        if(NULL != this->HoverImage.image) {
+            img	= this->HoverImage;
+        }
     }
 
     if(NULL != img.image) {

@@ -1,9 +1,6 @@
 ﻿
 #include	"ie.h"
 
-//#include	<mshtmdid.h>
-//#include	<afxocc.h>
-//#include	<shlwapi.h>
 #include	<wininet.h>
 
 
