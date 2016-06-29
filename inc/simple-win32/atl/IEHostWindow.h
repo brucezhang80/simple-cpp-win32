@@ -1,5 +1,7 @@
 #pragma once
 
+#include	"simple/delegate.h"
+
 class ATL_NO_VTABLE IEHostWindow
     :	public	CAxHostWindow
     ,	public	IDocHostShowUI {
@@ -15,6 +17,10 @@ public:
 
     static	void	patch_atl_creator_CAxHostWindow(FUNC_CreateInstance new_func = NULL, FUNC_CreateInstance* old_func = NULL);
     static	void	unpatch_atl_creator_CAxHostWindow();
+
+public:
+    delegate<bool(HWND, LPOLESTR, LPOLESTR, DWORD, LPOLESTR, DWORD, LRESULT*)>	evtShowMessage;
+    delegate<bool(HWND, LPOLESTR, UINT, DWORD, POINT, IDispatch*)>				evtShowHelp;
 
 public:
     DECLARE_POLY_AGGREGATABLE(IEHostWindow);

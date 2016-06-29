@@ -50,7 +50,8 @@ HRESULT STDMETHODCALLTYPE	IEHostWindow::ShowMessage(
     /* [in] */ LPOLESTR lpstrHelpFile,
     /* [in] */ DWORD dwHelpContext,
     /* [out] */ LRESULT *plResult) {
-    return	S_FALSE;
+    return	(evtShowMessage && evtShowMessage(hwnd, lpstrText, lpstrCaption, dwType, lpstrHelpFile, dwHelpContext, plResult))
+            ? S_OK : S_FALSE;
 }
 
 HRESULT STDMETHODCALLTYPE	IEHostWindow::ShowHelp(
@@ -60,5 +61,6 @@ HRESULT STDMETHODCALLTYPE	IEHostWindow::ShowHelp(
     /* [in] */ DWORD dwData,
     /* [in] */ POINT ptMouse,
     /* [out] */ IDispatch *pDispatchObjectHit) {
-    return	S_FALSE;
+    return	(evtShowHelp && evtShowHelp(hwnd, pszHelpFile, uCommand, dwData, ptMouse, pDispatchObjectHit))
+            ? S_OK : S_FALSE;
 }
