@@ -222,7 +222,7 @@ std::string ProcessRunner::Execute(
 	PROCESS_INFORMATION k_Proc;
 	memset(&k_Proc,  0, sizeof(PROCESS_INFORMATION));
 
-	STARTUPINFO k_Start;
+	STARTUPINFOA k_Start;
 	memset(&k_Start, 0, sizeof(STARTUPINFO));
 
 	k_Start.cb         = sizeof(STARTUPINFO);
@@ -233,7 +233,7 @@ std::string ProcessRunner::Execute(
 	// Convert special characters in the commandline parameters to DOS codepage
 	s_Commandline = CommandLineParamsToOEM(s_Commandline, u32_FirstConvert);
 
-	if (!CreateProcess(0, const_cast<char*>(s_Commandline.c_str()), 0, 0, TRUE, u32_Flags, p_Environ, t_CurrentDir, &k_Start, &k_Proc))
+	if (!CreateProcessA(0, const_cast<char*>(s_Commandline.c_str()), 0, 0, TRUE, u32_Flags, p_Environ, t_CurrentDir, &k_Start, &k_Proc))
 	{
 		return " Error creating Process. " + GetLastErrorMsg();
 	}
@@ -296,14 +296,14 @@ std::string ProcessRunner::CreatePipe(HANDLE* ph_Pipe, HANDLE* ph_File, OVERLAPP
 	k_Secur.lpSecurityDescriptor = 0;
 	k_Secur.bInheritHandle       = TRUE;
 
-	*ph_Pipe = CreateNamedPipe(s_PipeName.c_str(), PIPE_ACCESS_DUPLEX|FILE_FLAG_OVERLAPPED, 0, 1, 4096, 4096, 0, &k_Secur);
+	*ph_Pipe = CreateNamedPipeA(s_PipeName.c_str(), PIPE_ACCESS_DUPLEX|FILE_FLAG_OVERLAPPED, 0, 1, 4096, 4096, 0, &k_Secur);
 
 	if (*ph_Pipe == INVALID_HANDLE_VALUE)
 	{
 		return " Error creating Named Pipe. " + GetLastErrorMsg();
 	}
 
-	*ph_File = CreateFile(s_PipeName.c_str(), GENERIC_READ|GENERIC_WRITE, 0, &k_Secur, OPEN_EXISTING, FILE_FLAG_OVERLAPPED, NULL);
+	*ph_File = CreateFileA(s_PipeName.c_str(), GENERIC_READ|GENERIC_WRITE, 0, &k_Secur, OPEN_EXISTING, FILE_FLAG_OVERLAPPED, NULL);
 
 	if (*ph_File == INVALID_HANDLE_VALUE)
 	{
@@ -374,7 +374,7 @@ std::string ProcessRunner::GetLastErrorMsg()
 
 	const DWORD BUF_LEN = 2048;
 	char t_Msg[BUF_LEN];
-	if (FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM, 0, u32_Error, 0, t_Msg, BUF_LEN, 0))
+	if (FormatMessageA(FORMAT_MESSAGE_FROM_SYSTEM, 0, u32_Error, 0, t_Msg, BUF_LEN, 0))
 		s_Err += t_Msg;
 
 	return s_Err;
@@ -430,7 +430,7 @@ std::string ProcessRunner::CommandLineParamsToOEM(const std::string& s_TheComman
 			
 			// If Unicode compiled: Unicode -> DOS codepage
 			// If MBCS    compiled: ANSI    -> DOS codepage
-			CharToOem(s_Conv.c_str(), s8_OEM);
+			CharToOemA(s_Conv.c_str(), s8_OEM);
 
 			// If Unicode compiled: DOS codepage -> Unicode
 			s_CommandLine = s_Leave + s8_OEM;
@@ -503,12 +503,15 @@ void ProcessRunner::MapToZeroString(std::map<std::string, std::string> *pi_Map, 
 // and returns them in the buffer ps_Out as zero terminated strings
 void ProcessRunner::MergeUserEnvironmentStrings(std::string s_UserVar, std::string* ps_Out)
 {
+#if	defined(GetEnvironmentStrings)
+#	undef	GetEnvironmentStrings
+#endif
 	char* t_Environ = GetEnvironmentStrings();
 
 	std::map<std::string, std::string> i_Map;
 	int s32_TotLen = ZeroStringToMap(t_Environ, &i_Map);
 
-	FreeEnvironmentStrings(t_Environ);
+	FreeEnvironmentStringsA(t_Environ);
 
 	if (s_UserVar.size())
 	{
