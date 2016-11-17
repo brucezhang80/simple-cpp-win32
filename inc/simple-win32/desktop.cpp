@@ -64,28 +64,30 @@ bool	Desktop_GetIconRect(const char* psCaption, RECT* pRect) {
     pRemoteText	= (char*)	VirtualAllocEx(hProcess, NULL, sizeof(sText) + 1, MEM_COMMIT, PAGE_READWRITE);
 
     bool	bFound	= false;
-    int		nSum	= ListView_GetItemCount(hView);
-    for(int i = 0; i < nSum; ++i) {
-        memset(&xItem, 0, sizeof(xItem));
-        xItem.mask			= LVIF_TEXT;
-        xItem.iItem			= i;
-        xItem.iSubItem		= 0;
-        xItem.pszText		= pRemoteText;
-        xItem.cchTextMax	= sizeof(sText);
+    if (NULL != pRemoteItem && NULL != pRemoteText) {
+        int		nSum	= ListView_GetItemCount(hView);
+        for(int i = 0; i < nSum; ++i) {
+            memset(&xItem, 0, sizeof(xItem));
+            xItem.mask			= LVIF_TEXT;
+            xItem.iItem			= i;
+            xItem.iSubItem		= 0;
+            xItem.pszText		= pRemoteText;
+            xItem.cchTextMax	= sizeof(sText);
 
-        WriteProcessMemory(hProcess, pRemoteItem, &xItem, sizeof(xItem), NULL);
-        ::SendMessage(hView, LVM_GETITEM, 0, (LPARAM)pRemoteItem);
-        ReadProcessMemory(hProcess, pRemoteText, sText, sizeof(sText), NULL);
-        if(0 == _strcmpi(sText, psCaption)) {
-            if(NULL != pRect) {
-                memset(pRect, 0, sizeof(RECT));
-                pRect->left	= LVIR_SELECTBOUNDS;
-                WriteProcessMemory(hProcess, pRemoteText, pRect, sizeof(RECT), NULL);
-                ::SendMessage(hView, LVM_GETITEMRECT, (WPARAM)i, (LPARAM)pRemoteText);
-                ReadProcessMemory(hProcess, pRemoteText, pRect, sizeof(RECT), NULL);
+            WriteProcessMemory(hProcess, pRemoteItem, &xItem, sizeof(xItem), NULL);
+            ::SendMessage(hView, LVM_GETITEM, 0, (LPARAM)pRemoteItem);
+            ReadProcessMemory(hProcess, pRemoteText, sText, sizeof(sText), NULL);
+            if(0 == _strcmpi(sText, psCaption)) {
+                if(NULL != pRect) {
+                    memset(pRect, 0, sizeof(RECT));
+                    pRect->left	= LVIR_SELECTBOUNDS;
+                    WriteProcessMemory(hProcess, pRemoteText, pRect, sizeof(RECT), NULL);
+                    ::SendMessage(hView, LVM_GETITEMRECT, (WPARAM)i, (LPARAM)pRemoteText);
+                    ReadProcessMemory(hProcess, pRemoteText, pRect, sizeof(RECT), NULL);
+                }
+                bFound	= true;
+                break;
             }
-            bFound	= true;
-            break;
         }
     }
 
