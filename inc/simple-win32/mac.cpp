@@ -9,27 +9,30 @@
 bool	Mac_EnumAdapterInfo(MAC_ADAPTER_ENUM_FUNC enum_func, void* user_data) {
     IP_ADAPTER_INFO	dummy_mac_info	= {0};
 
-    DWORD	dwLen	= sizeof(IP_ADAPTER_INFO);
+    DWORD	dwLen		= sizeof(IP_ADAPTER_INFO);
     PIP_ADAPTER_INFO	pAdapterInfo	= &dummy_mac_info;
     if(ERROR_BUFFER_OVERFLOW == GetAdaptersInfo(pAdapterInfo, &dwLen)) {
         pAdapterInfo	= (PIP_ADAPTER_INFO)new char[dwLen];
         if(ERROR_SUCCESS != GetAdaptersInfo(pAdapterInfo, &dwLen)) {
-            delete	(char*)pAdapterInfo;
+            delete[]	(char*)pAdapterInfo;
             return	false;
         }
     }
 
     bool	result	= false;
-    while(NULL != pAdapterInfo) {
-        if(enum_func(pAdapterInfo, user_data)) {
-            result	= true;
-            break;
+    {
+        PIP_ADAPTER_INFO	pInfo	= pAdapterInfo;
+        while(NULL != pInfo) {
+            if(enum_func(pInfo, user_data)) {
+                result	= true;
+                break;
+            }
+            pInfo	= pInfo->Next;
         }
-        pAdapterInfo	= pAdapterInfo->Next;
     }
 
     if(&dummy_mac_info != pAdapterInfo) {
-        delete	(char*)pAdapterInfo;
+        delete[]	(char*)pAdapterInfo;
     }
     return	result;
 }
@@ -50,34 +53,37 @@ bool	Mac_IsPhysicalAdapter(PIP_ADAPTER_INFO adapter_info) {
     }
 
     bool	result_is_physical_adapter	= false;
+    {
+        char	subKey[MAX_PATH + 1]	= {0};
+        DWORD	keyLen	= sizeof(subKey) - 1;
+        DWORD	dwIndex	= 0;
+        while(RegEnumKeyExA(hRoot, dwIndex, subKey, &keyLen, 0, 0, 0, 0) != ERROR_NO_MORE_ITEMS) {
+            keyLen	= sizeof(subKey) - 1;
+            dwIndex++;
 
-    char	subKey[MAX_PATH + 1];
-    DWORD	keyLen	= sizeof(subKey);
-    DWORD	dwIndex	= 0;
-    while(RegEnumKeyExA(hRoot, dwIndex, subKey, &keyLen, 0, 0, 0, 0) != ERROR_NO_MORE_ITEMS) {
-        keyLen	= sizeof(subKey);
-        dwIndex++;
-
-        HKEY	hSubKey;
-        if(ERROR_SUCCESS == RegOpenKeyExA(hRoot, subKey, 0, KEY_READ, &hSubKey)) {
-            char	value[MAX_PATH + 1]	= {0};
-            DWORD	value_len	= sizeof(value);
-            if(	ERROR_SUCCESS == RegQueryValueExA(hSubKey, "NetCfgInstanceId", NULL, NULL, (LPBYTE)value, &value_len)
-                    &&	0 == _strcmpi(value, adapter_info->AdapterName)
-              ) {
-                memset(value, 0, sizeof(value));
-                value_len	= sizeof(value);
-                if(	ERROR_SUCCESS == RegQueryValueExA(hSubKey, "Characteristics", NULL, NULL, (LPBYTE)&value, &value_len)
-                        &&	4 == ((*(DWORD*)value) & 4)// 4 -> NCF_PHYSICAL
+            HKEY	hSubKey;
+            if(ERROR_SUCCESS == RegOpenKeyExA(hRoot, subKey, 0, KEY_READ, &hSubKey)) {
+                char	value[MAX_PATH + 1]	= {0};
+                DWORD	value_len	= sizeof(value) - 1;
+                DWORD	value_type	= 0;
+                if(	ERROR_SUCCESS == RegQueryValueExA(hSubKey, "NetCfgInstanceId", NULL, &value_type, (LPBYTE)value, &value_len)
+                        &&	0 == _strcmpi(value, adapter_info->AdapterName)
                   ) {
-                    result_is_physical_adapter	= true;
+                    memset(value, 0, sizeof(value));
+                    value_len	= sizeof(value) - 1;
+                    if(	ERROR_SUCCESS == RegQueryValueExA(hSubKey, "Characteristics", NULL, &value_type, (LPBYTE)&value, &value_len)
+                            &&	4 == ((*(DWORD*)value) & 4)// 4 -> NCF_PHYSICAL
+                      ) {
+                        result_is_physical_adapter	= true;
+                    }
                 }
+                RegCloseKey(hSubKey);
             }
-            RegCloseKey(hSubKey);
-        }
 
-        if(result_is_physical_adapter) {
-            break;
+            memset(subKey, 0, sizeof(subKey));
+            if(result_is_physical_adapter) {
+                break;
+            }
         }
     }
     RegCloseKey(hRoot);
